@@ -1,0 +1,55 @@
+#!/usr/bin/make -f
+CFLAGS = -g
+
+ifneq (,$(findstring noopt,$(DEB_BUILD_OPTIONS)))
+ CFLAGS += -O0
+else
+ CFLAGS += -O2
+endif
+ifneq (,$(findstring nostrip,$(DEB_BUILD_OPTIONS)))
+ INSTALL_TARGET = install
+else
+ INSTALL_TARGET = install-strip
+ STRIP = yes
+endif
+
+build: build-stamp
+build-stamp:
+	rm -f debian/files debian/files.new debian/substvars
+	./configure --prefix=$(CURDIR)/debian/rphoto/usr
+	$(MAKE)
+	touch build-stamp
+
+clean:
+	rm -f build-stamp debian/files debian/files.new debian/substvars
+	rm -fR debian/rphoto
+	-$(MAKE) clean
+
+install: build
+	#install -d debian/rphoto/usr/games debian/rphoto/usr/share/games
+	$(MAKE) $(INSTALL_TARGET)
+
+binary-indep:
+
+binary-arch: build install
+	install -d debian/rphoto/DEBIAN debian/rphoto/usr/share/rphoto
+	install -d debian/rphoto/usr/share/doc/rphoto debian/rphoto/usr/share/man/man1
+	install -d debian/rphoto/usr/lib/menu
+	install -m644 -p debian/changelog debian/rphoto/usr/share/doc/rphoto/changelog.Debian
+	gzip -9f debian/rphoto/usr/share/doc/rphoto/changelog.Debian
+	install -m644 -p debian/copyright debian/rphoto/usr/share/doc/rphoto
+	install -m644 -p debian/RPhoto.1 debian/rphoto/usr/share/man/man1
+	gzip -9f debian/rphoto/usr/share/man/man1/RPhoto.1
+	install -m644 debian/menu debian/rphoto/usr/lib/menu/rphoto
+	install -m644 debian/rphoto.xpm debian/rphoto/usr/share/rphoto/rphoto.xpm
+	install -m755 debian/postinst debian/rphoto/DEBIAN
+	install -m755 debian/postrm debian/rphoto/DEBIAN
+	test "x$(STRIP)" = "xyes" && \
+    strip --remove-section=.comment --remove-section=.note debian/rphoto/usr/bin/RPhoto
+	dpkg-shlibdeps debian/rphoto/usr/bin/RPhoto
+	dpkg-gencontrol -isp -Pdebian/rphoto
+	cd debian/rphoto && find usr -type f -exec "md5sum" "{}" ";" > DEBIAN/md5sums
+	dpkg-deb --build debian/rphoto ..
+
+binary: binary-arch
+.PHONY: build clean binary-arch binary-indep binary install

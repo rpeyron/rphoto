@@ -1,0 +1,11 @@
+You will need : dh-make, fakeroot
+
+Then : 
+
+dpkg-buildpackage -rfakeroot
+
+To clean :
+
+fakeroot debian/rules clean
+
+

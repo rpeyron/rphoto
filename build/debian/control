@@ -1,0 +1,14 @@
+Source: rphoto
+Section: graphics
+Priority: optional
+Maintainer: Rémi Peyronnet <remi+debian@via.ecp.fr>
+Build-Depends: libjpeg62-dev libwxbase2.4-dev libwxgtk2.4-dev wxwin2.4-headers
+Standards-Version: 3.5.9
+
+Package: rphoto
+Architecture: any
+Depends: libjpeg-progs ${shlibs:Depends}
+Description: FILL_ME
+ BLAH BLAH SHORT
+ .
+ BLAH BLAH LONG

@@ -1,0 +1,27 @@
+/* XPM */
+static char *xpm_landorpo[] = {
+/* columns rows colors chars-per-pixel */
+"16 16 5 1",
+"  c black",
+". c #800080",
+"X c magenta",
+"o c #808080",
+"O c None",
+/* pixels */
+"OOOOOOOOOOOOOOOO",
+"OOO          OOO",
+"OOO oooooooo oOO",
+"O              O",
+"O o oooooooo o o",
+"O o oOO.OOOO o o",
+"O o oOO.oOOO o o",
+"O o oO.OoOOO o o",
+"O o oO.O.OOO o o",
+"O o oO...oOO o o",
+"O o oXoOO.OO o o",
+"O              o",
+"OOo oooooooo ooo",
+"OOO          oOO",
+"OOOOooooooooooOO",
+"OOOOOOOOOOOOOOOO"
+};
