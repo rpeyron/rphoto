@@ -1,0 +1,11 @@
+[OPTIONS]
+Compatibility=1.1
+Compiled file=rphoto.chm
+Contents file=contents.hhc
+Display compile progress=No
+Title=RPhoto Help File
+; Default topic=help_en.html
+
+[FILES]
+help_en.html
+help_fr.html

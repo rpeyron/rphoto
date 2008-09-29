@@ -3,12 +3,15 @@
 // Purpose:     Miscellaneous utilities
 // Author:      Alex Thuering
 // Created:		23.10.2003
-// RCS-ID:      $Id: utils.cpp,v 1.1 2003/12/29 15:22:27 remi Exp $
+// RCS-ID:      $Id: utils.cpp,v 1.7 2005/10/19 08:10:37 ntalex Exp $
 // Copyright:   (c) Alex Thuering
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
 
 #include "utils.h"
+#include <wx/dir.h>
+#include <wx/log.h>
+#include <wx/filename.h>
 
 #ifdef __UNIX_LIKE__
 #include <stdlib.h>
@@ -51,16 +54,51 @@ wxString wxGetAppPath()
 #ifdef __UNIX_LIKE__
 	// realfullname
 	char realname[MAXPATHLEN];
-	realpath(appPath.c_str(), (char*)realname);
-	appPath = realname;
+	realpath(appPath.mb_str(), (char*)realname);
+	appPath = wxString(realname, *wxConvCurrent);
 #endif
 	appPath = wxPathOnly(appPath);
   }
 #endif
+  if (appPath.Last() != wxFILE_SEP_PATH)
+    appPath += wxFILE_SEP_PATH;
   return appPath;
 }
 
 void wxSetAppPath(wxString value)
 {
   appPath = value;
+}
+
+wxString wxFindDataDirectory(wxString dir)
+{
+  wxString d = wxGetAppPath() + dir;
+  if (wxDir::Exists(d))
+	return d;
+  wxFileName dname(wxGetAppPath() + wxT("..") +
+     wxFILE_SEP_PATH + dir + wxFILE_SEP_PATH);
+  dname.Normalize();
+  if (wxDir::Exists(dname.GetFullPath()))
+	return dname.GetFullPath();
+#ifdef DATADIR
+  return wxString(DATADIR,wxConvLocal) + wxFILE_SEP_PATH + dir + wxFILE_SEP_PATH;
+#else
+  return wxGetAppPath() + dir + wxFILE_SEP_PATH;
+#endif
+}
+
+wxString wxFindDataFile(wxString filename)
+{
+  wxString d = wxGetAppPath() + filename;
+  if (wxFileExists(d))
+	return d;
+  wxFileName fname(wxGetAppPath() + wxT("..") + wxFILE_SEP_PATH + filename);
+  fname.Normalize();
+  if (wxFileExists(fname.GetFullPath()))
+	return fname.GetFullPath();
+#ifdef DATADIR
+  return wxString(DATADIR,wxConvLocal) + wxFILE_SEP_PATH + filename;
+#else
+  return wxGetAppPath() + filename;
+#endif
 }

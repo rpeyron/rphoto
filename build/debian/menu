@@ -1,3 +1,3 @@
 ?package(ratiophoto):needs=X11 section="Apps/Graphics"\
- title="RatioPhoto" command="/usr/bin/RPhoto"\
- icon="/usr/share/ratiophoto/ratiophoto.xpm"
+ title="RPhoto" command="/usr/bin/RPhoto"\
+ icon="/usr/share/rphoto/rphoto.xpm"

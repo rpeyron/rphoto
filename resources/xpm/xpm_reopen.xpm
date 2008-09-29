@@ -1,0 +1,32 @@
+/* XPM */
+static const char *xpm_reopen[] = {
+/* columns rows colors chars-per-pixel */
+"16 16 10 1",
+"  c black",
+". c #040404",
+"X c navy",
+"o c #999900",
+"O c #CCCC66",
+"+ c #808080",
+"@ c #FFCC99",
+"# c #FFFF99",
+"$ c gray100",
+"% c None",
+/* pixels */
+"%%%%%%%%%%%%%%%%",
+"%%%ooooo%%%%%%%%",
+"%%o$$$$$o%%%%%%%",
+"%o$#####$XXXX+o%",
+"%o$X###XX#$$$X+.",
+"%o$XX#X#######X.",
+"oooXXXooooooO#X.",
+"o$#XXXX#@#@O.OX.",
+"o$#XXXXX#@#O.X+.",
+"%o$#####@#@@+Xo.",
+"%o$##@#@#@@@O.o.",
+"%%o$@#@#@@@@Oo..",
+"%%oooooooooooo..",
+"%%%.............",
+"%%%%%%%%%%%%%%%%",
+"%%%%%%%%%%%%%%%%"
+};

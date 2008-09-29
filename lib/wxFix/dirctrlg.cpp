@@ -4,7 +4,7 @@
 // Author:      Harm van der Heijden, Robert Roebling, Julian Smart
 // Modified by:
 // Created:     12/12/98
-// RCS-ID:      $Id: dirctrlg.cpp,v 1.2 2004/01/01 23:14:25 remi Exp $
+// RCS-ID:      $Id: dirctrlg.cpp 365 2008-06-21 23:15:43Z remi $
 // Copyright:   (c) Harm van der Heijden, Robert Roebling and Julian Smart
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
@@ -38,8 +38,14 @@
 #include "wx/log.h"
 #include "wx/sizer.h"
 #include "wx/tokenzr.h"
-#include "wx/dir.h"
+#include "wx/dir.h" 
 #include "wx/settings.h"
+
+// Dir fix
+#ifndef __WXMSW__
+#include "dir.h"
+#define wxDir wxFixedDir
+#endif
 
 #if wxUSE_STATLINE
     #include "wx/statline.h"
@@ -608,11 +614,15 @@ void wxFixedDirCtrl::SetupSections()
 
 #ifdef __WIN32__
     wxChar driveBuffer[256];
+	// RPe
+    TCHAR FileSysNameBuf[MAX_PATH];
+	// RPe
     size_t n = (size_t) GetLogicalDriveStrings(255, driveBuffer);
     size_t i = 0;
     while (i < n)
     {
         wxString path, name;
+		
         path.Printf(wxT("%c:\\"), driveBuffer[i]);
         name.Printf(wxT("(%c:)"), driveBuffer[i]);
 
@@ -639,6 +649,14 @@ void wxFixedDirCtrl::SetupSections()
                 imageId = 4;
                 break;
         }
+
+		// RPe
+		if ((driveType == DRIVE_FIXED) || (driveType == DRIVE_REMOTE))
+		{
+			GetVolumeInformation(path.c_str(), FileSysNameBuf, MAX_PATH, NULL, NULL,  NULL, NULL, 0);
+			name.Printf(wxT("(%c:) %s"), driveBuffer[i], FileSysNameBuf);
+		}
+		// RPe
 
         AddSection(path, name, imageId);
 
@@ -768,7 +786,7 @@ void wxFixedDirCtrl::CollapseDir(wxTreeItemId parentId)
         return;
 
     data->m_isExpanded = FALSE;
-    long cookie;
+    wxTreeItemIdValue cookie;
     /* Workaround because DeleteChildren has disapeared (why?) and
      * CollapseAndReset doesn't work as advertised (deletes parent too) */
     child = m_treeCtrl->GetFirstChild(parentId, cookie);
@@ -947,7 +965,7 @@ wxTreeItemId wxFixedDirCtrl::FindChild(wxTreeItemId parentId, const wxString& pa
     path2.MakeLower();
 #endif
 
-    long cookie;
+    wxTreeItemIdValue cookie;
     wxTreeItemId childId = m_treeCtrl->GetFirstChild(parentId, cookie);
     while (childId.IsOk())
     {
@@ -1009,7 +1027,7 @@ bool wxFixedDirCtrl::ExpandPath(const wxString& path)
         if ((GetWindowStyle() & wxDIRCTRL_SELECT_FIRST) && data->m_isDir)
         {
             // Find the first file in this directory
-            long cookie;
+            wxTreeItemIdValue cookie;
             wxTreeItemId childId = m_treeCtrl->GetFirstChild(lastId, cookie);
             bool selectedChild = FALSE;
             while (childId.IsOk())
@@ -1205,6 +1223,7 @@ void wxFixedDirCtrl::DoResize()
         wxSize filterSz ;
         if (m_filterListCtrl)
         {
+/*
 #ifdef __WXMSW__
             // For some reason, this is required in order for the
             // correct control height to always be returned, rather
@@ -1213,6 +1232,7 @@ void wxFixedDirCtrl::DoResize()
             m_filterListCtrl->SetSize(-1, -1, oldSize.x+10, -1, wxSIZE_USE_EXISTING);
             m_filterListCtrl->SetSize(-1, -1, oldSize.x, -1, wxSIZE_USE_EXISTING);
 #endif
+*/
             filterSz = m_filterListCtrl->GetSize();
             sz.y -= (filterSz.y + verticalSpacing);
         }

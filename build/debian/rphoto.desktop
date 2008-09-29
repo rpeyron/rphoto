@@ -1,0 +1,14 @@
+[Desktop Entry]
+Version=1.0
+Encoding=UTF-8
+Type=Application
+Name=RPhoto
+Comment=Create images and edit photographs
+Comment[fr]=Crée des images et modifie des photographies
+Exec=RPhoto %f
+TryExec=RPhoto
+Icon=/usr/share/rphoto/rphoto.xpm
+Terminal=false
+Categories=Graphics;2DGraphics;RasterGraphics;GTK;
+MimeType=image/jpeg;image/jpg
+

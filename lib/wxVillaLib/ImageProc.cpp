@@ -3,7 +3,7 @@
 // Purpose:     Image processing functions.
 // Author:      Alex Thuering
 // Created:		18.06.2003
-// RCS-ID:      $Id: ImageProc.cpp,v 1.1 2003/12/29 15:22:26 remi Exp $
+// RCS-ID:      $Id: ImageProc.cpp,v 1.4 2005/01/07 06:59:18 ntalex Exp $
 // Copyright:   (c) Alex Thuering
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
@@ -12,15 +12,13 @@
 #include <math.h>
 
 //////////////////////////////////////////////////////////////////////////////
-///////////////////////////// Brightness /////////////////////////////////////
+/////////////////////////////// Adjust ///////////////////////////////////////
 //////////////////////////////////////////////////////////////////////////////
 
-void wxAdjustBrightness(wxImage& img, char n)
-{
-  wxAdjustBrightness(img, wxRect(0,0,img.GetWidth()-1,img.GetHeight()-1), n);
-}
+typedef void wxAdjustColourFunc(
+ unsigned char& r, unsigned char& g, unsigned char& b, void* param);
 
-void wxAdjustBrightness(wxImage& img, wxRect rect, char n)
+void wxAdjustColours(wxImage& img, wxRect rect, void* arg, wxAdjustColourFunc* func)
 {
   int w = img.GetWidth();
   int h = img.GetHeight();
@@ -33,16 +31,75 @@ void wxAdjustBrightness(wxImage& img, wxRect rect, char n)
   rect.SetBottom(wxMin(rect.GetBottom(),h-1));
   
   unsigned char* data = img.GetData() + rect.GetTop()*w*3;
-  for (int y=rect.GetTop(); y<=rect.GetBottom(); y++)
+  if (img.HasMask())
   {
-    data += rect.GetLeft()*3;
-    for (int x=rect.GetLeft(); x<=rect.GetRight(); x++)
-    {
-      wxAdjustBrightness(*data, *(data+1), *(data+2), n);
-      data += 3;
-    }
-    data += (w-rect.GetRight()-1)*3;
+	unsigned char maskRed   = img.GetMaskRed();
+	unsigned char maskGreen = img.GetMaskGreen();
+	unsigned char maskBlue  = img.GetMaskBlue();
+	
+	for (int y=rect.GetTop(); y<=rect.GetBottom(); y++)
+	{
+	  data += rect.GetLeft()*3;
+	  for (int x=rect.GetLeft(); x<=rect.GetRight(); x++)
+	  {
+		if (maskRed != *data || maskGreen != *(data+1) || maskBlue != *(data+2))
+		  (*func)(*data, *(data+1), *(data+2), arg);
+		data += 3;
+	  }
+	  data += (w-rect.GetRight()-1)*3;
+	}
   }
+  else
+  {
+	for (int y=rect.GetTop(); y<=rect.GetBottom(); y++)
+	{
+	  data += rect.GetLeft()*3;
+	  for (int x=rect.GetLeft(); x<=rect.GetRight(); x++)
+	  {
+		(*func)(*data, *(data+1), *(data+2), arg);
+		data += 3;
+	  }
+	  data += (w-rect.GetRight()-1)*3;
+	}
+  }
+}
+
+//////////////////////////////////////////////////////////////////////////////
+///////////////////////////// Brightness /////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////
+
+void wxAdjustBrightness(wxImage& img, char n)
+{
+  wxAdjustBrightness(img, wxRect(0,0,img.GetWidth(),img.GetHeight()), n);
+}
+
+void wxAdjustBrightnessFunc(unsigned char& r, unsigned char& g, unsigned char& b, void* arg)
+{
+  wxAdjustBrightness(r, g, b, *((char*) arg));
+}
+
+void wxAdjustBrightness(wxImage& img, wxRect rect, char n)
+{
+  wxAdjustColours(img, rect, &n, &wxAdjustBrightnessFunc);
+}
+
+//////////////////////////////////////////////////////////////////////////////
+////////////////////////////// To colour /////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////
+
+void wxAdjustToColour(wxImage& img, wxColour colour)
+{
+  wxAdjustToColour(img, wxRect(0,0,img.GetWidth(),img.GetHeight()), colour);
+}
+
+void wxAdjustToColourFunc(unsigned char& r, unsigned char& g, unsigned char& b, void* arg)
+{
+  wxAdjustToColour(r, g, b, *((wxColour*) arg));
+}
+
+void wxAdjustToColour(wxImage& img, wxRect rect, wxColour colour)
+{
+  wxAdjustColours(img, rect, &colour, &wxAdjustToColourFunc);
 }
 
 //////////////////////////////////////////////////////////////////////////////
@@ -72,7 +129,7 @@ inline void wxAdjustContrast(
 
 void wxAdjustContrast(wxImage& img, char n)
 {
-  wxAdjustContrast(img, wxRect(0,0,img.GetWidth()-1,img.GetHeight()-1), n);
+  wxAdjustContrast(img, wxRect(0,0,img.GetWidth(),img.GetHeight()), n);
 }
 
 void wxAdjustContrast(wxImage& img, wxRect rect, char n)

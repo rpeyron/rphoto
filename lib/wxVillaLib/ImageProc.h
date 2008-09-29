@@ -3,7 +3,7 @@
 // Purpose:     Image processing functions.
 // Author:      Alex Thuering
 // Created:		18.06.2003
-// RCS-ID:      $Id: ImageProc.h,v 1.1 2003/12/29 15:22:26 remi Exp $
+// RCS-ID:      $Id: ImageProc.h,v 1.3 2005/01/07 06:59:18 ntalex Exp $
 // Copyright:   (c) Alex Thuering
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
@@ -14,6 +14,7 @@
 #include <wx/wx.h>
 #include <wx/image.h>
 
+/** Brightness */
 inline int wxGetBrightness(unsigned char r, unsigned char g, unsigned char b)
 { return (wxMax(r, wxMax(g,b))+wxMin(r, wxMin(g,b)))/2; }
 
@@ -31,6 +32,22 @@ inline void wxAdjustBrightness(
 void wxAdjustBrightness(wxImage& img, wxRect rect, char n);
 void wxAdjustBrightness(wxImage& img, char n);
 
+/** Adjust to colour */
+inline unsigned char wxAdjustToColour(unsigned char src, unsigned char c)
+{ return src*c/255; }
+
+inline void wxAdjustToColour(
+ unsigned char& r, unsigned char& g, unsigned char& b, const wxColour& c)
+{
+  r = wxAdjustToColour(r, c.Red());
+  g = wxAdjustToColour(g, c.Green());
+  b = wxAdjustToColour(b, c.Blue());
+}
+
+void wxAdjustToColour(wxImage& img, wxRect rect, wxColour c);
+void wxAdjustToColour(wxImage& img, wxColour c);
+
+/** Contrast */
 void wxAdjustContrast(wxImage& img, wxRect rect, char n);
 void wxAdjustContrast(wxImage& img, char n);
 

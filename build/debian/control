@@ -1,14 +1,17 @@
 Source: rphoto
-Section: graphics
+Section: universe/graphics
 Priority: optional
-Maintainer: Rémi Peyronnet <remi+debian@via.ecp.fr>
-Build-Depends: libjpeg62-dev libwxbase2.4-dev libwxgtk2.4-dev wxwin2.4-headers
-Standards-Version: 3.5.9
+Build-Depends: libexif-dev, libwxgtk2.8-dev
+Maintainer: Remi Peyronnet <remi+rphoto@via.ecp.fr>
+Standards-Version: 2.4.1.2
 
 Package: rphoto
 Architecture: any
-Depends: libjpeg-progs ${shlibs:Depends}
-Description: FILL_ME
- BLAH BLAH SHORT
- .
- BLAH BLAH LONG
+Depends: libwxgtk2.8-0, libexif12, libjpeg-progs, menu
+Suggests: 
+Description: RPhoto is is small software aiming at the easy handling of digital camera's photos. Its origin resides in the lack of a simple software capable of cropping photos with a constant ratio, to avoid white borders when printing. Main features are :
+ * Crop images with a constant width / height ratio (by example 4:3 for numeric photos)
+ * Rotate / Flip photos
+ * Lossless crop / rotate / flip operations.
+ * Comment editing
+ * Exif visualization

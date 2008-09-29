@@ -25,12 +25,17 @@
 #ifndef __RATIOIMAGEBOX_H__
 #define __RATIOIMAGEBOX_H__
 
-#include "../lib/wxVillaLib/ImageBox.h"
-#include "RectTracker.h"
+#include <wxVillaLib/ImageBox.h>
+#include <wxRectTracker/RectTrackerRatio.h>
+#include <wxRectTracker/LineTracker.h>
 
 const int scFIT_TO_PAGE_IF_LARGER = -4;
 
-class wxRatioImageBox : public wxImageBox 
+const int RIB_STATE_NONE = 0;
+const int RIB_STATE_CROP = 1;
+const int RIB_STATE_INCLINAISON = 2;
+
+class wxRatioImageBox : public wxImageBox, wxRectTrackerHost
 {
 public:
     DECLARE_CLASS(wxRatioImageBox)
@@ -38,24 +43,31 @@ public:
 	~wxRatioImageBox(void);
 
 	// wxRectTracker wrapper
-	wxRectTracker & GetRectTracker() { return *rectTracker; }
+	wxRectTrackerRatio & GetRectTracker() { return *rectTracker;  }
+	wxLineTracker & GetLineTracker() { return *lineTracker; }
     wxRect GetSelectedZone();
 	double GetRatio() { return rectTracker->GetRatio(); };
+	int GetFixedWidth() { return rectTracker->GetFixedWidth(); }
+	int GetFixedHeight() { return rectTracker->GetFixedHeight(); }
 	wxRect GetMaxRect() { return rectTracker->GetMaxRect(); };
 	int GetOrientation() { return rectTracker->GetOrientation(); };
 	void SetRatio(double ratio) { rectTracker->SetRatio(ratio); };
-	void SetMaxRect(wxRect maxRect) { rectTracker->SetMaxRect(maxRect); };
+	void SetFixedSize(int width, int height) { rectTracker->SetFixedSize(width, height); };
+	void SetMaxRect(wxRect maxRect) { rectTracker->SetMaxRect(maxRect); lineTracker->SetMaxRect(maxRect); };
 	void SetOrientation(int orientation) { rectTracker->SetOrientation(orientation); };
 	void SetScale(double scale = scFIT_TO_PAGE);
-	void TrackerReset() { rectTracker->SetUnscrolledRect(wxRect(0,0,0,0)); Refresh(); wxCommandEvent evt(0,0); OnTrackerChanged(evt); }
+	void TrackerReset() 
+	{ 
+		rectTracker->SetUnscrolledRect(wxRect(0,0,0,0)); 
+		lineTracker->SetUnscrolledRect(wxRect(0,0,0,0)); 
+		Refresh(); 
+		wxCommandEvent evt(0,0); 
+		OnTrackerChanged(evt); 
+	}
+	void SetModeInclinaison(bool state);
+	bool IsModeInclinaison() { return ((m_state & RIB_STATE_INCLINAISON) != 0); }
 
     void SetImage(const wxImage & image);
-
-#ifdef RT_GTK_HACK
-    // Berk. This ugly function to provide GTK+ compatibility
-    // It aims at providing pseudo support for transparent areas...
-    virtual void PaintDC(wxDC & dc) { dc.DrawBitmap(*m_buffer, -m_bufferX, -m_bufferY); }
-#endif
 
     void UpdateTracker();
 
@@ -65,18 +77,47 @@ public:
 
 
 protected:
-	wxRectTracker * rectTracker;
+	wxRectTrackerRatio * rectTracker;
+	wxLineTracker * lineTracker;
 	int captured;
 	wxPoint firstClick;
+	wxPoint lastPoint;
+	int m_state;
 
     DECLARE_EVENT_TABLE()
 	// Misc Events
 	void OnMouseMotion(wxMouseEvent & event);
 	void OnMouseLeftDown(wxMouseEvent & event);
+	void OnMouseLeftUp(wxMouseEvent & event);
 	void OnMouseRightDown(wxMouseEvent & event);
 	void OnMouseRightUp(wxMouseEvent & event);
 	void OnResize(wxSizeEvent & event);
 	void OnTrackerChanged(wxCommandEvent & event);
+
+protected:
+
+	void AdjustTrackerSize(double ratio);
+
+    void PaintDC(wxDC & dc) 
+    { 
+      int vx, vy;
+      GetViewStart(&vx, &vy); /*PrepareDC(dc);*/ 
+      dc.DrawBitmap(*m_buffer, m_bufferX - vx, m_bufferY - vy); 
+    }
+
+	/*
+    class ratioImageBoxHost : public wxRectTrackerHost
+    {
+    public:
+        ratioImageBoxHost(wxRatioImageBox & owner) : m_pOwner(owner) {};
+        virtual ~ratioImageBoxHost() {};
+        virtual void PaintDC(wxDC & dc) { m_pOwner.PaintDC(dc); }
+    protected:
+        wxRatioImageBox & m_pOwner;
+    };
+    ratioImageBoxHost m_Host;
+	friend class ratioImageBoxHost;
+	*/
 };
 
 

@@ -3,7 +3,7 @@
 // Purpose:     wxImageBox class
 // Author:      Alex Thuering
 // Created:		8.10.2003
-// RCS-ID:      $Id: ImageBox.cpp,v 1.2 2004/01/03 23:43:30 remi Exp $
+// RCS-ID:      $Id: ImageBox.cpp,v 1.4 2005/01/09 15:45:42 ntalex Exp $
 // Copyright:   (c) Alex Thuering
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
@@ -179,7 +179,7 @@ void wxImageBox::OnPaint(wxPaintEvent &event)
   if (paintRect.GetBottom() >= m_imageHeight)
     paintRect.height = m_imageHeight - paintRect.y;
   wxRect bufferRect(m_bufferX, m_bufferY,
-	(m_buffer->Ok())?m_buffer->GetWidth():0, (m_buffer->Ok())?m_buffer->GetHeight():0);
+	m_buffer->GetWidth(), m_buffer->GetHeight());
   if (m_repaint ||
       paintRect.x < bufferRect.x ||
       paintRect.y < bufferRect.y ||
@@ -222,6 +222,7 @@ wxPaintBox::wxPaintBox(wxWindow *parent, wxWindowID id):
   m_buffer = new wxBitmap;
   m_bufferX = m_bufferY = 0;
   m_imageWidth = m_imageHeight = 0;
+  SetBackgroundColour(wxSystemSettings::GetColour(wxSYS_COLOUR_LISTBOX));
 }
 
 void wxPaintBox::OnPaint(wxPaintEvent& WXUNUSED(event))
@@ -234,7 +235,7 @@ void wxPaintBox::OnPaint(wxPaintEvent& WXUNUSED(event))
   dc.DrawBitmap(*m_buffer, m_bufferX, m_bufferY);
   //background
   dc.SetPen(wxPen(*wxBLACK,0,wxTRANSPARENT));
-  dc.SetBrush(wxBrush(m_backgroundColour, wxSOLID));
+  dc.SetBrush(wxBrush(GetBackgroundColour(), wxSOLID));
   int w = wxMax(GetClientSize().GetWidth(), m_imageWidth);
   int h = wxMax(GetClientSize().GetHeight(), m_imageHeight);
   dc.DrawRectangle(m_imageWidth, 0, w-m_imageWidth, h+50);

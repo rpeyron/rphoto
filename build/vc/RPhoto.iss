@@ -3,7 +3,7 @@
 
 [Setup]
 AppName=RPhoto
-AppVerName=RPhoto 0.1.1
+AppVerName=RPhoto 0.3.2
 AppPublisherURL=http://www.via.ecp.fr/~remi/soft/rphoto/
 AppSupportURL=http://www.via.ecp.fr/~remi/soft/rphoto/
 AppUpdatesURL=http://www.via.ecp.fr/~remi/soft/rphoto/
@@ -18,12 +18,14 @@ ShowLanguageDialog=yes
 [Files]
 Source: ..\..\bin\RPhoto.exe; DestDir: {app}; Flags: ignoreversion
 Source: ..\..\bin\jpegtran.exe; DestDir: {app}; Flags: ignoreversion
+Source: ..\..\bin\rphoto.htb; DestDir: {app}; Flags: ignoreversion
 Source: ..\..\bin\fr\RPhoto.mo; DestDir: {app}/fr; Flags: ignoreversion
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files
 
 [Icons]
 Name: {userprograms}\RPhoto; Filename: {app}\RPhoto.exe; WorkingDir: {app}
 
+Name: {sendto}\RPhoto; Filename: {app}\RPhoto.exe
 [Run]
 ; NOTE: The following entry contains an English phrase ("Launch"). You are free to translate it into another language if required.
 Filename: {app}\RPhoto.exe; Description: Launch RPhoto; Flags: nowait postinstall skipifsilent

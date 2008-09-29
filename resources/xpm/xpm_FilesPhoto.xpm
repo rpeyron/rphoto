@@ -1,5 +1,5 @@
 /* XPM */
-static char *xpm_FilesPhoto[] = {
+static const char *xpm_FilesPhoto[] = {
 /* columns rows colors chars-per-pixel */
 "32 32 256 2",
 "   c #000000",

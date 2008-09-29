@@ -3,7 +3,7 @@
 // Purpose:     wxVerticalToolbar class
 // Author:      Alex Thuering
 // Created:		11.03.2003
-// RCS-ID:      $Id: VerticalToolbar.cpp,v 1.1 2003/12/29 15:22:26 remi Exp $
+// RCS-ID:      $Id: VerticalToolbar.cpp,v 1.5 2004/02/16 09:16:29 ntalex Exp $
 // Copyright:   (c) Alex Thuering
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
@@ -13,6 +13,11 @@
 
 #include <wx/arrimpl.cpp>
 WX_DEFINE_OBJARRAY(wxVertButtons);
+
+wxVerticalToolbar::wxVerticalToolbar(wxToolBar* toolbar)
+{
+  m_toolbar = toolbar;
+}
 
 void wxVerticalToolbar::AddTool(
   int toolId, const wxString& label, const wxBitmap& bitmap,
@@ -24,10 +29,11 @@ void wxVerticalToolbar::AddTool(
 void wxVerticalToolbar::Update()
 {
   // calc sw, sh
-  int i;
   m_sw = m_sh = 0;
   int sw1, sh1;
-  for (i=0; i<(int)m_buttons.Count(); i++)
+  wxBitmap bitmap(1,1);
+  m_btDc.SelectObject(bitmap);
+  for (int i=0; i<(int)m_buttons.Count(); i++)
   {
     m_btDc.GetTextExtent(m_buttons[i].label, &sw1, &sh1);
     if (m_buttons[i].bitmap.Ok())
@@ -37,9 +43,10 @@ void wxVerticalToolbar::Update()
     if (sh1 > m_sh)
      m_sh = sh1; 
   }
+  m_btDc.SelectObject(wxNullBitmap);
   m_sw += 4; m_sh += 4;
   m_toolbar->SetToolBitmapSize(wxSize(m_sh,m_sw));
-  for (i=0; i<(int)m_buttons.Count(); i++)
+  for (int i=0; i<(int)m_buttons.Count(); i++)
     InsertVerticalButton(m_toolbar->GetToolsCount(), m_buttons[i]);
 }
 
@@ -52,8 +59,7 @@ void wxVerticalToolbar::InsertTool(int pos, int toolId)
 
 void wxVerticalToolbar::InsertVerticalButton(int pos, wxVertButton& button)
 {
-  wxBitmap btBitmap;
-  btBitmap.Create(m_sw, m_sh);
+  wxBitmap btBitmap(m_sw, m_sh);
   m_btDc.SelectObject(btBitmap);
   m_btDc.SetBrush(wxBrush(m_toolbar->GetBackgroundColour(),wxSOLID));
   m_btDc.SetPen(wxPen(*wxBLACK,0,wxTRANSPARENT));

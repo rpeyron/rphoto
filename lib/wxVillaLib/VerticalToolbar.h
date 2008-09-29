@@ -3,7 +3,7 @@
 // Purpose:     wxVerticalToolbar class
 // Author:      Alex Thuering
 // Created:		11.03.2003
-// RCS-ID:      $Id: VerticalToolbar.h,v 1.1 2003/12/29 15:22:26 remi Exp $
+// RCS-ID:      $Id: VerticalToolbar.h,v 1.5 2004/02/15 14:06:24 ntalex Exp $
 // Copyright:   (c) Alex Thuering
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
@@ -38,7 +38,7 @@ WX_DECLARE_OBJARRAY(wxVertButton, wxVertButtons);
 class wxVerticalToolbar
 {
   public:
-    wxVerticalToolbar(wxToolBar* toolbar) { m_toolbar = toolbar; }
+    wxVerticalToolbar(wxToolBar* toolbar);
     ~wxVerticalToolbar() { }
     
     void AddTool(int toolId, const wxString& label, const wxBitmap& bitmap,

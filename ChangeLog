@@ -1,0 +1,80 @@
+2008-09-29 12:39  remi  0.3.2
+	* Vista compatibility
+	* Updated to wxWidgets 3.8
+	* Full Unicode support
+	* Moved to wxVillaLib 1.5
+	* Fixed exif str64 encoding
+	* Embedded wrjpgcom for comment editing
+	* Added custom ratio lists
+	* Added comment encoding support
+	* Added default ratios requested by mail
+	* Added uppercase extensions for Linux
+	* Fixed many layout problems
+
+2006-07-16 17:47  remi  0.3.0
+    * Fixed Comments on Linux
+    * Hacked wxDir for uppercase comparison
+	* Move & Next
+    * Take exe path for locales 
+    * Fixed rectangle after rotating while using a different ratio
+    * Distribution and Compilation preparation for release
+
+2006-06-19 16:41  remi
+	* Added Drag'n Drop & Commandline file
+
+2006-05-28 23:00  remi  0.3.0-b1
+	* Added Help Support 
+    * Lot of BugFixes
+    * QuickStart HTML documentation
+
+2006-05-22 18:32  remi
+	* Move To Folder (with Undo) 
+    * Rename current file
+	* Favorites Exif Tags
+	* Comment Support (JPEG lossless, JPEG normal, and drivers who accept "COM") 
+    * Fixed length bug in wxString64 
+    * Fixed accelerators : now only ok in main area
+
+2006-05-10 00:13  remi
+	* Fixed wx2.6 compatibility
+	* Undo and Redo feature
+	* Fixed zoom / selection feature
+
+2006-02-16 22:42  remi
+	* EXIF List Control now resize softly and have tooltips for long texts
+	* A JPEG Handler that loads/saves of custom tags (Exif, IPTC,...) 
+	* wxStringBase64  support to encode custom tags
+
+2005-11-22 00:18  remi
+	* BugFixes for wxRectTracker 
+    * FEATURE : RPhoto now helps to correct inclinaison !
+	* Created wxLineTracker : a simple  line tracker
+    * Upgrading to wxVillaLib 1.3
+
+2005-10-30 17:19  remi
+	* Added Basic inclinaison rectification feature
+
+2005-03-05 21:11  remi   0.2.1
+	* Switched to wxVillaLib 1.1 (http://sourceforge.net/projects/wxvillalib/) for wx2.5 support
+    * Modularized wxmisc
+    * Moved wxRectTracker in separate module
+
+2004-12-06 19:05  remi
+    * Modified GTK Hack architecture (replaced C++ multiple inheritance for interface by a "simple" host
+	  sub-class)
+    * Improved PaintDC GTK architecture
+	* Merged Jeremie Fouche improvements.	
+    * Split wxRectTracker in  wxRectTrackerRatio for ratio specific stuff 
+    * Added external documentation to wxRectTracker
+
+2004-01-17 23:50  remi  0.2.0
+	* JPEG Quality handling & detection  
+    * Support for other file formats, and non lossless operation
+	* Debian package files by Krys.
+
+2004-01-04 22:45  remi
+	* Renamed Project to RPhoto
+	* Added langages files and macros
+
+2003-12-29 16:22  remi
+    * Initial import

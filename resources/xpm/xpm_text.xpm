@@ -1,0 +1,35 @@
+/* XPM */
+static const char *xpm_text[] = {
+/* columns rows colors chars-per-pixel */
+"16 16 13 1",
+"  c black",
+". c gray12",
+"X c #393939",
+"o c gray32",
+"O c gray47",
+"+ c #9F9F9F",
+"@ c gray72",
+"# c #C0C0C0",
+"$ c gray87",
+"% c gray92",
+"& c #FFFBF0",
+"* c gray100",
+"= c None",
+/* pixels */
+"====X@o#X@o#@Xo=",
+"===O%%%%%%%%%%o.",
+"===O%XXX%%%XX%o.",
+"===O%XXX%*%%%%o.",
+"===O%%%%XXX%%%o.",
+"===O%%%%%%%%%%o.",
+"===O%%%%%%&%%$o.",
+"===O%%XXXXXX%$o.",
+"===O%%%%%%%%%$o.",
+"===O%%XXXX%%%$o.",
+"===O%%%%%%%%$$o.",
+"===O%%XXXXXX$$o.",
+"===O%&&%$$$$$$o.",
+"===O&&%%$$XX$$o.",
+"===+%%%%$$$$$$o.",
+"====+ooooooooo. "
+};

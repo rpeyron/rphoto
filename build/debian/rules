@@ -1,5 +1,5 @@
 #!/usr/bin/make -f
-CFLAGS = -g
+#CFLAGS = -g
 
 ifneq (,$(findstring noopt,$(DEB_BUILD_OPTIONS)))
  CFLAGS += -O0
@@ -35,17 +35,19 @@ binary-arch: build install
 	install -d debian/rphoto/DEBIAN debian/rphoto/usr/share/rphoto
 	install -d debian/rphoto/usr/share/doc/rphoto debian/rphoto/usr/share/man/man1
 	install -d debian/rphoto/usr/lib/menu
+	install -d debian/rphoto/usr/share/applications
 	install -m644 -p debian/changelog debian/rphoto/usr/share/doc/rphoto/changelog.Debian
 	gzip -9f debian/rphoto/usr/share/doc/rphoto/changelog.Debian
 	install -m644 -p debian/copyright debian/rphoto/usr/share/doc/rphoto
 	install -m644 -p debian/RPhoto.1 debian/rphoto/usr/share/man/man1
 	gzip -9f debian/rphoto/usr/share/man/man1/RPhoto.1
 	install -m644 debian/menu debian/rphoto/usr/lib/menu/rphoto
+	install -m644 debian/rphoto.desktop debian/rphoto/usr/share/applications/rphoto.desktop
 	install -m644 debian/rphoto.xpm debian/rphoto/usr/share/rphoto/rphoto.xpm
 	install -m755 debian/postinst debian/rphoto/DEBIAN
 	install -m755 debian/postrm debian/rphoto/DEBIAN
-	test "x$(STRIP)" = "xyes" && \
-    strip --remove-section=.comment --remove-section=.note debian/rphoto/usr/bin/RPhoto
+#	test "x$(STRIP)" = "xyes" && \
+#    strip --remove-section=.comment --remove-section=.note debian/rphoto/usr/bin/RPhoto
 	dpkg-shlibdeps debian/rphoto/usr/bin/RPhoto
 	dpkg-gencontrol -isp -Pdebian/rphoto
 	cd debian/rphoto && find usr -type f -exec "md5sum" "{}" ";" > DEBIAN/md5sums

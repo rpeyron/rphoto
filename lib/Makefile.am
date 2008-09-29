@@ -1,1 +1,1 @@
-SUBDIRS=wxFix wxVillaLib
+SUBDIRS=wxFix wxVillaLib wxmisc wxRectTracker wxJPEGExifHandler

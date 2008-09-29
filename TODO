@@ -1,0 +1,15 @@
+- Print angle
+- Edit comments (text field in the bottom)
+- Rename Photos (long clic on tree explorer)
+- Display EXIF Tags (tabs on the right, order main tags, display alls tags)
+- Edit EXIF Tags (double clic)
+- Thumbnails view (tab with tree explorer)
+- Slight Rotation (By selecting 2 points for vertical or horizontal, not lossless)
+- Brightness / Contrast
+- Red Eye
+- Color Adjustement
+
+Known Bugs :
+ - Keyboard not functionning in ratio mode :
+   * Increase of +1 is not sufficient in the weak section of portrait / landscape
+   * Left key erase everything

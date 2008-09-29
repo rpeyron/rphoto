@@ -3,7 +3,7 @@
 // Purpose:     wxTablessNotebook class
 // Author:      Alex Thuering (a modifiecation of generic/notebook.h)
 // Created:     06.10.03
-// RCS-ID:      $Id: TablessNotebook.h,v 1.1 2003/12/29 15:22:26 remi Exp $
+// RCS-ID:      $Id: TablessNotebook.h,v 1.8 2004/03/21 12:50:30 ntalex Exp $
 // Copyright:   (c) Alex Thuering
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
@@ -28,7 +28,11 @@
 // ----------------------------------------------------------------------------
 // wxTablessNotebook
 // ----------------------------------------------------------------------------
-
+#if wxCHECK_VERSION(2,5,0)
+#define size_tt size_t
+#else
+#define size_tt int
+#endif
 /** The widget to display a tabless notebook */
 class wxTablessNotebook : public wxNotebookBase
 {
@@ -62,23 +66,23 @@ public:
     // set the currently selected page, return the index of the previously
     // selected one (or -1 on error)
     // NB: this function will _not_ generate wxEVT_NOTEBOOK_PAGE_xxx events
-  int SetSelection(int nPage);
+  int SetSelection(size_tt nPage);
     // cycle thru the tabs
   //  void AdvanceSelection(bool bForward = TRUE);
     // get the currently selected page
   int GetSelection() const { return m_nSelection; }
 
     // set/get the title of a page
-  bool SetPageText(int nPage, const wxString& strText) { return true; }
-  wxString GetPageText(int nPage) const { return wxEmptyString; }
+  bool SetPageText(size_tt n, const wxString& strText) { return true; };
+  wxString GetPageText(size_tt n) const { return wxEmptyString; }
 
   // get the number of rows for a control with wxNB_MULTILINE style (not all
   // versions support it - they will always return 1 then)
   virtual int GetRowCount() const ;
 
-    // sets/returns item's image index in the current image list
-  int  GetPageImage(int nPage) const { return 0; }
-  bool SetPageImage(int nPage, int nImage) { return true; }
+  // sets/returns item's image index in the current image list
+  int GetPageImage(size_tt n) const { return 0; }
+  bool SetPageImage(size_tt n, int imageId) { return true; }
 
   // control the appearance of the notebook pages
     // set the size (the same for all pages)
@@ -92,15 +96,15 @@ public:
   // operations
   // ----------
     // remove one page from the notebook, and delete the page.
-  bool DeletePage(int nPage);
+  bool DeletePage(size_tt nPage);
   bool DeletePage(wxNotebookPage* page);
     // remove one page from the notebook, without deleting the page.
-  bool RemovePage(int nPage);
+  bool RemovePage(size_tt nPage);
   bool RemovePage(wxNotebookPage* page);
     // remove all pages
   bool DeleteAllPages();
     // the same as AddPage(), but adds it at the specified position
-  bool InsertPage(int nPage,
+  bool InsertPage(size_tt nPage,
                   wxNotebookPage *pPage,
                   const wxString& strText,
                   bool bSelect = FALSE,
@@ -132,6 +136,9 @@ public:
   bool RefreshLayout(bool force = TRUE);
 
 protected:
+  // remove the page and return a pointer to it
+  wxWindow *DoRemovePage(size_t page) { return NULL; }
+	
   // common part of all ctors
   void Init();
 

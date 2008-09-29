@@ -3,7 +3,7 @@
 // Purpose:     Image Filters (middle-value filter, Gauss filter, etc.)
 // Author:      Alex Thuering
 // Created:		21.06.2003
-// RCS-ID:      $Id: ImageFilters.cpp,v 1.1 2003/12/29 15:22:26 remi Exp $
+// RCS-ID:      $Id: ImageFilters.cpp,v 1.2 2003/10/23 15:30:52 ntalex Exp $
 // Copyright:   (c) Alex Thuering
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
@@ -64,7 +64,6 @@ void wxMedianImageFilter::AdjustPixel(uchar* image, int x, int y)
 wxLinearImageFilter::wxLinearImageFilter(wxImage& image,
  wxLinearImageFilterType type, int size): wxImageFilter(image, size)
 {
-  int i;
   switch(type)
   {
     case lftMiddleValue:
@@ -75,10 +74,10 @@ wxLinearImageFilter::wxLinearImageFilter(wxImage& image,
     }
     case lftGauss:
     {
-      for (i=0; i<m_size*m_size; i++)
+      for (int i=0; i<m_size*m_size; i++)
         m_pattern.Add(0);
       int k = 0;
-      for (i=0; i<m_size; i++)
+      for (int i=0; i<m_size; i++)
       {
         k += i<=m_size/2 ? 1 : -1;
         for (int j=0; j<m_size; j++)

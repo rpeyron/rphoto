@@ -1,0 +1,183 @@
+<html>
+<head>
+ <title>RPhoto - Quick Start</title>
+
+<style>
+h1 {
+    color: rgb(77, 91, 144);
+    font-size: 160%;
+    font-weight: bold;
+    border-bottom: solid 1px rgb(132, 155, 243);
+}
+
+h2 {
+    color: rgb(132, 155, 243);
+    font-size: 160%;
+    font-weight: bold;
+    clear: both;
+}
+
+h3 {
+    color: rgb(77, 91, 144);
+    font-size: 120%;
+    font-style: italic;
+    clear: both;
+}
+
+.imgr {
+    float : right;
+    margin-left : 0.5em;
+}
+
+.toc {
+ float: right;
+ border: 1px solid rgb(132, 155, 243);
+ background-color: white;
+}
+
+.toc a { text-decoration: none; color: rgb(77, 91, 144); padding: 0.5em;}
+
+</style>
+
+</head>
+<body>
+
+<div class="toc">
+ <a href="#intro">Introducting</a><br />
+ <a href="#classic">Common Use</a><br />
+ <a href="#ref">Reference</a><br />
+ <a href="#lic">License, Updates,...</a><br />
+</div>
+
+<a name="intro"><h1>Introducting</h1></a>
+<p>RPhoto is a small piece of software to enhance your digital pictures by easy operations in a quick and handy user interface :</p>
+<ul>
+ <li>Crop photos while keeping the 4:3 ratio (or whatever ratio you would prefer), without any loss of quality</li>
+ <li>Adjust inclinaison of photos taken not perfectly horizontally.</li>
+ <li>Add a comment on your JPEG pictures</li>
+ <li>And many other usefull features : consult Exif information, move or rename files, undo,...</li>
+</ul>
+<a name="classic"><h1>Common Use</h1></a>
+<p>A common way to use the application is shown below :</p>
+<ul>
+ <li>Run the application, and set up of some settings.</li>
+ <li>Correct inclinaison of the picture if necessary</li>
+ <li>Crop to make a better photo</li>
+ <li>Add a comment</li>
+ <li>Save the file and go to the next one.</li>
+</ul>
+<h2>Launch of RPhoto, Workspace, and a few useful settings.</h2>
+<div class="imgr"><img src="classic_main.jpg" width="300px" height="244px" alt="Main Screen" /></div>
+<p>Run the application, and select in the Browse tab the forder that will be your workspace. Before modifying your pictures, ensure you have kept a backup in a safe place. Select the first image in the directory ; it will display in the main panel.</p>
+<p>Choose your target format : 4:3 for digital pictures, 24:36 for paper pictures, or in any other format you like. You may choose also other settings as your prefered orientation, a destination folder, and many other settings.</p>
+<h2>Rotation / Inclinaison correction</h2>
+<div class="imgr"><img src="classic_orient.jpg" width="400px" height="225px" alt="Main Screen" /></div>
+<p>Use the buttons Rotate Left / Rotate Right or shortcuts <b>l</b> (left) / <b>r</b> (right) to rotate the picture by 90°.</p>
+<p>But if the photo had been taken with a wrong angle, you will need to correct inclinaison (this cannot be done lossless) : </p>
+<ul>
+ <li>Select the mode inclinaison (with the toolbar, the menu or the shortcut <b>'i'</b>) ; lossless mode is automatically disabled.</li>
+ <li>Draw with the mouse what should be an horizontal or vertical line on the photo.</li>
+ <li>Rotate the image by using the toolbar, or shortcutr <b>"Return"</b>) ; please wait a few seconds to let the picture be rotated.</li>
+ <li>If the result does not fit you, you can cancel it by pressing Ctrl-Z (or with the menu Edit / Undo), and do it again.</li>
+</ul>
+<p></p>
+<h2>Cropping</h2>
+<div class="imgr"><img src="classic_crop.jpg" width="400px" height="230px" alt="Main Screen" /></div>
+<p>Unless you are skilled photograph, your picture could probably look better if it were cropped to a more appropriate set up. This task is fairly easy with RPhoto :</p>
+<ul>
+ <li>Make sure to be in "crop" mode ; if not, use the toolbar button or type <b>"c"</b></li>
+ <li>Select the picture region you want</li>
+ <li>Crop the picture by using the crop button, or the shortcut <b>"Return"</b> (or <b>"c"</b> again).</li>
+ <li>If the result does not fit you, you can cancel it by pressing Ctrl-Z (or with the menu Edit / Undo), and do it again.</li>
+</ul>
+<h2>Add a comment</h2>
+<div class="imgr"><img src="main_comments.jpg" alt="Comment Tab" /></div>
+<p>Activate the "Comment" tab, or use the shortcut <b>"t"</b> and type your text in the text field.</p>
+<p>Then, press the "Apply" button, or use the shortcut <b>Ctrl-Return</b>; your text should now be displayed in black, and is now memorized to be saved with the file.</p>
+<h2>Save and Go To Next</h2>
+<p>Save the file (shortcut 's', or not necessary if you have set the autosave function), and go to the next file with the shortcut <b>"PageDown"</b>.</p>
+<h2>Rename and Move the picture</h2>
+Two other commonly used features :
+<ul>
+ <li>Rename a file : clic another time on the filename in the tree of "Browse" tab ; you can now edit the filename.</li>
+ <li>Move a file : if the "Move" tab, choose the target folder, and then clic on "Move Here" (or use the shortcut <b>"m"</b> (move).)</li>
+</ul>
+The full documentation of features is shown below.
+<a name="ref"><h1>Reference of all features of RPhoto</h1></a>
+<h2>Presentation of all sections of the screen</h2>
+<h3>Main Panel</h3>
+<p>The application is built on a main panel, which gives access to all features by menus, toolbars, or lateral tabs.</p>
+<div class="imgr"><img src="main_scr.jpg" alt="Main Screen" /></div>
+The toolbar, lateral tabs, and statusbar are described in separated sections below. The image is displayed in the remaining unused space.<br />Some intersting points to be noted : 
+<ul>
+  <li>You can change the space allowed for tabs by drag'n drop on the separation line.</li>
+  <li>In order to not interfer with input boxes, shortcuts are only available in the image field. If they don't work, a simple clic on the picture screen will correct that.</li>
+  <li>In crop mode, the selection is a rectangle that respects the choosen ratio (4:3, 24:36,...) and the prefered orientation (portrait, landscape, auto). In the auto mode, the selection tool will catch the orientation that is closer to your mouse pointer.</li> 
+  <li>In inclinaison mode, the selection tool is a simple segment. Just draw a line, and the software will detect automatically if it should be a horizontal line or vertical line. If this does not fit you, just rotate again the picture with the 90° left / right buttons..</li>
+  <li>To move the selection, you just have to drag'n drop the center of the rectangle or segment. You can also move with the keyboard arrows (while pressing Ctrl if you wish to move faster).</li>
+  <li>To modify the selection, drag'n drop one of the handles (black squares), or use arrows keys while pressing Shift. A simple clic outside the selection will remove the current selection.</li>
+  <li>You can switch with the "Full screen" toolbar button between "Full screen" or "No adjustment" to adjust your selection pixel by pixel.</li>
+</ul>
+<h3>Tab "Browse"</h3>
+<div class="imgr"><img src="main_explorer.jpg" alt="Explorer Tab" /></div>
+<ul>
+ <li>A simple clic on a file will open it in RPhoto (and therefore, close the one you were working on). </li>
+ <li>Are only presents in this tree the files matching the selected type in the dropdown below the tree ("Image files" by default). In case the file you want does not appear, select "All files (*.*)".</li>
+ <li>To rename the file, clic a second time on its name. To rename a folder, do three separate clics on its name. You cannot change the name of the folders containing the file currently viewed.</li>
+ <li>"Previous" and "Next" apply relative to the order shown in the tree : Next will select the file displayed next the current file in the tree.</li>
+ <li>You can also drag and drop a file from explorer to open it in RPhoto, or put RPhoto in you "Send To" folder.</li>
+</ul>
+<h3>Tab "Move To"</h3>
+<div class="imgr"><img src="main_move.jpg" alt="Move Tab" /></div>
+To move a file, select in the "Move To" tab the target folder, and press "Move Here", or use the shortcut  "m" (move). You do not need to re-select the folder each time, nor to have the tab "Move To" activated to use the keyboard shortcut.
+<h3>Tab "EXIF" (JPEG)</h3>
+<div class="imgr"><img src="main_exif.jpg" alt="Exif Tab" /></div>
+<p>These two tabs display Exif tags if present in the file. These tags are not editable.</p>
+<p>The first tab lists only those who you have chosen to (see Settings section), whereas the second lists all tags.</p>
+<p>Proprietary tags are not always displayed correctly, and the thumbnail is not shown. Exif tags are not modified by RPhoto : neither size, nor thumbnail will reflect changes made in RPhoto (so you will keep a trace of the original picture). </p>
+<h3>Tab "Comment" (JPEG)</h3>
+<div class="imgr"><img src="main_comments.jpg" alt="Comment Tab" /></div>
+<p>This tab shows the comment of a JPEG picture, if any, and allows the user to change it.</p>
+<p>To change the comment, type the wished text, and click on "Apply". As long as the text is red, the comment will not be saved. When applied, the comment will be displayed in black, but will be permanently recorded only when the file will be saved.</p>
+<h3>Statusbar</h3>
+<div class="imgr"><img src="main_status.jpg" alt="Status Bar" /></div>
+<p>The status bar gives you some information about the current statuts of the application.</p>
+<p>The first section shows you the last message, or a short description of the button or menu pointed. The third tells about the selection : size and position of the rectangle (WxH+x,y) or angle of the segment, in degrees. Other sections are not currently used.</p>
+<p>The mouse pointer is also a good indicator to know if the application is ready or busy.</p>
+<h2>Toolbar</h2>
+<div class="imgr"><img src="main_toolbar.jpg" alt="Toolbar" /></div>
+<img src="open.ico" alt="Open a File" /> : <b>open a file</b> with a selection dialog box.<br />
+<img src="save.ico" alt="Save the current File" /> : <b>save</b> the current file (replace the current file).<br />
+<img src="reopen.ico" alt="ReOpen the current File" /> : <b>re-open</b> the file as it was when last saved<br />
+<img src="arrow_left.ico" alt="Previous File" /> : go to the <b>previous file</b> in the current folder.<br />
+<img src="arrow_right.ico" alt="Next File" /> : go to the <b>next file</b> in the current folder.<br />
+<img src="fullscrn.ico" alt="Full Screen" /> : toggle the <b>fullscreen mode</b> ; in this mode, the picture is reduced to fit in the window ; it does not affect its quality nor its definition.<br />
+<img src="light_green.ico" width="16px" height="16px" alt="JPEG Lossless On" /> / <img src="light_red.ico"  width="16px" height="16px" alt="JPEG Lossless Impossible" /> : toggle the <b>JPEG lossless mode</b> ; if the light is red, it is impossible to use this mode (non-JPEG file, or an operation incompatible with lossless has been done, as a inclinaison correction)<br />
+<img src="mode_crop.ico" alt="Crop Mode" /> / <img src="mode_inclinaison.ico" alt="Inclinaison Mode" /> : select the <b>current mode</b> : crop / inclinaison. A second press of this button will do the default operation.<br />
+<img src="undo.ico" alt="Undo last operation" /> : <b>undo</b> the previous operation, limited to the maximum number provided in the settings ; while no other operation has been done, you can cancel the undo by using Edit / Redo.<br />
+<img src="crop.ico" alt="Crop" /> : <b>crop</b> the picture with the current selection rectangle <i>(JPEG lossless is possible)</i>.<br />
+<img src="rotate_left.ico" alt="Rotate 90° to the left" /> : rotate the picture of 90 degrees to the <b>left</b> <i>(JPEG lossless is possible)</i>.<br />
+<img src="rotate_right.ico" alt="Rotate 90° to the right" /> : rotate the picture of 90 degrees to the <b>right</b> <i>(JPEG lossless is possible)</i>.<br />
+<img src="inclinaison.ico" alt="Correct Inclinaison" /> : rotate the image of a few degrees ; you must be in inclinaison mode.<br />
+<img src="landorpo.ico" alt="Landscape or Portrait" /> / <img src="portrait.ico" alt="Portrait" /> / <img src="landscap.ico" alt="Landscape" /> : select the wished <b>shape</b> : both / portrait / landscape.<br />
+<img src="combo_ratio.jpg" alt="Ratio Selection" /> : select the wished <b>ratio</b> or size of the rectangle ; in addition to the one predefined, you can enter one yourself : for ratios, use format x:y (ex : 4:3) or for fixed sizes, use format WxH (ex : 320x200).<br />
+<h2>Settings</h2>
+This screen allows you to modify every single settings.
+<div class="imgr"><img src="prefs.jpg" alt="Preferences" /></div>
+<ul>
+ <li><b>General / Autosave :</b> save automatically before opening a new file. Very efficient, but to use with care..</li>
+ <li><b>General / Autocrop :</b> crop automatically the picture after a rotation, with the most appropriate selection. If not set, select the most appropriate rectangle, but let the user to choose to crop or not.</li>
+ <li><b>General / Undo history :</b> maximum number of undoable operations.</li>
+ <li><b>JPEG / JPEGTran Path :</b> jpegtran is the tool used for lossless operations. You should not have to modify this setting.</li>
+ <li><b>JPEG / WrJpgCom Path :</b> wrjpgcom is the tool used for comments in lossless operations. You should not have to modify this setting.</li>
+ <li><b>JPEG / JPEGTran Alerts :</b> some lossless operations cannot be done without the loss of 8 pixels blocs. In most of the cases, you should ignore these messages, as they won't affect visibly the picture ; they will appear in the statusbar.</li>
+ <li><b>JPEG / JPEG Quality :</b> quality used to save JPEG file when the lossless mode is not used ; a classic value for a good camera is 98 ; you can estimate this value with the menu Image / JPEG / Detect Quality</li>
+ <li><b>JPEG / Exif Favorites :</b> Exif tags are often numerous and without any order ; this setting allows you to select the one you want to see in the Favorites Exif tab (semi-colon ";" separated-list).</li>
+ <li><b>Startup : </b>set the ratio and kind of rectangle to use at application startup</li>
+ <li><b>Display / Fullscreen :</b> default value for fullscreen.</li>
+</ul>
+<a name="lic"><h1>License, Updates, Support</h1></a>
+<p>This software is distributed under GPL license ; it basically means that its use is <b>free</b> and its source code is available in order to allow you to improve it (see GPL license for conditions).</p>
+<p>Home location of this software is : <a href="http://people.via.ecp.fr/~remi/soft/rphoto/rphoto_en.php3">http://people.via.ecp.fr/~remi/soft/rphoto/rphoto_en.php3</a>. RPhoto is also available on <a href="http://freshmeat.net/projects/rphoto/">Freshmeat</a> and <a href="http://sourceforge.net/projects/rphoto/">Sourceforge</a>. You will find there documentation, updates and contact information.</p>
+</body>
+</html>

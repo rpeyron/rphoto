@@ -4,7 +4,7 @@
 
 # TARGTYPE "Win32 (x86) Application" 0x0101
 
-CFG=RPhoto - Win32 Debug
+CFG=RPhoto - Win32 Debug wx26
 !MESSAGE This is not a valid makefile. To build this project using NMAKE,
 !MESSAGE use the Export Makefile command and run
 !MESSAGE 
@@ -13,12 +13,13 @@ CFG=RPhoto - Win32 Debug
 !MESSAGE You can specify a configuration when running NMAKE
 !MESSAGE by defining the macro CFG on the command line. For example:
 !MESSAGE 
-!MESSAGE NMAKE /f "RPhoto.mak" CFG="RPhoto - Win32 Debug"
+!MESSAGE NMAKE /f "RPhoto.mak" CFG="RPhoto - Win32 Debug wx26"
 !MESSAGE 
 !MESSAGE Possible choices for configuration are:
 !MESSAGE 
 !MESSAGE "RPhoto - Win32 Release" (based on "Win32 (x86) Application")
 !MESSAGE "RPhoto - Win32 Debug" (based on "Win32 (x86) Application")
+!MESSAGE "RPhoto - Win32 Debug wx26" (based on "Win32 (x86) Application")
 !MESSAGE 
 
 # Begin Project
@@ -43,7 +44,7 @@ RSC=rc.exe
 # PROP Ignore_Export_Lib 0
 # PROP Target_Dir ""
 # ADD BASE CPP /nologo /W3 /GX /O2 /D "WIN32" /D "NDEBUG" /D "_WINDOWS" /D "_MBCS" /YX /FD /c
-# ADD CPP /nologo /W3 /GX /O2 /D "WIN32" /D "NDEBUG" /D "_WINDOWS" /D "_MBCS" /YX"RatioPrecomp.h" /FD /c
+# ADD CPP /nologo /W3 /GX /O2 /I "..\..\lib" /I "./lib" /I "../../lib" /I "../../lib/jpeg-6b-crop" /D "WIN32" /D "NDEBUG" /D "_WINDOWS" /D "_MBCS" /YX"RatioPrecomp.h" /FD /c
 # ADD BASE MTL /nologo /D "NDEBUG" /mktyplib203 /win32
 # ADD MTL /nologo /D "NDEBUG" /mktyplib203 /win32
 # ADD BASE RSC /l 0x40c /d "NDEBUG"
@@ -53,7 +54,7 @@ BSC32=bscmake.exe
 # ADD BSC32 /nologo
 LINK32=link.exe
 # ADD BASE LINK32 kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /nologo /subsystem:windows /machine:I386
-# ADD LINK32 kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib comctl32.lib rpcrt4.lib wsock32.lib zlib.lib regex.lib png.lib jpeg.lib tiff.lib wxmsw.lib wxVillaLib.lib /nologo /subsystem:windows /machine:I386 /nodefaultlib:"libc.lib" /libpath:"Release"
+# ADD LINK32 kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib comctl32.lib rpcrt4.lib wsock32.lib zlib.lib regex.lib png.lib jpeg.lib tiff.lib wxmsw.lib libexif_a.lib /nologo /subsystem:windows /incremental:yes /machine:I386 /nodefaultlib:"libc.lib" /libpath:"Release"
 
 !ELSEIF  "$(CFG)" == "RPhoto - Win32 Debug"
 
@@ -69,7 +70,7 @@ LINK32=link.exe
 # PROP Ignore_Export_Lib 0
 # PROP Target_Dir ""
 # ADD BASE CPP /nologo /W3 /Gm /GX /ZI /Od /D "WIN32" /D "_DEBUG" /D "_WINDOWS" /D "_MBCS" /YX /FD /GZ /c
-# ADD CPP /nologo /W3 /Gm /GX /ZI /Od /I "jpeg-6b-crop" /D "WIN32" /D "_DEBUG" /D "_WINDOWS" /D "_MBCS" /FR /YX"RatioPrecomp.h" /FD /GZ /c
+# ADD CPP /nologo /W3 /Gm /GX /ZI /Od /I "jpeg-6b-crop" /I "../../lib" /I "../../lib/jpeg-6b-crop" /D "WIN32" /D "_DEBUG" /D "_WINDOWS" /D "_MBCS" /FR /YX"RatioPrecomp.h" /FD /GZ /c
 # ADD BASE MTL /nologo /D "_DEBUG" /mktyplib203 /win32
 # ADD MTL /nologo /D "_DEBUG" /mktyplib203 /win32
 # ADD BASE RSC /l 0x40c /d "_DEBUG"
@@ -79,8 +80,37 @@ BSC32=bscmake.exe
 # ADD BSC32 /nologo
 LINK32=link.exe
 # ADD BASE LINK32 kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /nologo /subsystem:windows /debug /machine:I386 /pdbtype:sept
-# ADD LINK32 kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib comctl32.lib rpcrt4.lib wsock32.lib zlibd.lib regexd.lib pngd.lib jpegd.lib tiffd.lib wxmswd.lib wxVillaLib.lib /nologo /subsystem:windows /debug /machine:I386 /nodefaultlib:"libcd.lib" /pdbtype:sept /libpath:"Debug"
-# SUBTRACT LINK32 /nodefaultlib
+# ADD LINK32 kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib comctl32.lib rpcrt4.lib wsock32.lib zlib.lib regexd.lib pngd.lib jpegd.lib tiffd.lib wxmswd.lib libexif_a.lib /nologo /subsystem:windows /debug /machine:I386 /nodefaultlib:"libcd.lib" /pdbtype:sept /libpath:"Debug"
+# SUBTRACT LINK32 /nodefaultlib /force
+
+!ELSEIF  "$(CFG)" == "RPhoto - Win32 Debug wx26"
+
+# PROP BASE Use_MFC 0
+# PROP BASE Use_Debug_Libraries 1
+# PROP BASE Output_Dir "RPhoto___Win32_Debug_wx26"
+# PROP BASE Intermediate_Dir "RPhoto___Win32_Debug_wx26"
+# PROP BASE Ignore_Export_Lib 0
+# PROP BASE Target_Dir ""
+# PROP Use_MFC 0
+# PROP Use_Debug_Libraries 1
+# PROP Output_Dir "RPhoto___Win32_Debug_wx26"
+# PROP Intermediate_Dir "RPhoto___Win32_Debug_wx26"
+# PROP Ignore_Export_Lib 0
+# PROP Target_Dir ""
+# ADD BASE CPP /nologo /W3 /Gm /GX /ZI /Od /I "jpeg-6b-crop" /I "../../lib" /D "WIN32" /D "_DEBUG" /D "_WINDOWS" /D "_MBCS" /FR /YX"RatioPrecomp.h" /FD /GZ /c
+# ADD CPP /nologo /W3 /Gm /GX /ZI /Od /I "C:\Program Files\wxWidgets-2.6.2\include\msvc" /I "jpeg-6b-crop" /I "C:\Program Files\wxWidgets-2.6.2\include" /I "../../lib" /I "../../lib/jpeg-6b-crop" /D "WIN32" /D "_DEBUG" /D "_WINDOWS" /D "_MBCS" /FR /YX"RatioPrecomp.h" /FD /GZ /c
+# ADD BASE MTL /nologo /D "_DEBUG" /mktyplib203 /win32
+# ADD MTL /nologo /D "_DEBUG" /mktyplib203 /win32
+# ADD BASE RSC /l 0x40c /d "_DEBUG"
+# ADD RSC /l 0x40c /d "_DEBUG"
+BSC32=bscmake.exe
+# ADD BASE BSC32 /nologo
+# ADD BSC32 /nologo
+LINK32=link.exe
+# ADD BASE LINK32 kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib comctl32.lib rpcrt4.lib wsock32.lib zlibd.lib regexd.lib pngd.lib jpegd.lib tiffd.lib wxmswd.lib wxVillaLib.lib libexif_a.lib /nologo /subsystem:windows /debug /machine:I386 /nodefaultlib:"libcd.lib" /pdbtype:sept /libpath:"Debug"
+# SUBTRACT BASE LINK32 /nodefaultlib /force
+# ADD LINK32 kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib comctl32.lib rpcrt4.lib wsock32.lib zlib.lib regexd.lib pngd.lib jpegd.lib tiffd.lib libexif_a.lib /nologo /subsystem:windows /debug /machine:I386 /nodefaultlib:"libcd.lib" /out:"../../bin/RPhoto.exe" /pdbtype:sept /libpath:"C:\Program Files\wxWidgets-2.6.2\lib\vc_lib"
+# SUBTRACT LINK32 /nodefaultlib /force
 
 !ENDIF 
 
@@ -88,12 +118,13 @@ LINK32=link.exe
 
 # Name "RPhoto - Win32 Release"
 # Name "RPhoto - Win32 Debug"
+# Name "RPhoto - Win32 Debug wx26"
 # Begin Group "Source Files"
 
 # PROP Default_Filter "cpp;c;cxx;rc;def;r;odl;idl;hpj;bat"
 # Begin Source File
 
-SOURCE=..\..\src\ConfigDialog.cpp
+SOURCE="..\..\lib\libexif-0.6.12\compat.cpp"
 # End Source File
 # Begin Source File
 
@@ -109,10 +140,6 @@ SOURCE=.\..\..\src\RatioPrecomp.cpp
 # End Source File
 # Begin Source File
 
-SOURCE=.\..\..\src\RectTracker.cpp
-# End Source File
-# Begin Source File
-
 SOURCE=.\..\..\src\RPhoto.cpp
 # End Source File
 # End Group
@@ -121,7 +148,7 @@ SOURCE=.\..\..\src\RPhoto.cpp
 # PROP Default_Filter "h;hpp;hxx;hm;inl"
 # Begin Source File
 
-SOURCE=..\..\src\ConfigDialog.h
+SOURCE="..\..\lib\jpeg-6b-crop\jmorecfg.h"
 # End Source File
 # Begin Source File
 
@@ -134,10 +161,6 @@ SOURCE=.\..\..\src\RatioImageBox.h
 # Begin Source File
 
 SOURCE=.\..\..\src\RatioPrecomp.h
-# End Source File
-# Begin Source File
-
-SOURCE=.\..\..\src\RectTracker.h
 # End Source File
 # Begin Source File
 
@@ -210,6 +233,10 @@ SOURCE=..\..\resources\wx\msw\csquery.bmp
 # Begin Source File
 
 SOURCE=.\..\..\src\wx\msw\csquery.bmp
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\resources\wx\msw\cursor1.cur
 # End Source File
 # Begin Source File
 
@@ -454,10 +481,156 @@ SOURCE=..\..\resources\wxbitmap.bmp
 # Begin Source File
 
 SOURCE=.\..\..\lib\wxFix\dirctrlg.cpp
+
+!IF  "$(CFG)" == "RPhoto - Win32 Release"
+
+!ELSEIF  "$(CFG)" == "RPhoto - Win32 Debug"
+
+!ELSEIF  "$(CFG)" == "RPhoto - Win32 Debug wx26"
+
+!ENDIF 
+
 # End Source File
 # Begin Source File
 
 SOURCE=.\..\..\lib\wxFix\dirctrlg.h
+
+!IF  "$(CFG)" == "RPhoto - Win32 Release"
+
+!ELSEIF  "$(CFG)" == "RPhoto - Win32 Debug"
+
+!ELSEIF  "$(CFG)" == "RPhoto - Win32 Debug wx26"
+
+!ENDIF 
+
+# End Source File
+# End Group
+# Begin Group "wxRectTracker"
+
+# PROP Default_Filter ""
+# Begin Source File
+
+SOURCE=..\..\lib\wxRectTracker\LineTracker.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\lib\wxRectTracker\LineTracker.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\lib\wxRectTracker\RectTracker.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\lib\wxRectTracker\RectTracker.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\lib\wxRectTracker\RectTrackerRatio.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\lib\wxRectTracker\RectTrackerRatio.h
+# End Source File
+# End Group
+# Begin Group "wxMisc"
+
+# PROP Default_Filter ""
+# Begin Source File
+
+SOURCE=..\..\lib\wxmisc\ConfigDialog.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\lib\wxmisc\ConfigDialog.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\lib\wxmisc\ListCtrlResize.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\lib\wxmisc\ListCtrlResize.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\lib\wxmisc\str64.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\lib\wxmisc\str64.h
+# End Source File
+# End Group
+# Begin Group "wxExifJPEG"
+
+# PROP Default_Filter ""
+# Begin Source File
+
+SOURCE=..\..\lib\wxJPEGExifHandler\imagejpg.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\lib\wxJPEGExifHandler\imagejpg.h
+# End Source File
+# End Group
+# Begin Group "wxVillaLib"
+
+# PROP Default_Filter ""
+# Begin Source File
+
+SOURCE=.\..\..\lib\wxVillaLib\ImageBox.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\..\..\lib\wxVillaLib\ImageBox.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\..\..\lib\wxVillaLib\ImageFilters.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\..\..\lib\wxVillaLib\ImageFilters.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\..\..\lib\wxVillaLib\ImageProc.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\..\..\lib\wxVillaLib\ImageProc.h
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\lib\wxVillaLib\ThumbnailFactory.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=..\..\lib\wxVillaLib\ThumbnailFactory.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\..\..\lib\wxVillaLib\Thumbnails.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\..\..\lib\wxVillaLib\Thumbnails.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\..\..\lib\wxVillaLib\utils.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\..\..\lib\wxVillaLib\utils.h
+# End Source File
+# Begin Source File
+
+SOURCE=.\..\..\lib\wxVillaLib\VerticalToolbar.cpp
+# End Source File
+# Begin Source File
+
+SOURCE=.\..\..\lib\wxVillaLib\VerticalToolbar.h
 # End Source File
 # End Group
 # End Target

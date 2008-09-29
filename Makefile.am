@@ -1,5 +1,5 @@
-SUBDIRS=lib src resources
-EXTRA_DIST = \
+SUBDIRS= po lib src resources doc
+EXTRA_DIST = config.rpath m4/ChangeLog  \
         README \
         COPYING \
         AUTHORS \
@@ -21,15 +21,18 @@ EXTRA_DIST = \
         build/debian/control \
         build/debian/copyright \
         build/debian/menu \
+        build/debian/rphoto.desktop \
         build/debian/postinst \
         build/debian/postrm \
-        build/debian/ratiophoto.xpm \
-        locales/fr.po \
-        locales/po_build.bat \
-        locales/po_update.bat \
-        doc/HOWTO-Package-Debian.txt
+        build/debian/rphoto.xpm \
+        po/fr.po \
+        po/po_build.bat \
+        po/po_update.bat
 
-debian:
+deb:
 	ln -sf build/debian .
+	chmod +x debian/rules
 	dpkg-buildpackage -rfakeroot
 	fakeroot debian/rules clean
+
+ACLOCAL_AMFLAGS = -I m4

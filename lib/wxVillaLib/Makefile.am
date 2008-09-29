@@ -1,18 +1,45 @@
-noinst_LIBRARIES=libwxVillaLib.a
-libwxVillaLib_a_SOURCES = \
-	ImageBox.cpp \
+
+noinst_LIBRARIES = libwxvilla.a
+libwxvilla_a_SOURCES = ImageBox.cpp ImageFilters.cpp ImageProc.cpp\
+ imagjpg.cpp PipeExecute.cpp SConv.cpp\
+ Thumbnails.cpp ThumbnailFactory.cpp\
+ utils.cpp VerticalToolbar.cpp \
 	ImageBox.h \
-	ImageProc.cpp \
-	ImageProc.h \
-	TablessNotebook.cpp \
-	TablessNotebook.h \
-	utils.cpp \
-	utils.h \
-	ImageFilters.cpp \
 	ImageFilters.h \
-	imagjpg.cpp \
+	ImageProc.h \
 	imagjpg.h \
-	Thumbnails.cpp  \
+	PipeExecute.h \
+	PropDlg.h \
+	SConv.h \
+	TablessNotebook.h \
+	ThumbnailFactory.h \
 	Thumbnails.h \
-	VerticalToolbar.cpp \
-	VerticalToolbar.h
+	utils.h \
+	VerticalToolbar.h \
+	ExifHandler.h \
+	ExifHandler.cpp
+
+EXTRA_DIST= \
+	rc/gnome-fs-loading-icon.png \
+	rc/gnome-fs-loading-icon.xpm \
+	rc/gnome-fs-regular.png \
+	rc/gnome-fs-regular.xpm \
+	rc/gnome-mime-audio.png \
+	rc/gnome-mime-audio.xpm \
+	rc/gnome-mime-video-mpeg.png \
+	rc/gnome-mime-video-mpeg.xpm \
+	rc/noread.png \
+	rc/noread.xpm \
+	rc/xine.png \
+	rc/xine.xpm \
+	thumb_md5.cpp
+
+
+# noinst_LIBRARIES = libwxvilla.a
+# libwxvilla_a_SOURCES = ExifHandler.cpp ImageBox.cpp ImageFilters.cpp ImageProc.cpp\
+#  imagjpg.cpp PipeExecute.cpp PropDlg.cpp SConv.cpp\
+#  TablessNotebook.cpp Thumbnails.cpp ThumbnailFactory.cpp\
+#  utils.cpp VerticalToolbar.cpp
+# AM_CXXFLAGS = @CXXFLAGS@ @GNOMEUI2_CFLAGS@ 
+# @LIBEXIF_CFLAGS@ - replaced by RPhoto autoconf
+

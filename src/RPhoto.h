@@ -3,7 +3,7 @@
  * -------------------------------------------------------------------------- *
  *                                                                            *
  * RPhoto : image tool for a quick and efficient use with digital photos      *
- * Copyright (C) 2004 - Rémi Peyronnet <remi+rphoto@via.ecp.fr>               *
+ * Copyright (C) 2004 - Rmi Peyronnet <remi+rphoto@via.ecp.fr>               *
  *                                                                            *
  * This program is free software; you can redistribute it and/or              *
  * modify it under the terms of the GNU General Public License                *
@@ -21,16 +21,28 @@
  * http://www.gnu.org/copyleft/gpl.html                                       *
  * ************************************************************************** */
 
-#define RT_NAME wxT("RPhoto")
-#define RT_VERSION wxT("v0.2.0")
+#define RPHOTO_NAME wxT("RPhoto")
+#define RPHOTO_VERSION wxT("v0.3.2")
 
-#define RT_DEFAULT_IMAGE wxT("cnedra.jpg")
+#define RT_DEFAULT_IMAGE wxT("test.jpg")
 
-#define RPHOTO_FILTERIMGLIST_ALL wxString("Image Files|*.jpg;*.jpeg;*.png;*.bmp;*.gif;*.tif;*.tiff;*.ico;*.ani;*.pcx;*.pnm;*.xpm")
-#define RPHOTO_FILTERIMGLIST wxString("BMP Files (*.bmp)|*.bmp|GIF Files (*.gif)|*.gif|JPEG Files (*.jpg;*.jpeg)|*.jpg;*.jpeg|PNG Files (*.png)|*.png|TIFF Files (*.tif; *.tiff)|*.tif;*.tiff")
-#define RPHOTO_FILTERIMGLIST_WORLD	("All files (*.*)|*.*|" + RPHOTO_FILTERIMGLIST_ALL + "|" + RPHOTO_FILTERIMGLIST)
+// lowercase AND uppercare to be able to see both in *nix ; but NOT for Windows (else files are seen twice)
+#ifdef __WINDOWS__ 
+#define RPHOTO_FILTERIMGLIST_ALL wxString(wxT("Image Files|*.jpg;*.jpeg;*.png;*.bmp;*.gif;*.tif;*.tiff;*.ico;*.ani;*.pcx;*.pnm;*.xpm"))
+#define RPHOTO_FILTERIMGLIST wxString(wxT("BMP Files (*.bmp)|*.bmp|GIF Files (*.gif)|*.gif|JPEG Files (*.jpg;*.jpeg)|*.jpg;*.jpeg|PNG Files (*.png)|*.png|TIFF Files (*.tif; *.tiff)|*.tif;*.tiff"))
+#else
+#define RPHOTO_FILTERIMGLIST_ALL wxString(wxT("Image Files|*.jpg;*.jpeg;*.png;*.bmp;*.gif;*.tif;*.tiff;*.ico;*.ani;*.pcx;*.pnm;*.xpm;*.JPG;*.JPEG;*.PNG;*.BMP;*.GIF;*.TIF;*.TIFF;*.ICO;*.ANI;*.PCX;*.PNM;*.XPM"))
+#define RPHOTO_FILTERIMGLIST wxString(wxT("BMP Files (*.bmp)|*.bmp;*.BMP|GIF Files (*.gif)|*.gif;*.GIF|JPEG Files (*.jpg;*.jpeg)|*.jpg;*.jpeg;*.JPG;*.JPEG|PNG Files (*.png)|*.png;*.PNG|TIFF Files (*.tif; *.tiff)|*.tif;*.tiff;*.TIF;*.TIFF"))
+#endif
+#define RPHOTO_FILTERIMGLIST_WORLD	(wxString(wxT("All files (*.*)|*.*|")) + RPHOTO_FILTERIMGLIST_ALL + wxT("|") + RPHOTO_FILTERIMGLIST)
 
 #define RPHOTO_TEMP_PREFIX wxT("rphoto_")
+
+#define RPHOTO_DEFAULT_EXIF_FAVORITES wxT("DateTime,ExposureTime,FocalLength,FNumber,ISOSpeedRatings,Flash,ExposureBiasValue,MaxApertureValue,Orientation,PixelXDimension,PixelYDimension,Make,Model,Copyright,ImageDescription,Contrast,Saturation,Sharpness")
+#define RPHOTO_DEFAULT_FORCED_RATIO _("0:0 (None)|4:3 (Digital Photo)|3:2 (Paper Photo)|16:9 (Digital Photo - TV|1:1  (Square)")
+#define RPHOTO_DEFAULT_CUSTOM_RATIO _("13:9 (Paper Photo - German 1)|18:13 (Paper Photo - German 2)|176x240 (Fixed Size)")
+
+#define RPHOTO_DEFAULT_COMMENT_ENCODING _("iso8859-15")
 
 #ifdef _DEBUG
 #define RPHOTO_NOT_IMPLEMENTED
@@ -44,3 +56,15 @@
         return(x);
 #endif
 
+class RPhotoApp : public wxApp
+{
+public:
+	virtual bool OnInit();
+    virtual void OnInitCmdLine(wxCmdLineParser& parser);
+    virtual bool OnCmdLineParsed(wxCmdLineParser& parser);
+};
+
+DECLARE_APP(RPhotoApp)
+
+// Visual Leak Detector (in project definition)
+// #include <vld.h>

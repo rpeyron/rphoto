@@ -20,9 +20,18 @@ EXTRA_DIST= \
      xpm_rotate_right.xpm \
      xpm_save.xpm \
      xpm_undo.xpm \
+     xpm_reopen.xpm \
      xpm_FilesPhoto.xpm \
      xpm_light_green.xpm \
      xpm_light_red.xpm \
-     xpm_light_grey.xpm
+     xpm_light_grey.xpm \
+	 xpm_inclinaison.xpm \
+	 xpm_recycle.xpm \
+	 xpm_redeye.xpm \
+	 xpm_text.xpm \
+	 xpm_hint.xpm \
+	 xpm_mode_redeye.xpm \
+	 xpm_mode_inclinaison.xpm \
+	 xpm_mode_crop.xpm
 	 
 
