@@ -73,6 +73,7 @@
 #define MENU_IMAGE_FLIP_VERTICAL	10105
 #define MENU_IMAGE_INCLIN			10106
 #define MENU_IMAGE_COMMENT			10107
+#define MENU_IMAGE_RESIZE			10108
 #define MENU_IMAGE_JPEG         	10110
 #define MENU_IMAGE_JPEG_OPTIMIZE	10111
 #define MENU_IMAGE_JPEG_PROGRESSIVE	10112
@@ -120,6 +121,7 @@
 #define TOOL_MODE_REDEYE	20053
 // WIDGETS Ids
 #define WIDGET_RATIOCOMBO	30001
+#define WIDGET_RESIZECOMBO	30002
 #define WIDGET_APPLY_COM	30011
 #define WIDGET_EDIT_COM		30012
 
@@ -189,11 +191,14 @@ protected:
 	void OnImageJPEGDetectQuality(wxCommandEvent &event);
 	void OnImageWriteComment(wxCommandEvent & event);
 	void OnImageComment(wxCommandEvent & event);
+	void OnImageResize(wxCommandEvent & event);
 	void OnRatioPOrL(wxCommandEvent &event);
 	void OnRatioPortrait(wxCommandEvent &event);
 	void OnRatioLandscape(wxCommandEvent &event);
 	void OnRatioChange(wxCommandEvent &event);
 	void OnRatioEnter(wxCommandEvent &event);
+	void OnResizeChange(wxCommandEvent &event);
+	void OnResizeEnter(wxCommandEvent &event);
 	// - Misc
 	void UpdateControlsState();
 	void UpdateControlsStateEvt(wxCommandEvent & event);
@@ -209,6 +214,7 @@ protected:
 
 	// Fonctions Diverses
 	bool CalcRatio(const wxString &str);
+	bool Resize(const wxString &str);
     void UpdateDirCtrl(const wxString &from = wxT(""));
 
 public:
@@ -235,6 +241,7 @@ protected:
 	wxListCtrl * m_pAttrCtrl;
 	wxListCtrl * m_pAttrFavCtrl;
 	wxComboBox * m_pRatioCombo;
+	wxComboBox * m_pResizeCombo;
 	wxTextCtrl * m_pTextComment;
 	wxString m_sFilename;
 	wxString m_sOriginalFilename;
@@ -244,6 +251,7 @@ protected:
     bool m_bAutoSave;
     bool m_bDirty;
 	wxArrayString m_saRatios;
+	wxArrayString m_saResize;
     wxLocale m_locale;
     wxConfig * m_pConfig;
     wxConfigDialog * m_pConfigDialog;

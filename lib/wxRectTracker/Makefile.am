@@ -6,3 +6,6 @@ libwxrecttracker_a_SOURCES= \
 	RectTrackerRatio.h \
 	LineTracker.cpp \
 	LineTracker.h
+    
+EXTRA_DIST = licence_wxwidgets.txt \
+    wxRectTracker.dox

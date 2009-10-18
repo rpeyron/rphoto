@@ -3,7 +3,7 @@
 // Purpose:     Base class for property dialogs
 // Author:      Alex Thuering
 // Created:     18.11.2003
-// RCS-ID:      $Id: PropDlg.h,v 1.12 2007/11/14 21:50:55 ntalex Exp $
+// RCS-ID:      $Id: PropDlg.h 365 2008-06-21 23:15:43Z remi $
 // Copyright:   (c) Alex Thuering
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////

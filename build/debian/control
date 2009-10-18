@@ -7,7 +7,7 @@ Standards-Version: 2.4.1.2
 
 Package: rphoto
 Architecture: any
-Depends: libwxgtk2.8-0, libexif12, libjpeg-progs, menu
+Depends: libwxgtk2.8-0, libexif12, libjpeg-progs
 Suggests: 
 Description: RPhoto is is small software aiming at the easy handling of digital camera's photos. Its origin resides in the lack of a simple software capable of cropping photos with a constant ratio, to avoid white borders when printing. Main features are :
  * Crop images with a constant width / height ratio (by example 4:3 for numeric photos)

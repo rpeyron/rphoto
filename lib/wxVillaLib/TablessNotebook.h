@@ -3,7 +3,7 @@
 // Purpose:     wxTablessNotebook class
 // Author:      Alex Thuering (a modifiecation of generic/notebook.h)
 // Created:     06.10.03
-// RCS-ID:      $Id: TablessNotebook.h,v 1.8 2004/03/21 12:50:30 ntalex Exp $
+// RCS-ID:      $Id: TablessNotebook.h 263 2005-11-21 23:14:19Z remi $
 // Copyright:   (c) Alex Thuering
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////

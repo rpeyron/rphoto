@@ -3,7 +3,7 @@
 // Purpose:     Miscellaneous utilities
 // Author:      Alex Thuering
 // Created:		23.10.2003
-// RCS-ID:      $Id: utils.h,v 1.3 2004/10/03 09:21:06 ntalex Exp $
+// RCS-ID:      $Id: utils.h 263 2005-11-21 23:14:19Z remi $
 // Copyright:   (c) Alex Thuering
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////

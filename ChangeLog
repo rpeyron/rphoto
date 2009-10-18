@@ -1,6 +1,10 @@
+2009-10-18 18:03  remi  0.4.0
+	* Fixed MoveTo directory tree bug
+	* Added Resize feature
+
 2008-09-29 12:39  remi  0.3.2
 	* Vista compatibility
-	* Updated to wxWidgets 3.8
+	* Updated to wxWidgets 2.8
 	* Full Unicode support
 	* Moved to wxVillaLib 1.5
 	* Fixed exif str64 encoding
@@ -12,12 +16,12 @@
 	* Fixed many layout problems
 
 2006-07-16 17:47  remi  0.3.0
-    * Fixed Comments on Linux
-    * Hacked wxDir for uppercase comparison
+	* Fixed Comments on Linux
+	* Hacked wxDir for uppercase comparison
 	* Move & Next
-    * Take exe path for locales 
-    * Fixed rectangle after rotating while using a different ratio
-    * Distribution and Compilation preparation for release
+	* Take exe path for locales 
+	* Fixed rectangle after rotating while using a different ratio
+	* Distribution and Compilation preparation for release
 
 2006-06-19 16:41  remi
 	* Added Drag'n Drop & Commandline file

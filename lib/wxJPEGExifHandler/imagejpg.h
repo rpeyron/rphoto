@@ -2,8 +2,8 @@
 // Name:        imagejpg.h
 // Purpose:     wxImage JPEG handler
 // Author:      Rémi Peyronnet, based on imagjpeg by Vaclav Slavik
-// RCS-ID:      $Id: imagejpg.h 309 2006-05-06 22:08:05Z remi $
-// Copyright:   (c) Rémi Peyronnet
+// RCS-ID:      $Id: imagejpg.h 400 2008-10-11 15:29:21Z remi $
+// Copyright:   (c)  Vaclav Slavik, modified by Rémi Peyronnet
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
 

@@ -3,7 +3,7 @@
 
 [Setup]
 AppName=RPhoto
-AppVerName=RPhoto 0.3.2
+AppVerName=RPhoto 0.4.0
 AppPublisherURL=http://www.via.ecp.fr/~remi/soft/rphoto/
 AppSupportURL=http://www.via.ecp.fr/~remi/soft/rphoto/
 AppUpdatesURL=http://www.via.ecp.fr/~remi/soft/rphoto/

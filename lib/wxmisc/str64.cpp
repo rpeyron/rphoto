@@ -1,7 +1,7 @@
 /////////////////////////////////////////////////////////////////////////////
 // Name:        str64.cpp
 // Purpose:     Base64 encoding
-// Author:      Remi Peyronnet   (based on base64.cpp, see below)
+// Author:      Remi Peyronnet  <remi+wx@via.ecp.fr>  (based on base64.cpp, see below)
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
 

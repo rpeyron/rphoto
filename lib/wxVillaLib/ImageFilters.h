@@ -3,7 +3,7 @@
 // Purpose:     Image Filters (middle-value filter, Gauss filter, etc.)
 // Author:      Alex Thuering
 // Created:		21.06.2003
-// RCS-ID:      $Id: ImageFilters.h,v 1.3 2003/10/27 20:40:57 ntalex Exp $
+// RCS-ID:      $Id: ImageFilters.h 263 2005-11-21 23:14:19Z remi $
 // Copyright:   (c) Alex Thuering
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////

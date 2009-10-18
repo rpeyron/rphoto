@@ -3,7 +3,7 @@
 // Purpose:     Image processing functions.
 // Author:      Alex Thuering
 // Created:		18.06.2003
-// RCS-ID:      $Id: ImageProc.cpp,v 1.4 2005/01/07 06:59:18 ntalex Exp $
+// RCS-ID:      $Id: ImageProc.cpp 263 2005-11-21 23:14:19Z remi $
 // Copyright:   (c) Alex Thuering
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////

@@ -3,7 +3,7 @@
 // Purpose:     wxVerticalToolbar class
 // Author:      Alex Thuering
 // Created:		11.03.2003
-// RCS-ID:      $Id: VerticalToolbar.h,v 1.5 2004/02/15 14:06:24 ntalex Exp $
+// RCS-ID:      $Id: VerticalToolbar.h 263 2005-11-21 23:14:19Z remi $
 // Copyright:   (c) Alex Thuering
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////

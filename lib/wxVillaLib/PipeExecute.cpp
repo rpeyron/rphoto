@@ -3,7 +3,7 @@
 // Purpose:     Pipe execute
 // Author:      Alex Thuering
 // Created:     23.08.2004
-// RCS-ID:      $Id: PipeExecute.cpp,v 1.3 2007/11/14 21:40:39 ntalex Exp $
+// RCS-ID:      $Id: PipeExecute.cpp 365 2008-06-21 23:15:43Z remi $
 // Copyright:   (c) Alex Thuering
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////

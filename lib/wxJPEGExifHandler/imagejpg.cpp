@@ -1,9 +1,9 @@
 /////////////////////////////////////////////////////////////////////////////
 // Name:        src/common/imagjpeg.cpp
 // Purpose:     wxImage JPEG handler
-// Author:      Vaclav Slavik
-// RCS-ID:      $Id: imagejpg.cpp 373 2008-09-27 23:42:32Z remi $
-// Copyright:   (c) Vaclav Slavik
+// Author:      Rémi Peyronnet, based on imagjpeg by Vaclav Slavik
+// RCS-ID:      $Id: imagejpg.cpp 400 2008-10-11 15:29:21Z remi $
+// Copyright:   (c)  Vaclav Slavik, modified by Rémi Peyronnet
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
 

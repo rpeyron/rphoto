@@ -18,4 +18,5 @@ libwxjpegexifhandler_a_SOURCES= \
 	wxjpeg-headers/jdhuff.h \
 	wxjpeg-headers/jchuff.h 
 
+EXTRA_DIST = licence_wxwidgets.txt
 

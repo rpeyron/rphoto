@@ -3,7 +3,7 @@
 // Purpose:     wxImageBox class
 // Author:      Alex Thuering
 // Created:		8.10.2003
-// RCS-ID:      $Id: ImageBox.cpp,v 1.4 2005/01/09 15:45:42 ntalex Exp $
+// RCS-ID:      $Id: ImageBox.cpp 365 2008-06-21 23:15:43Z remi $
 // Copyright:   (c) Alex Thuering
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////

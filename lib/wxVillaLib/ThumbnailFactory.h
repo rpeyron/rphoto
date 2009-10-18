@@ -3,7 +3,7 @@
 // Purpose:     wxThumbnailFactory class
 // Author:      Alex Thuering
 // Created:		15.02.2003
-// RCS-ID:      $Id: ThumbnailFactory.h,v 1.6 2007/11/15 20:43:42 ntalex Exp $
+// RCS-ID:      $Id: ThumbnailFactory.h 365 2008-06-21 23:15:43Z remi $
 // Copyright:   (c) Alex Thuering
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////

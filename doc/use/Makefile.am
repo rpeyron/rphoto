@@ -26,6 +26,7 @@ rphoto_htb_SRC = \
         main_scr.jpg \
         main_status.jpg \
         main_toolbar.jpg \
+        main_resize.jpg \
         mode_crop.ico \
         mode_inclinaison.ico \
         open.ico \

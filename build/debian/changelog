@@ -1,3 +1,9 @@
+rphoto (0.4-0) jaunty; urgency=low
+
+  * Added resize feature. See local ChangeLog for details
+
+ -- Remi Peyronnet <remi+debian@via.ecp.fr>  Sun, 18 Oct 2009 17:58:00 +0000
+ 
 rphoto (0.3-2) hardy; urgency=low
 
   * Minor bugfixes and features. See local ChangeLog for details

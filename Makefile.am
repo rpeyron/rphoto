@@ -1,5 +1,5 @@
 SUBDIRS= po lib src resources doc
-EXTRA_DIST = config.rpath m4/ChangeLog  \
+EXTRA_DIST = config.rpath m4/ChangeLog  config.rpath m4/ChangeLog  \
         README \
         COPYING \
         AUTHORS \
@@ -7,6 +7,8 @@ EXTRA_DIST = config.rpath m4/ChangeLog  \
         INSTALL \
         NEWS \
         TODO \
+        build/vc/RPhoto.vcproj \
+        build/vc/RPhoto.sln \
         build/vc/RPhoto.dsp \
         build/vc/RPhoto.dsw \
         build/vc/RPhoto.iss \

@@ -7,3 +7,4 @@ libwxmisc_a_SOURCES= \
 	str64.h \
 	str64.cpp
 
+EXTRA_DIST = licence_wxwidgets.txt
