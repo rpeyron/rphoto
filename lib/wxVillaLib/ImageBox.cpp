@@ -3,7 +3,7 @@
 // Purpose:     wxImageBox class
 // Author:      Alex Thuering
 // Created:		8.10.2003
-// RCS-ID:      $Id: ImageBox.cpp 365 2008-06-21 23:15:43Z remi $
+// RCS-ID:      $Id: ImageBox.cpp 425 2012-02-05 16:21:32Z remi $
 // Copyright:   (c) Alex Thuering
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
@@ -231,7 +231,7 @@ void wxPaintBox::OnPaint(wxPaintEvent& WXUNUSED(event))
   
   wxPaintDC dc(this);  
   PrepareDC(dc);
-  dc.BeginDrawing();
+  //dc.BeginDrawing();
   dc.DrawBitmap(*m_buffer, m_bufferX, m_bufferY);
   //background
   dc.SetPen(wxPen(*wxBLACK,0,wxTRANSPARENT));
@@ -240,7 +240,7 @@ void wxPaintBox::OnPaint(wxPaintEvent& WXUNUSED(event))
   int h = wxMax(GetClientSize().GetHeight(), m_imageHeight);
   dc.DrawRectangle(m_imageWidth, 0, w-m_imageWidth, h+50);
   dc.DrawRectangle(0, m_imageHeight, w, h-m_imageHeight+50);
-  dc.EndDrawing();
+  //dc.EndDrawing();
 }
 
 void wxPaintBox::OnEraseBackground(wxEraseEvent &event)

@@ -3,7 +3,7 @@
 // Purpose:     Miscellaneous utilities
 // Author:      Alex Thuering
 // Created:		23.10.2003
-// RCS-ID:      $Id: utils.cpp 263 2005-11-21 23:14:19Z remi $
+// RCS-ID:      $Id: utils.cpp 425 2012-02-05 16:21:32Z remi $
 // Copyright:   (c) Alex Thuering
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
@@ -12,6 +12,7 @@
 #include <wx/dir.h>
 #include <wx/log.h>
 #include <wx/filename.h>
+#include <wx/filefn.h>  // RPE - wx2.9.3 compat.
 
 #ifdef __UNIX_LIKE__
 #include <stdlib.h>
@@ -34,7 +35,7 @@ wxString wxGetAppPath()
     else
     {
 	  // Is it a relative path?
-	  wxString currentDir(wxGetWorkingDirectory());
+	  wxString currentDir(wxGetCwd() /*wxGetWorkingDirectory()*/);  // RPE - wx2.9.3 compat.
 	  if (currentDir.Last() != wxFILE_SEP_PATH)
 		currentDir += wxFILE_SEP_PATH;
 	  wxString str = currentDir + wxTheApp->argv[0];

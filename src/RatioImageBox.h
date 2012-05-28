@@ -35,7 +35,7 @@ const int RIB_STATE_NONE = 0;
 const int RIB_STATE_CROP = 1;
 const int RIB_STATE_INCLINAISON = 2;
 
-class wxRatioImageBox : public wxImageBox, wxRectTrackerHost
+class wxRatioImageBox : public wxImageBox
 {
 public:
     DECLARE_CLASS(wxRatioImageBox)
@@ -47,19 +47,21 @@ public:
 	wxLineTracker & GetLineTracker() { return *lineTracker; }
     wxRect GetSelectedZone();
 	double GetRatio() { return rectTracker->GetRatio(); };
+	double GetGuideRatio() { return rectTracker->GetGuideRatio(); };
 	int GetFixedWidth() { return rectTracker->GetFixedWidth(); }
 	int GetFixedHeight() { return rectTracker->GetFixedHeight(); }
 	wxRect GetMaxRect() { return rectTracker->GetMaxRect(); };
 	int GetOrientation() { return rectTracker->GetOrientation(); };
-	void SetRatio(double ratio) { rectTracker->SetRatio(ratio); };
-	void SetFixedSize(int width, int height) { rectTracker->SetFixedSize(width, height); };
-	void SetMaxRect(wxRect maxRect) { rectTracker->SetMaxRect(maxRect); lineTracker->SetMaxRect(maxRect); };
-	void SetOrientation(int orientation) { rectTracker->SetOrientation(orientation); };
+	void SetRatio(double ratio) { rectTracker->SetRatio(ratio); rectTracker->Update(); };
+	void SetGuideRatio(double ratio) { rectTracker->SetGuideRatio(ratio); rectTracker->Update(); };
+	void SetFixedSize(int width, int height) { rectTracker->SetFixedSize(width, height); rectTracker->Update(); };
+	void SetMaxRect(wxRect maxRect) { rectTracker->SetMaxRect(maxRect); if (lineTracker) lineTracker->SetMaxRect(maxRect); };
+	void SetOrientation(int orientation) { if (rectTracker) rectTracker->SetOrientation(orientation); rectTracker->Update(); };
 	void SetScale(double scale = scFIT_TO_PAGE);
 	void TrackerReset() 
 	{ 
-		rectTracker->SetUnscrolledRect(wxRect(0,0,0,0)); 
-		lineTracker->SetUnscrolledRect(wxRect(0,0,0,0)); 
+		if (rectTracker) rectTracker->SetUnscrolledRect(wxRect(0,0,0,0)); 
+		if (lineTracker) lineTracker->SetUnscrolledRect(wxRect(0,0,0,0)); 
 		Refresh(); 
 		wxCommandEvent evt(0,0); 
 		OnTrackerChanged(evt); 

@@ -13,25 +13,14 @@
 
 #include "RectTrackerRatio.h"
 
-//#ifdef RT_GTK_HACK
-//#include "RatioImageBox.h"
-//#endif
-
 IMPLEMENT_CLASS(wxRectTrackerRatio, wxRectTracker)
 
-wxRectTrackerRatio::wxRectTrackerRatio(
-			wxWindow * parent, 
-			wxWindowID id, 
-			const wxPoint & pos, 
-			const wxSize& size, 
-			long style,
-  		    wxRectTrackerHost * rectTrackerHost) 
-			: wxRectTracker(parent, id, pos, size, style, rectTrackerHost)
+wxRectTrackerRatio::wxRectTrackerRatio(wxWindow * parent, wxFrame * frame) 
+			: wxRectTracker(parent, frame)
 {
-	ratio = 0;
-	orientation = 0;
-	fixedWidth = -1;
-	fixedHeight = -1;
+	SetRatio(0);
+	SetGuideRatio(0);
+	SetOrientation(0);
 }
 
 wxRectTrackerRatio::~wxRectTrackerRatio()
@@ -152,17 +141,23 @@ void wxRectTrackerRatio::AdjustTrackerRect(wxRect &curRect, int handler)
 
 void wxRectTrackerRatio::SetRatio(double ratio)
 {
-    SetHandlerMask(RT_MASK_ALL);
     this->fixedWidth = this->fixedHeight = -1; // Remove fixed mode
 	if ((ratio > 0) && (ratio < 1)) ratio = 1 / ratio;
 	this->ratio = ratio;
+    SetHandlerMask(RT_MASK_ALL);
+}
+
+
+void wxRectTrackerRatio::SetGuideRatio(double ratio)
+{
+	if (ratio > 1) ratio = 1 / ratio;
+	this->guideRatio = ratio;
 }
 
 void wxRectTrackerRatio::SetOrientation(int orientation)
 {
 	this->orientation = orientation;
-	SetFixedSize(this->fixedHeight, this->fixedHeight);
-    SetHandlerMask(RT_MASK_NONE);
+	if (this->fixedWidth != -1) SetFixedSize(this->fixedWidth, this->fixedHeight);
 }
 
 void wxRectTrackerRatio::SetFixedSize(int width, int height)
@@ -171,11 +166,55 @@ void wxRectTrackerRatio::SetFixedSize(int width, int height)
     this->fixedWidth = width;
     this->fixedHeight = height;
 	// Switch orientation if one was given
-    if ( ((orientation == 1) && (this->fixedWidth > this->fixedHeight)) ||
-         ((orientation == -1) && (this->fixedWidth < this->fixedHeight))   )
+    if ( ((orientation == -1) && (this->fixedWidth > this->fixedHeight)) ||
+         ((orientation == 1) && (this->fixedWidth < this->fixedHeight))   )
     {
         tmp = this->fixedWidth;
         this->fixedWidth = this->fixedHeight;
         this->fixedHeight = tmp;
     }
+    SetHandlerMask(RT_MASK_NONE);
 }    
+
+
+// DrawRect operates with a wxPaintDC => Window coordinates
+void wxRectTrackerRatio::DrawRect(wxDC & dc, int x, int y, int w, int h)
+{
+	wxRectTracker::DrawRect(dc, x, y, w, h);
+	// Rect
+	if (this->guideRatio != 0)
+	{
+		dc.SetBrush(*wxTRANSPARENT_BRUSH);
+		dc.SetPen(*wxGREY_PEN);
+		dc.DrawLine(x  ,y + h*this->guideRatio  ,x+w,y + h*this->guideRatio   );
+		dc.DrawLine(x  ,y + h*(1-this->guideRatio)  ,x+w,y + h*(1-this->guideRatio));
+		dc.DrawLine(x+w*this->guideRatio  ,y  ,x+w*this->guideRatio  ,y+h);
+		dc.DrawLine(x+w*(1-this->guideRatio)  ,y  ,x+w*(1-this->guideRatio)  ,y+h);
+	}
+}
+
+// DrawTracker operates with the parent's wxWindowDC => Parent coordinates
+void wxRectTrackerRatio::DrawTracker(wxDC & dc, int x, int y, int w, int h)
+{
+	wxRectTracker::DrawTracker(dc, x, y, w, h);
+	if (this->guideRatio != 0)
+	{
+		/* useless with wxEvtHandler
+		// Convert coordinates if scrolled
+		if (wxDynamicCast(GetParent(),wxScrolledWindow) != NULL)
+		{
+			wxDynamicCast(GetParent(),wxScrolledWindow)->CalcScrolledPosition(x, y, &x, &y);
+		}
+		*/
+		// Inverted Rect
+		dc.SetLogicalFunction(wxINVERT);
+		dc.SetBrush(*wxTRANSPARENT_BRUSH);
+		dc.SetPen(*wxGREY_PEN);
+		dc.DrawLine(x  ,y + h*this->guideRatio  ,x+w,y + h*this->guideRatio   );
+		if (this->guideRatio != 0.5) dc.DrawLine(x  ,y + h*(1-this->guideRatio)  ,x+w,y + h*(1-this->guideRatio));
+		dc.DrawLine(x+w*this->guideRatio  ,y  ,x+w*this->guideRatio  ,y+h);
+		if (this->guideRatio != 0.5) dc.DrawLine(x+w*(1-this->guideRatio)  ,y  ,x+w*(1-this->guideRatio)  ,y+h);
+		dc.SetLogicalFunction(wxCOPY);
+	}
+}
+

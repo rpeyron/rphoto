@@ -22,8 +22,8 @@
  * ************************************************************************** */
 
 #define RPHOTO_NAME wxT("RPhoto")
-#define RPHOTO_VERSION wxT("v0.4.0")
-#define RPHOTO_COPYRIGHT wxT("2004-2009 - Remi Peyronnet")
+#define RPHOTO_VERSION wxT("v0.4.1")
+#define RPHOTO_COPYRIGHT wxT("2004-2012 - Remi Peyronnet")
 
 #define RT_DEFAULT_IMAGE wxT("test.jpg")
 
@@ -40,10 +40,12 @@
 #define RPHOTO_TEMP_PREFIX wxT("rphoto_")
 
 #define RPHOTO_DEFAULT_EXIF_FAVORITES wxT("DateTime,ExposureTime,FocalLength,FNumber,ISOSpeedRatings,Flash,ExposureBiasValue,MaxApertureValue,Orientation,PixelXDimension,PixelYDimension,Make,Model,Copyright,ImageDescription,Contrast,Saturation,Sharpness")
-#define RPHOTO_DEFAULT_FORCED_RATIO _("0:0 (None)|4:3 (Digital Photo)|3:2 (Paper Photo)|16:9 (Digital Photo - TV|1:1  (Square)")
+#define RPHOTO_DEFAULT_FORCED_RATIO _("0:0 (Free)|4:3 (Digital Photo)|3:2 (Paper Photo)|16:9 (Digital Photo - TV|1:1  (Square)")
 #define RPHOTO_DEFAULT_CUSTOM_RATIO _("13:9 (Paper Photo - German 1)|18:13 (Paper Photo - German 2)|176x240 (Fixed Size)")
 #define RPHOTO_DEFAULT_FORCED_RESIZE _("Select new size|50% (Percentage)|640x480 (Width x Height)|800x0 (With ratio)|42kb (File size)")
 #define RPHOTO_DEFAULT_CUSTOM_RESIZE _("800x600|1280x1024|100kb|300kb")
+#define RPHOTO_DEFAULT_FORCED_GUIDE_RATIO _("0 (Free)|0.33 (Third)|1.618 (Golden Rule)")
+#define RPHOTO_DEFAULT_CUSTOM_GUIDE_RATIO _("0.5 (Middle)")
 
 #define RPHOTO_DEFAULT_COMMENT_ENCODING _("iso8859-15")
 

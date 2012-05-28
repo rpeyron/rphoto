@@ -122,6 +122,7 @@
 // WIDGETS Ids
 #define WIDGET_RATIOCOMBO	30001
 #define WIDGET_RESIZECOMBO	30002
+#define WIDGET_GUIDECOMBO	30003
 #define WIDGET_APPLY_COM	30011
 #define WIDGET_EDIT_COM		30012
 
@@ -199,6 +200,8 @@ protected:
 	void OnRatioEnter(wxCommandEvent &event);
 	void OnResizeChange(wxCommandEvent &event);
 	void OnResizeEnter(wxCommandEvent &event);
+	void OnGuideChange(wxCommandEvent &event);
+	void OnGuideEnter(wxCommandEvent &event);
 	// - Misc
 	void UpdateControlsState();
 	void UpdateControlsStateEvt(wxCommandEvent & event);
@@ -215,6 +218,7 @@ protected:
 	// Fonctions Diverses
 	bool CalcRatio(const wxString &str);
 	bool Resize(const wxString &str);
+	bool CalcGuideRatio(const wxString &str);
     void UpdateDirCtrl(const wxString &from = wxT(""));
 
 public:
@@ -242,6 +246,7 @@ protected:
 	wxListCtrl * m_pAttrFavCtrl;
 	wxComboBox * m_pRatioCombo;
 	wxComboBox * m_pResizeCombo;
+	wxComboBox * m_pGuideCombo;
 	wxTextCtrl * m_pTextComment;
 	wxString m_sFilename;
 	wxString m_sOriginalFilename;

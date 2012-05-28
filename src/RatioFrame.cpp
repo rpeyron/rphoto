@@ -188,6 +188,15 @@ void RatioFrame::InitConfig()
 	m_saRatios = ratios;
     new wxConfigDialog_EntryCombo(*m_pConfigDialog, wxT("Defaults"), wxT("Ratio"), _("Defaults"), _("Ratio"), ratios, ratios.Item(0));
     new wxConfigDialog_EntryTextEdit(*m_pConfigDialog, wxT("Defaults"), wxT("RatioList"), _("Defaults"), _("Ratio's List"), RPHOTO_DEFAULT_CUSTOM_RATIO);
+	ratios.Clear();
+	tkz.Reinit(wxString(RPHOTO_DEFAULT_FORCED_GUIDE_RATIO) + wxT("|") + wxString(RPHOTO_DEFAULT_CUSTOM_GUIDE_RATIO));
+	while ( tkz.HasMoreTokens() )
+	{
+		ratios.Add(tkz.GetNextToken());
+	}
+	
+    new wxConfigDialog_EntryCombo(*m_pConfigDialog, wxT("Defaults"), wxT("GuideRatio"), _("Defaults"), _("Guide Ratio"),ratios, ratios.Item(0));
+    new wxConfigDialog_EntryTextEdit(*m_pConfigDialog, wxT("Defaults"), wxT("GuideRatioList"), _("Defaults"), _("Guide Lines Ratio's List"), RPHOTO_DEFAULT_CUSTOM_GUIDE_RATIO);
     new wxConfigDialog_EntryTextEdit(*m_pConfigDialog, wxT("Defaults"), wxT("ResizeList"), _("Defaults"), _("Resize's List"), RPHOTO_DEFAULT_CUSTOM_RESIZE);
 
 
@@ -247,7 +256,27 @@ void RatioFrame::DoConfig()
     str = wxT("");
     m_pConfig->Read(wxT("Defaults/Ratio"),&str);
     if (m_pRatioCombo->FindString(str) >= 0) { m_pRatioCombo->SetSelection(m_pRatioCombo->FindString(str)); OnRatioChange(evt); }    
-    // Resize
+	else { m_pRatioCombo->SetStringSelection(str) ;evt.SetString(str); OnRatioEnter(evt); }
+    // Guide Ratio
+    str = wxT(""); 
+	m_pConfig->Read(wxT("Defaults/GuideRatioList"),&str);
+	if (str != wxT(""))
+	{
+		//m_saRatios.Clear();
+		m_pGuideCombo->Clear();
+		wxStringTokenizer tkz(wxString(RPHOTO_DEFAULT_FORCED_GUIDE_RATIO) + wxT("|") + str, wxT("|"));
+		while ( tkz.HasMoreTokens() )
+		{
+			token = tkz.GetNextToken();
+			//m_saRatios.Add(token);
+			m_pGuideCombo->Append(token);
+		}
+	}
+    str = wxT("");
+    m_pConfig->Read(wxT("Defaults/GuideRatio"),&str);
+    if (m_pGuideCombo->FindString(str) >= 0) { m_pGuideCombo->SetSelection(m_pGuideCombo->FindString(str)); OnGuideChange(evt); }
+	else { m_pGuideCombo->SetStringSelection(str) ; evt.SetString(str); OnGuideEnter(evt); }
+	// Resize
     str = wxT("");
     m_pConfig->Read(wxT("Defaults/ResizeList"),&str);
 	m_saResize.Clear();
@@ -382,11 +411,11 @@ void RatioFrame::InitToolBar()
 	GetToolBar()->AddTool(TOOL_ROTATE_RIGHT, _("Rotate Right"), wxBitmap(xpm_rotate_right),wxNullBitmap, wxITEM_NORMAL , _("Rotate the image to the right"), _("Rotate the image to the right"));
 	GetToolBar()->AddTool(TOOL_INCLIN, _("Inclinaison"), wxBitmap(xpm_inclinaison),wxNullBitmap, wxITEM_NORMAL , _("Correct inclinaison"), _("Correct inclinaison"));
 	GetToolBar()->AddSeparator();
-	GetToolBar()->AddTool(TOOL_OR_P_OR_L, _("Automatic"), wxBitmap(xpm_landorpo), wxNullBitmap, wxITEM_RADIO ,_("Automatic Selection of Orientation"), _("Automatic Selection of Orientation"));
+	GetToolBar()->AddTool(TOOL_OR_P_OR_L, _("Free Rotation"), wxBitmap(xpm_landorpo), wxNullBitmap, wxITEM_RADIO ,_("Automatic Selection of Orientation"), _("Automatic Selection of Orientation"));
 	GetToolBar()->AddTool(TOOL_OR_LANDSCAPE, _("Landscape"), wxBitmap(xpm_landscap), wxNullBitmap, wxITEM_RADIO ,_("Landscape Orientation"), _("Landscape Orientation"));
 	GetToolBar()->AddTool(TOOL_OR_PORTRAIT, _("Portrait"), wxBitmap(xpm_portrait), wxNullBitmap, wxITEM_RADIO ,_("Portrait Orientation"), _("Portrait Orientation"));
 	m_pRatioCombo = new wxComboBox(GetToolBar(), WIDGET_RATIOCOMBO, _("test"));
-	m_pRatioCombo->Append(_("0:0 (None)                     "));
+	m_pRatioCombo->Append(_("0:0 (Free)                     "));
 	m_pRatioCombo->SetSelection(0);
 	m_pRatioCombo->SetWindowStyle(wxCB_DROPDOWN);
 	GetToolBar()->AddControl(new wxStaticText(GetToolBar(), -1, _("Ratio : ")));
@@ -397,6 +426,12 @@ void RatioFrame::InitToolBar()
 	m_pResizeCombo->SetWindowStyle(wxCB_DROPDOWN);
 	GetToolBar()->AddControl(new wxStaticText(GetToolBar(), -1, _("   Resize : ")));
 	GetToolBar()->AddControl(m_pResizeCombo);
+	m_pGuideCombo = new wxComboBox(GetToolBar(), WIDGET_GUIDECOMBO, _("test"));
+	m_pGuideCombo->Append(_("Guide lines             "));
+	m_pGuideCombo->SetSelection(0);
+	m_pGuideCombo->SetWindowStyle(wxCB_DROPDOWN);
+	GetToolBar()->AddControl(new wxStaticText(GetToolBar(), -1, _("   Guide Lines : ")));
+	GetToolBar()->AddControl(m_pGuideCombo);
     GetToolBar()->Realize();
 }
  
@@ -410,8 +445,8 @@ void RatioFrame::InitAccelerator()
     entries[i++].Set(wxACCEL_CTRL, (int) 'Z', MENU_IMAGE_UNDO);
     entries[i++].Set(wxACCEL_CTRL, (int) 'R', MENU_IMAGE_REDO);
     entries[i++].Set(wxACCEL_NORMAL, (int) 's', MENU_FILE_SAVE);
-    entries[i++].Set(wxACCEL_NORMAL, WXK_NEXT, MENU_FILE_NEXT);
-    entries[i++].Set(wxACCEL_NORMAL, WXK_PRIOR, MENU_FILE_PREV);
+    entries[i++].Set(wxACCEL_NORMAL, WXK_PAGEDOWN /* WXK_NEXT */ , MENU_FILE_NEXT);
+    entries[i++].Set(wxACCEL_NORMAL, WXK_PAGEUP /* WXK_PRIOR */, MENU_FILE_PREV);
     entries[i++].Set(wxACCEL_NORMAL, WXK_DELETE, MENU_FILE_DELETE);
     entries[i++].Set(wxACCEL_NORMAL, (int) 'm', MENU_FILE_MOVE);
     entries[i++].Set(wxACCEL_NORMAL, (int) '*', MENU_FILE_MOVENEXT);
@@ -437,7 +472,7 @@ void RatioFrame::InitStatusBar()
 	// StatusBar
 	CreateStatusBar(4);
 	SetStatusText(wxT("Ready"), 0);
-	int width[4]; width[0] = -1; width[1] = 60; width[2] = 100; width[3] = 100;
+	int width[4]; width[0] = -1; width[1] = 60; width[2] = 130; width[3] = 100;
 	GetStatusBar()->SetStatusWidths(4, width);
 }
 
@@ -730,6 +765,8 @@ BEGIN_EVENT_TABLE(RatioFrame, wxFrame)
    EVT_TEXT_ENTER(WIDGET_RATIOCOMBO, RatioFrame::OnRatioEnter)
    EVT_COMBOBOX(WIDGET_RESIZECOMBO, RatioFrame::OnResizeChange)
    EVT_TEXT_ENTER(WIDGET_RESIZECOMBO, RatioFrame::OnResizeEnter)
+   EVT_COMBOBOX(WIDGET_GUIDECOMBO, RatioFrame::OnGuideChange)
+   EVT_TEXT_ENTER(WIDGET_GUIDECOMBO, RatioFrame::OnGuideEnter)
    EVT_TOOL(TOOL_JPEGLOSSLESS, RatioFrame::OnToggleJPEGLossless)
    EVT_TOOL(TOOL_MODE_INCLIN, RatioFrame::OnModeInclin)
    EVT_TOOL(TOOL_MODE_CROP, RatioFrame::OnModeCrop)
@@ -799,7 +836,30 @@ bool RatioFrame::CallJPEGTranTryPerfect(const wxString & command)
 
 	m_bTemp = TRUE;
 	m_sFilename = wxFileName::CreateTempFileName(RPHOTO_TEMP_PREFIX); // +wxT(".")+wxFileName(m_sOriginalFilename).GetExt();
-	wxCopyFile(oldFilename,m_sFilename,TRUE);
+
+	// Readonly support : wxCopyFile copie également le caractère readonly et il n'y a pas de fonctions portable pour changer les attributs, donc une copie manuelle
+	if (wxFileName::IsFileWritable(oldFilename))
+	{
+		wxCopyFile(oldFilename,m_sFilename,TRUE);
+	}
+	else
+	{
+		// Depuis wxDoCopyFile de filefn.cpp
+		wxFile fileIn;
+		wxFile fileOut;
+		if (!fileIn.Open(oldFilename)) return false;
+		if (!fileOut.Create(m_sFilename, TRUE) )	return false;
+		char buf[4096];
+		for ( ;; )
+		{
+			ssize_t count = fileIn.Read(buf, WXSIZEOF(buf));
+			if ( count == wxInvalidOffset )	return false;
+			if ( !count )	break;
+			if ( fileOut.Write(buf, count) < (size_t)count )	return false;
+		}
+		fileIn.Close();
+		fileOut.Close();
+	}
 
     m_pConfig->Read(wxT("JPEG/JPEGTran"), &pathJpegtran);
 
@@ -1015,7 +1075,7 @@ void RatioFrame::OnToggleJPEGLossless(wxCommandEvent &event)
 void RatioFrame::OnFileOpen(wxCommandEvent &event)
 {
 	wxString name;
-	name = wxFileSelector(_("Open a file"),wxT(""),wxT(""),wxT(""), RPHOTO_FILTERIMGLIST_WORLD,wxOPEN | wxFILE_MUST_EXIST);
+	name = wxFileSelector(_("Open a file"),wxT(""),wxT(""),wxT(""), RPHOTO_FILTERIMGLIST_WORLD, wxFD_OPEN | wxFD_FILE_MUST_EXIST /* wxOPEN | wxFILE_MUST_EXIST */);
     if (name != wxT(""))
     {
         ImageCleanup();
@@ -1027,6 +1087,7 @@ void RatioFrame::OnFileOpen(wxCommandEvent &event)
 
 void RatioFrame::OnFileSave(wxCommandEvent &event)
 {
+	if (m_sFilename == wxT("")) return; 
 	if (m_pTextComment->IsModified())
 	{
 		if (m_bAutoSave)
@@ -1040,12 +1101,13 @@ void RatioFrame::OnFileSave(wxCommandEvent &event)
 				OnImageWriteComment(event);
 		}
 	}
+	if (!wxFileName::IsFileWritable(m_sOriginalFilename)) { OnFileSaveAs(event); return; }
     if (m_bJPEGlossless)
     {
 		if (m_sFilename != m_sOriginalFilename) wxCopyFile(m_sFilename,m_sOriginalFilename,TRUE);
         Clean();
     }
-    else if (m_pImageBox != NULL)
+    else if ((m_pImageBox != NULL))
     {
 		if (m_bTemp) { m_sFilename = m_sOriginalFilename; m_bTemp = false; }
         if (isJPEGFile(m_sFilename))
@@ -1064,7 +1126,7 @@ void RatioFrame::OnFileSave(wxCommandEvent &event)
 void RatioFrame::OnFileSaveAs(wxCommandEvent &event)
 {
     wxString name;
-	name = wxFileSelector(_("Save a file"),wxT(""),wxT(""),wxT(""), RPHOTO_FILTERIMGLIST_WORLD,wxSAVE);
+	name = wxFileSelector(_("Save a file"),wxT(""),m_sOriginalFilename,wxT(""), RPHOTO_FILTERIMGLIST_WORLD,wxFD_SAVE /* wxSAVE*/);
     if (name != wxT(""))
     {
 		if (m_bTemp) { m_sFilename = m_sOriginalFilename; m_bTemp = false; }
@@ -1530,7 +1592,7 @@ void RatioFrame::OnImageResize(wxCommandEvent & event)
 	wxString resizestr;
 	// resizestr = ::wxGetSingleChoice(_("Please input the size you want.\n\nExample of valid formats are below : \n'50%' to resize at 50 percent\n'640x480' to resize at width = 640 and height = 480\n'42kb' to resize at a size that should be near 42kb when saving the file\n\n"), _("Resize Image"), m_saResize);
 	resizestr = ::wxGetTextFromUser(
-			_("Please input the size you want.\n\nExample of valid formats are below : \n'50%' to resize at 50 percent\n'640x480' to resize at width = 640 and height = 480 (0 = apply ratio)\n'42kb' to resize at a size that should be near 42kb when saving the file\n\n"), 
+			wxString::Format(_("Please input the size you want.\n\nExample of valid formats are below : \n'50%s' to resize at 50 percent\n'640x480' to resize at width = 640 and height = 480 (0 = apply ratio)\n'42kb' to resize at a size that should be near 42kb when saving the file\n\n"),wxT("%")), 
 			_("Resize Image"), 
 			wxString::Format(wxT("%ldx%ld"),m_pImageBox->GetImage().GetHeight(),m_pImageBox->GetImage().GetWidth()) 
 	);
@@ -1642,7 +1704,7 @@ bool RatioFrame::CalcRatio(const wxString &str)
     	}
     	else
     	{
-    		if (ratio != m_pImageBox->GetRatio())
+			if ((ratio != m_pImageBox->GetRatio()) || (m_pImageBox->GetFixedWidth() != -1))
     		{	
     			m_pImageBox->SetRatio(ratio);
     			// wxMessageBox(wxString::Format("Fraction : %f", ratio));
@@ -1784,6 +1846,30 @@ bool RatioFrame::Resize(const wxString &str)
 	return TRUE;
 }
 
+bool RatioFrame::CalcGuideRatio(const wxString &str)
+{
+	bool ok;
+	double ratio = -1;
+	wxString wstr;
+	wstr = str.BeforeFirst(' ');
+	ok = wstr.ToDouble(&ratio);
+#if wxCHECK_VERSION(2, 9, 0)
+	if ((!ok) || (ratio > 100))  ok = wstr.ToCDouble(&ratio);
+#endif
+	if (ok)
+	{
+		m_pImageBox->SetGuideRatio(ratio);
+		SetStatusText(wxString::Format(_("Guide lines ratio set to %f (\"%s\")\n."),ratio,str.c_str()));
+	}
+	else
+	{
+		if (!str.IsEmpty())
+		{
+			wxMessageBox(wxString::Format(_("Invalid numeric format : %s.\nThis should have the following format : 'x.y description' (the numeric separator depends on your local parameters)"), str.c_str()));
+		}
+	}
+	return (ratio > 0);
+}  
 
 void RatioFrame::OnRatioChange(wxCommandEvent &event)
 {
@@ -1826,7 +1912,7 @@ void RatioFrame::OnResizeChange(wxCommandEvent &event)
 	if (sel > 0) 
 	{
 		Resize(m_pResizeCombo->GetStringSelection());
-		m_pResizeCombo->SetSelection(0);
+		m_pResizeCombo->SetSelection(sel);
 	}
 }
 
@@ -1838,10 +1924,33 @@ void RatioFrame::OnResizeEnter(wxCommandEvent &event)
 		wxCommandEvent evt;
 		OnResizeChange(evt); 
 	}
-	// m_pResizeCombo->SetSelection(m_pResizeCombo->GetCount()-1);
+	//m_pResizeCombo->SetSelection(m_pResizeCombo->GetCount()-1);
 	m_pResizeCombo->SetSelection(0);
 }
 
+void RatioFrame::OnGuideChange(wxCommandEvent &event)
+{
+	int sel;
+	if (event.GetId() == WIDGET_RATIOCOMBO)
+			 sel = event.GetSelection();
+		else sel = m_pGuideCombo->GetSelection();
+	if (sel >= 0) 
+	{
+		CalcGuideRatio(m_pGuideCombo->GetStringSelection());
+		m_pGuideCombo->SetSelection(sel);
+	}
+}
+
+void RatioFrame::OnGuideEnter(wxCommandEvent &event)
+{
+	if (CalcGuideRatio(event.GetString()))
+	{
+		m_pGuideCombo->Append(event.GetString());
+		wxCommandEvent evt;
+		OnGuideChange(evt); 
+	}
+	m_pGuideCombo->SetSelection(m_pResizeCombo->GetCount()-1);
+}
 
 void RatioFrame::OnPreferences(wxCommandEvent &event)
 {

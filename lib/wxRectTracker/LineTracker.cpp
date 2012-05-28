@@ -1,7 +1,7 @@
 /* ****************************************************************************
  * LineTracker.cpp                                                            *
  *                                                                            *
- * (c) 2004-2008 - Rémi Peyronnet <remi+rphoto@via.ecp.fr>                    *
+ * (c) 2004-2012 - Rémi Peyronnet <remi+rphoto@via.ecp.fr>                    *
  * LineTracker was originally designed for RPhoto, but can be used separately *
  *                                                                            *
  * Licence : wxWindows (based on L-GPL)                                       *
@@ -14,7 +14,7 @@
 
 /// Helpers
 
-wxRect NormalizeRect(wxRect rect)
+static wxRect NormalizeRect(wxRect rect)
 {
 	if (rect.width < 0) { rect.x += rect.width ; rect.width = -rect.width; }
 	if (rect.height < 0) { rect.y += rect.height ; rect.height = -rect.height; }
@@ -25,14 +25,8 @@ wxRect NormalizeRect(wxRect rect)
 
 IMPLEMENT_CLASS(wxLineTracker, wxRectTracker)
 
-wxLineTracker::wxLineTracker(
-			wxWindow * parent, 
-			wxWindowID id,  
-			const wxPoint & begin, 
-			const wxPoint & end, 
-			long style,
-            wxRectTrackerHost * rectTrackerHost) 
-			: wxRectTracker(parent, id, begin, wxSize((end - begin).x, (end - begin).y), style, rectTrackerHost)
+wxLineTracker::wxLineTracker(wxWindow * parent, wxFrame * frame) 
+			: wxRectTracker(parent, frame)
 {
 }
 
@@ -43,28 +37,20 @@ wxLineTracker::~wxLineTracker()
 
 void wxLineTracker::OnPaint(wxPaintEvent & event)
 {
-//    wxPaintDC dc(this);
-    wxAutoBufferedPaintDC dc(this);
-
+	if ((m_state & RT_STATE_DISABLED) != 0) return;
 	if ((m_state & RT_STATE_DRAGGING) != 0) return;
-
-#ifdef RT_GTK_HACK
-    if (m_pRectTrackerHost)
-    {
-		dc.SetDeviceOrigin(-GetPosition().x, -GetPosition().y);
-        m_pRectTrackerHost->PaintDC(dc);
-        dc.SetDeviceOrigin(0, 0);
-    }    
-#endif
-
+	this->GetNextHandler()->ProcessEvent(event);
+	wxClientDC dc(m_wnd);
+	if (wxDynamicCast(m_wnd,wxScrolledWindow))
+	{
+		wxDynamicCast(m_wnd,wxScrolledWindow)->DoPrepareDC(dc);
+	}   
 	DrawLine(dc, GetPosBegin(), GetPosEnd());
 }
 
 // DrawLine operates with a wxPaintDC => Window coordinates
 void wxLineTracker::DrawLine(wxDC & dc, wxPoint begin, wxPoint end)
 {
-	dc.SetDeviceOrigin(-GetPosition().x, -GetPosition().y);
-
 	// Rect
 	dc.SetBrush(*wxTRANSPARENT_BRUSH);
 	dc.SetPen(*wxBLACK_PEN);
@@ -82,7 +68,6 @@ void wxLineTracker::DrawLine(wxDC & dc, wxPoint begin, wxPoint end)
     	if (m_iHandlerMask & RT_LINE_MASK_BEGIN) dc.DrawRectangle(begin.x-(z/2), begin.y-(z/2), z, z);
     	if (m_iHandlerMask & RT_LINE_MASK_END  ) dc.DrawRectangle(end.x-(z/2), end.y-(z/2), z, z);
     }   	
-    dc.SetDeviceOrigin(0, 0);
 }
 
 // DrawTracker operates with the parent's wxWindowDC => Parent coordinates
@@ -93,10 +78,10 @@ void wxLineTracker::DrawTracker(wxDC & dc, wxPoint begin, wxPoint end)
 	x1 = begin.x; y1 = begin.y;
 	x2 = end.x;   y2 = end.y;
 	// Convert coordinates if scrolled
-	if (wxDynamicCast(GetParent(),wxScrolledWindow) != NULL)
+	if (wxDynamicCast(m_wnd,wxScrolledWindow) != NULL)
 	{
-		wxDynamicCast(GetParent(),wxScrolledWindow)->CalcScrolledPosition(x1, y1, &x1, &y1);
-		wxDynamicCast(GetParent(),wxScrolledWindow)->CalcScrolledPosition(x2, y2, &x2, &y2);
+		wxDynamicCast(m_wnd,wxScrolledWindow)->CalcScrolledPosition(x1, y1, &x1, &y1);
+		wxDynamicCast(m_wnd,wxScrolledWindow)->CalcScrolledPosition(x2, y2, &x2, &y2);
 	}
 
 	// Inverted Line
@@ -113,7 +98,6 @@ void wxLineTracker::OnKey(wxKeyEvent & event)
     
     if ((m_state & RT_STATE_DISABLED) != 0) return;
     
-	/*
 	int incr = 0, dx = 0, dy = 0;
 	int handler;
 	wxRect tmpRect;
@@ -123,6 +107,18 @@ void wxLineTracker::OnKey(wxKeyEvent & event)
 
 	switch(event.GetKeyCode())
 	{
+	case WXK_ESCAPE :
+			if ((m_state & RT_STATE_MOUSE_CAPTURED) != 0)
+			{
+				m_wnd->ReleaseMouse();
+				m_state ^= RT_STATE_MOUSE_CAPTURED;
+				Update();
+			}
+            else
+            {
+                Hide();
+            }
+			break;
 	case WXK_LEFT	: dx -= incr; break;
 	case WXK_UP		: dy -= incr; break;
 	case WXK_RIGHT	: dx += incr; break;
@@ -135,21 +131,20 @@ void wxLineTracker::OnKey(wxKeyEvent & event)
 	{
 		if (event.ShiftDown())
 		{
-			tmpRect.width += dx;
-			tmpRect.height += dy;
-			handler = (dx == 0)?RT_HANDLER_BOTTOM_MID:RT_HANDLER_MID_RIGHT;
+			m_pCurEnd.x += dx;
+			m_pCurEnd.y += dy;
+			handler = RT_LINE_HANDLER_END;
 		}
 		else
 		{
-			tmpRect.x += dx;
-			tmpRect.y += dy;
+			m_pCurBegin.x += dx;	m_pCurEnd.x += dx;
+			m_pCurBegin.y += dy;	m_pCurEnd.y += dy;
 			handler = 0;
 		}
-		AdjustTrackerRect(tmpRect, handler);
-		SetUnscrolledRect(tmpRect);
+		AdjustLineTracker(m_pCurBegin, m_pCurEnd, handler);
+		SetTrackerPosition(m_pCurBegin, m_pCurEnd);
 		Update();
 	}
-	*/
 
 }
 
@@ -157,9 +152,6 @@ void wxLineTracker::OnMouseMotion(wxMouseEvent & event)
 {
 	int hit;
 	int dx, dy;
-	
-	wxMouseEvent evt(event);
-	ForwardMouseEventToParent(evt);
 
     if ((m_state & RT_STATE_DISABLED) != 0) return;
 
@@ -172,28 +164,21 @@ void wxLineTracker::OnMouseMotion(wxMouseEvent & event)
 		case RT_LINE_HANDLER_END:
 		case RT_LINE_HANDLER_BEGIN:
 		case RT_LINE_HANDLER_ON_LINE:
-			SetCursor(*m_cursorMove);
+			m_wnd->SetCursor(*m_cursorMove);
 			break;
 		default:
-			SetCursor(wxCursor(wxCURSOR_ARROW));
+			m_wnd->SetCursor(wxCursor(wxCURSOR_ARROW));
+            break;
 		}
 	}
 	else if (event.LeftIsDown())
 	{
 		// Dragging
 
-		wxASSERT(GetParent()!=NULL);
+		wxASSERT(m_wnd!=NULL);
 
 		// Drawing Tracker Rect
-		wxClientDC dc(GetParent());
-        //wxScreenDC dc;
-        int cx, cy, cw, ch;
-        GetParent()->GetClientSize(&cw, &ch);
-        cx = cy = 0;
-        //GetParent()->ClientToScreen(&cx, &cy);
-        dc.SetDeviceOrigin(cx, cy);
-        dc.SetClippingRegion(0, 0, cw, ch);
-        //dc.StartDrawingOnTop(GetParent());
+		wxClientDC dc(m_wnd);
 
 		if ((m_state & RT_STATE_DRAGGING) == 0)
 		{
@@ -227,14 +212,14 @@ void wxLineTracker::OnMouseMotion(wxMouseEvent & event)
 		}
 
 		// Adjust current Tracker size
-		//AdjustTrackerLine(m_pCurBegin, m_pCurEnd, hit);
+		AdjustLineTracker(m_pCurBegin, m_pCurEnd, hit);
 
 		// Draw current Tracker
 		DrawTracker(dc, m_pCurBegin, m_pCurEnd);
 
 		// Update Parent's Status Bar
-		wxCommandEvent evt(EVT_TRACKER_CHANGING, this->GetId());
-		GetParent()->GetEventHandler()->ProcessEvent(evt);
+		wxCommandEvent evt(wxEVT_TRACKER_CHANGING, m_wnd->GetId());
+		m_wnd->GetEventHandler()->ProcessEvent(evt);
 
         //dc.EndDrawingOnTop();
 	}
@@ -242,25 +227,21 @@ void wxLineTracker::OnMouseMotion(wxMouseEvent & event)
 	// Check there is no abuse mouse capture
 	if (!(event.LeftIsDown()) && ((m_state & RT_STATE_MOUSE_CAPTURED) != 0))
 	{
-		ReleaseMouse();
+		m_wnd->ReleaseMouse();
 		m_state ^= RT_STATE_MOUSE_CAPTURED;
 	}
 
 	// Update prev_move
-	m_prevMove.x = event.m_x;
-	m_prevMove.y = event.m_y;
-
+    m_prevMove = event.GetPosition();
 }
-
 
 void wxLineTracker::OnMouseLeftDown(wxMouseEvent & event)
 {
 	if (HitTest(event.m_x, event.m_y) == RT_LINE_HANDLER_NONE)
 	{
-		SetTrackerPosition(wxPoint(event.m_x + GetPosition().x, event.m_y + GetPosition().y), 
-						   wxPoint(event.m_x + GetPosition().x, event.m_y + GetPosition().y));
-		event.m_x = 0;
-		event.m_y = 0;
+		m_pCurBegin = wxPoint(event.m_x, event.m_y);
+		m_pCurEnd = m_pCurBegin;
+		SetTrackerPosition(m_pCurBegin, m_pCurEnd);
 	}
 	wxRectTracker::OnMouseLeftDown(event);
 }
@@ -269,7 +250,7 @@ void wxLineTracker::OnMouseLeftUp(wxMouseEvent & event)
 {
 	if ((m_state & RT_STATE_MOUSE_CAPTURED) != 0)
 	{
-		ReleaseMouse();
+		m_wnd->ReleaseMouse();
 		m_state ^= RT_STATE_MOUSE_CAPTURED;
 	}
 	if ((m_state & RT_STATE_DRAGGING) != 0)
@@ -280,7 +261,7 @@ void wxLineTracker::OnMouseLeftUp(wxMouseEvent & event)
 	}
 }
 
-int wxLineTracker::HitTest(int x, int y)
+int wxLineTracker::HitTest(int x, int y) const
 {
 	wxRect curRect;
   	int z = m_iHandlerWidth;
@@ -294,8 +275,8 @@ int wxLineTracker::HitTest(int x, int y)
 	if ( hit == m_iBeginHandler)	return RT_LINE_HANDLER_BEGIN;
 
 	// Distance entre le point et le segment (a = begin ; b = end ; c = x,y )
-	int xac = x - GetPosBegin().x + GetPosition().x;
-	int yac = y - GetPosBegin().y + GetPosition().y;
+	int xac = x - GetPosBegin().x; // + m_Rect.GetPosition().x;
+	int yac = y - GetPosBegin().y; // + m_Rect.GetPosition().y;
 	int xab = GetPosEnd().x - GetPosBegin().x;
 	int yab = GetPosEnd().y - GetPosBegin().y;
 
@@ -304,107 +285,32 @@ int wxLineTracker::HitTest(int x, int y)
 			 / ((double) (xab * xab) + (yab * yab))
 				 ) < ((double) z * z) )
 				return RT_LINE_HANDLER_ON_LINE;
-
-/*
-#define SQR(x) ((x)*(x))
-#define DELTA 3
-
-   double xn = -(yb-ya);
-   double yn = (xb-xa);
-
-   double xac = xc-xa;
-   double yac = yc-ya;
-   double xab = xb-xa;
-   double yab = yb-ya;
-
-   double acdotnsq = SQR(xac*xn + yac*yn);
-
-   double normnsq = SQR(xn) + SQR(yn);
-
-   double dsq = acdotnsq / normnsq;
-
-   double acdotab = xac*xab + yac*yab;
-   double normabsq = SQR(xab) + SQR(yab);
-
-   return dsq <= SQR(DELTA) &&
-         acdotab >= 0 &&
-         acdotab <= normabsq; 
-*/
 	
 	return RT_HANDLER_NONE;
-
-/*	
-	// Split vertically, then horizontally
-	if ( (y <= h) && (y >= h-z) )
-	{
-		// Bottom line
-		if ( (x >= w-z) && (x <= w) )
-		{
-			// Bottom Right
-			return RT_HANDLER_BOTTOM_RIGHT;
-		}
-		else if ( (x >= 0) && (x <= z) )
-		{
-			// Bottom left
-			return RT_HANDLER_BOTTOM_LEFT;
-		}
-	}
-	else if ( (y >= 0) && (y <= z) )
-	{
-		// Top line
-		if ( (x >= w-z) && (x <= w) )
-		{
-			// Top Right
-			return RT_HANDLER_TOP_RIGHT;
-		}
-		else if ( (x >= 0) && (x <= z) )
-		{
-			// Top left
-			return RT_HANDLER_TOP_LEFT;
-		}
-	}
-	return RT_HANDLER_NONE;
-*/
 }
 
-/*
-void wxRectTracker::AdjustTrackerRectMax(wxRect &m_curRect, int handler)
+void wxLineTracker::AdjustLineTracker(wxPoint & begin, wxPoint & end, int handler)
 {
+	AdjustLineTrackerMax(begin, end, handler);
+}
+
+void wxLineTracker::AdjustLineTrackerMax(wxPoint & begin, wxPoint & end, int handler)
+{
+	
 	// Adjust m_maxRect 
 	if ((m_maxRect.width < 0) || (m_maxRect.height < 0)) return;
 
-	// - Left X
-	if (m_curRect.x < m_maxRect.x)
-	{
-		if (handler != RT_HANDLER_NONE) m_curRect.width -= m_maxRect.x - m_curRect.x; 
-		m_curRect.x = m_maxRect.x;
-	}
-	// - Right X
-	if ((m_curRect.x + m_curRect.width) > (m_maxRect.x + m_maxRect.width))
-	{
-		if (handler != RT_HANDLER_NONE) m_curRect.width = m_maxRect.x + m_maxRect.width - m_curRect.x; 
-		m_curRect.x = m_maxRect.x + m_maxRect.width - m_curRect.width;
-	}
-	// - Top Y
-	if (m_curRect.y < m_maxRect.y)
-	{
-		if (handler != RT_HANDLER_NONE) m_curRect.height -= m_maxRect.y - m_curRect.y; 
-		m_curRect.y = m_maxRect.y;
-	}
-	// - Bottom Y
-	if ((m_curRect.y + m_curRect.height) > (m_maxRect.y + m_maxRect.height))
-	{
-		if (handler != RT_HANDLER_NONE) m_curRect.height = m_maxRect.y + m_maxRect.height - m_curRect.y; 
-		m_curRect.y = m_maxRect.y + m_maxRect.height - m_curRect.height;
-	}
+	if (begin.x < m_maxRect.x) begin.x = m_maxRect.x;
+	if (begin.x > m_maxRect.x + m_maxRect.width) begin.x = m_maxRect.x + m_maxRect.width;
+	if (begin.y < m_maxRect.y) begin.y = m_maxRect.y;
+	if (begin.y > m_maxRect.y + m_maxRect.height) begin.y = m_maxRect.x + m_maxRect.height;
+
+	if (end.x < m_maxRect.x) end.x = m_maxRect.x;
+	if (end.x > m_maxRect.x + m_maxRect.width) end.x = m_maxRect.x + m_maxRect.width;
+	if (end.y < m_maxRect.y) end.y = m_maxRect.y;
+	if (end.y > m_maxRect.y + m_maxRect.height) end.y = m_maxRect.x + m_maxRect.height;
 
 }
-
-void wxRectTracker::AdjustTrackerRect(wxRect &m_curRect, int handler)
-{
-	AdjustTrackerRectMax(m_curRect, handler);
-}
-*/
 
 void wxLineTracker::SetTrackerPosition(wxPoint begin, wxPoint end)
 {
@@ -440,47 +346,39 @@ void wxLineTracker::SetTrackerPosition(wxPoint begin, wxPoint end)
 
 void wxLineTracker::Update()
 {
-	/*
-	m_curRect = GetUnscrolledRect();
-	AdjustTrackerRect(m_curRect, -1);
-	if (m_curRect != GetUnscrolledRect())
-	{
-		SetUnscrolledRect(m_curRect);
-	}
-	*/
-	GetParent()->Refresh();
-    wxCommandEvent evt(EVT_TRACKER_CHANGED, this->GetId());
-    GetParent()->GetEventHandler()->ProcessEvent(evt);
+	m_wnd->Refresh();
+    wxCommandEvent evt(wxEVT_TRACKER_CHANGED, m_wnd->GetId());
+    m_wnd->GetEventHandler()->ProcessEvent(evt);
 }
 
-wxPoint wxLineTracker::GetPosBegin() 
+wxPoint wxLineTracker::GetPosBegin() const
 {
 	return GetPosHandler(m_iBeginHandler);
 }
 
-wxPoint wxLineTracker::GetPosEnd()
+wxPoint wxLineTracker::GetPosEnd() const
 {
 	return GetPosHandler(m_iEndHandler);
 }
 
-wxPoint wxLineTracker::GetPosHandler(enum RT_HANDLER handler)
+wxPoint wxLineTracker::GetPosHandler(enum RT_HANDLER handler) const
 {
 	wxPoint pos;
 	switch(handler)
 	{
-	case RT_HANDLER_TOP_MID:		pos = wxPoint(GetSize().GetWidth() / 2, 0); break;
-	case RT_HANDLER_MID_RIGHT:		pos = wxPoint(GetSize().GetWidth() - 1, GetSize().GetHeight() / 2); break;
-	case RT_HANDLER_BOTTOM_MID:		pos = wxPoint(GetSize().GetWidth() / 2, GetSize().GetHeight() - 1); break;
-	case RT_HANDLER_MID_LEFT:		pos = wxPoint(0, GetSize().GetHeight() / 2); break;
+	case RT_HANDLER_TOP_MID:		pos = wxPoint(m_Rect.GetWidth() / 2, 0); break;
+	case RT_HANDLER_MID_RIGHT:		pos = wxPoint(m_Rect.GetWidth() - 1, m_Rect.GetHeight() / 2); break;
+	case RT_HANDLER_BOTTOM_MID:		pos = wxPoint(m_Rect.GetWidth() / 2, m_Rect.GetHeight() - 1); break;
+	case RT_HANDLER_MID_LEFT:		pos = wxPoint(0, m_Rect.GetHeight() / 2); break;
 	case RT_HANDLER_TOP_LEFT:		pos = wxPoint(0, 0); break;
-	case RT_HANDLER_TOP_RIGHT:		pos = wxPoint(GetSize().GetWidth() - 1, 0); break;
-	case RT_HANDLER_BOTTOM_RIGHT:	pos = wxPoint(GetSize().GetWidth() - 1, GetSize().GetHeight() - 1); break;
-	case RT_HANDLER_BOTTOM_LEFT:	pos = wxPoint(0, GetSize().GetHeight() - 1); break;
+	case RT_HANDLER_TOP_RIGHT:		pos = wxPoint(m_Rect.GetWidth() - 1, 0); break;
+	case RT_HANDLER_BOTTOM_RIGHT:	pos = wxPoint(m_Rect.GetWidth() - 1, m_Rect.GetHeight() - 1); break;
+	case RT_HANDLER_BOTTOM_LEFT:	pos = wxPoint(0, m_Rect.GetHeight() - 1); break;
 	case RT_HANDLER_OUTSIDE:
 	case RT_HANDLER_NONE:
 	default:
 		return wxPoint(-1,-1);
 	}
-	return pos + GetPosition();
+	return pos + m_Rect.GetPosition();
 }
 

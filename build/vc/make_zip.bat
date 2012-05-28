@@ -1,4 +1,4 @@
-call upx_compress.bat
+REM call upx_compress.bat
 cd ..\..\bin
 mkdir ..\distrib
 zip -9 -r -j rphoto.htb ..\doc\use

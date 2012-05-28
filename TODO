@@ -1,16 +1,38 @@
-- Print angle
-- Edit comments (text field in the bottom)
-- Rename Photos (long clic on tree explorer)
-- Display EXIF Tags (tabs on the right, order main tags, display alls tags)
+Bugs :
+
+Features :
+- Mask off areas to be cropped off (Marcus S.)
+- Guides / Rulers (Marcus S.)
+- Zooms (Marcus S.)
+- Confirmation when not save (Marcus S.)
+- Snap borders to lossless (Marcus S.)
+- Update Exif tags (Marcus S.)
+- Print (Catherine)
+- Rename Photos (long clic on tree explorer) 
 - Edit EXIF Tags (double clic)
 - Thumbnails view (tab with tree explorer)
-- Slight Rotation (By selecting 2 points for vertical or horizontal, not lossless)
 - Brightness / Contrast
 - Red Eye
 - Color Adjustement
-- Save last entered ratio or size
 
-Known Bugs :
- - Keyboard not functionning in ratio mode :
+
+Done ----------------------------------------------------------------------------
+
+Bugs:
+ - Keyboard not functionning in ratio mode  -> ok
    * Increase of +1 is not sufficient in the weak section of portrait / landscape
    * Left key erase everything
+- Selection Handles disappear (Marcus) -> fixed
+- Crop border do not move when being dragged smaller (Marcus) -> fixed
+- Readonly files (Marcus) -> implemented
+- The 0x0+0,0 zone is too small (Marcus) -> fixed
+- Lossless warnings not functionnal (Marcus) -> verified ok : jpegtran warns rotation, but not cropping
+- Translation notes (Free Rotation, Ratio : Free, Resize : No) -> ok
+- Bizarre tree behavior on linux, when saving (Marcus, marcus.sundman@iki.fi) -> not observed
+
+Features :
+- Print angle -> ok
+- Edit comments (text field in the bottom) -> ok
+- Save last entered ratio or size -> ok
+- Display EXIF Tags (tabs on the right, order main tags, display alls tags) -> ok
+- Slight Rotation (By selecting 2 points for vertical or horizontal, not lossless) -> ok

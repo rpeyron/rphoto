@@ -1,7 +1,9 @@
 /* ****************************************************************************
  * RectTracker.h                                                              *
  *                                                                            *
- * (c) 2004-2008 - Rémi Peyronnet <remi+rphoto@via.ecp.fr>                    *
+ * (c) 2004-2012 - Rémi Peyronnet <remi+rphoto@via.ecp.fr>                    *
+ *                                                                            *
+ * wxEvtHandler adaptation from Troels K. (2011)                              *
  *                                                                            *
  * RectTracker was originally designed for RPhoto, but can be used separately *
  * It is a control similar to the CRectTracker of MS MFC.                     *
@@ -14,8 +16,6 @@
 #define __RECTTRACKER_H__
 
 #include <wx/wx.h>
-
-// TODO : Separate common source code into a wxTracker / wxHostTracker superclass
 
 /// Handler position enum.
 enum RT_HANDLER
@@ -38,7 +38,8 @@ enum RT_STATE
    RT_STATE_NONE = 0,
    RT_STATE_DRAGGING = 1,
    RT_STATE_MOUSE_CAPTURED = 2,
-   RT_STATE_DISABLED = 4
+   RT_STATE_DISABLED = 4,
+   RT_STATE_FIRSTDRAG = 8
 };
 
 /// Mask to use with SetHandlerMask() to specify which handlers will be displayed.
@@ -57,102 +58,15 @@ enum RT_MASK
    /// Use this to show all handlers (default).
    RT_MASK_ALL          = 0xFF
 };
-
-/** GTK Hack
- *
- * There is a big problem with wxGTK for transparency, as background of controls 
- * will always be cleared by the system before any call to the control. Where 
- * with wxWin32, only a redefinition of OnEraseBackground() was needed, we must 
- * completly redraw the background in wxGTK.
- * 
- * Waiting for a better solution (maybe in wxGTK2?), wxRectTrackerHost is a 
- * workaround to this. The goal of this class is to provide a PaintDC function
- * to the wxRectTracker. Basically, as this kind of tracker is often used on 
- * owner-drawn surfaces (images, graphics, ...) this should not be too hard.
- * The wxDC given in parameter is exprimated in "Parent" units, which should 
- * allow to use the same code for OnPaint() and PaintDC().
- * 
- * If you only want it to work on Microsoft Windows, do not care of all that stuff,
- * and pass NULL as wxRectTrackerHost to wxRectTracker constructor.
- *
- * If you want a GTK support, you should define a local class which derivates 
- * of wxRectTrackerHost in the class you use the wxRectTracker (the one which handles
- * the background of the control, and in most case, the parent of wxRectTracker)
- * In this inner class, you will be able to refer protected functions of the parent
- * class, and thus, the code for drawing the background.
- *
- * Code example :
- * <pre>
- * class myHostControlClass : wxWindow
- * {
- *   ...
- *   protected: 
- *     wxRectTracker myTracker; // constructed with myMainClass as parent window
- *     void OnPaint(wxPaintEvent & event) { ... PaintDC(dc); ... } // Owner-drawn
- *     void PaintDC(wxDC & dc) { ... } // Actually draw stuff (ex : dc.DrawBitmap)
- *     // wxRectTrackerHost workaround
- *     class myRectTrackerHost : public wxRectTrackerHost
- *     {
- *     public:
- *       myRectTrackerHost(wxRatioImageBox & owner) : m_pOwner(owner) {};
- *       virtual ~myRectTrackerHost() {};
- *       virtual void PaintDC(wxDC & dc) { m_pOwner.PaintDC(dc); }
- *     protected:
- *       myHostControlClass & m_pOwner;
- *     };
- *     myRectTrackerHost m_Host;  // Should be instanciated in the constructor by m_Host(this)
- * }
- * </pre>
- *
- * Warning : you MUST NOT use PrepareDC in your own PaintDC. 
- * This is because on wxGTK, PrepareDC redefines from scratch the DeviceOrigin,
- *  which has already been altered in the Tracker OnPaint function (works on wxMSW).
- *  You should use GetViewStart and translate everything yourself, as shown below :
- *  (or call yourself SetDeviceOrigin with the view start AND the tracker position)
- *
- * <pre>
- * void PaintDC(wxDC & dc) 
- * { 
- *      int vx, vy;
- *      GetViewStart(&vx, &vy); // Do not use PrepareDC(dc); 
- *      dc.DrawBitmap(*m_buffer, m_bufferX - vx, m_bufferY - vy); 
- * }
- * </pre>
- *
- * As this is maybe not very clear, a full featured example is available at :
- * http://people.via.ecp.fr/~remi/soft/rphoto/rphoto.php3
- * I will try also to make spppppppomething like a wiki on the subject.
- */
  
-#ifdef __WXGTK__
-#define RT_GTK_HACK
-#endif
-
-// Well, it seems finally that Windows now needs the GTK Hack...
-#define RT_GTK_HACK
-
-// First attempt with defining wxRectTrackerHost as an interface,
-//  but making interfaces with C++ and Abstact Base Class is awfull
-// Usefull Black Magic from : http://wiki.wxwidgets.org/wiki.pl?Multiple_Inheritance
-
-/// Definition of the PaintDC "callback", for transparency on GTK. 
-/// Please see documentation on RT_GTK_HACK define. @see RT_GTK_HACK
-class wxRectTrackerHost
-{
-public:
-   DECLARE_CLASS(wxRectTrackerHost)
-   wxRectTrackerHost() {};
-   virtual ~wxRectTrackerHost() {};
-   virtual void PaintDC(wxDC & dc) = 0;
-};    
-
 /** wxRectTracker control
  * 
  * This control aims at providing same functionnalies as the MFC CRectTracker.
  * It is basically a selection rectangle with dragging capabilites, 
  *  to set its size and position.
- * It is highly recommanded to use directly contained in the wxWindow that will handle 
- * its background. (See RT_GTK_HACK for any related issue on backgrounds).
+ *
+ * This control is a wxEvtHandler to not disturb Event chain and fix background issues
+ * You must register it vist PushEventHandler and RemoveEventHandler
  *
  * Well nothing much to be said about this... or maybe :
  *  - The control defines two events EVT_TRACKER_CHANGED and EVT_TRACKER_CHANGING to be
@@ -163,38 +77,35 @@ public:
  *  - You can set a max area with SetMaxRect()
  *  - You can get the current size/position with GetUnscrolledRect()
  *
- *  @see RT_GTK_HACK
+ * To use this control, you have just to create it on the wxWindow you want ; it will register itself. 
+ * Delete it to unregister it.
+ *
  */ 
-class wxRectTracker : public wxWindow
+class wxRectTracker : public wxEvtHandler
 {
 	DECLARE_CLASS(wxRectTracker)
 public:
     /** wxRectTracker constructor
-     * The first five parameters as like in every wxWindow class.
-     * The last one is dedicated to background support in GTK (see RT_GTK_HACK define)
-     *  if you do not intend to use GTK, juste keep it to NULL. @see RT_GTK_HACK
+	 *
+     * @param wnd is the wxWindow accepting this widget
+	 * @param frame is the frame containing this widget for debugging purpose (will display its position in the statusbar)
      */
-	wxRectTracker(wxWindow* parent, 
-                  wxWindowID id, 
-                  const wxPoint& pos = wxDefaultPosition, 
-                  const wxSize& size = wxDefaultSize, 
-                  long style = 0,
-                  wxRectTrackerHost * rectTrackerHost = NULL);
-	~wxRectTracker();
+	wxRectTracker(wxWindow* wnd, wxFrame* frame = NULL);
+	virtual ~wxRectTracker();
 
 public:
     /// Returns true if the provided coordinates are in the tracker. (Parent coo.)
-	int HitTest(int x, int y);
+	int HitTest(int x, int y) const;
 	
 	// Manipulation function -----------------------------------------------------
 	/// Update the tracker position and size (usefull for initialisation)
 	void Update();
 	/// Get the coordinates of the area the tracker should not go beyond.
-	wxRect GetMaxRect() { return m_maxRect; };
+	wxRect GetMaxRect() const { return m_maxRect; };
 	/// Set the maximum boundaries of the available space the tracker.
-	void SetMaxRect(wxRect maxRect);
+	void SetMaxRect(const wxRect& maxRect);
 	/// Get the list of handlers to be displayed (See RT_MASK enum)
-	int GetHandlerMask() { return m_iHandlerMask; }
+	int GetHandlerMask() const { return m_iHandlerMask; }
 	/// Set which handlers will be displayed (See RT_MASK enum)
 	void SetHandlerMask(int iMask = RT_MASK_ALL) { m_iHandlerMask = iMask; }
 	/// Enable the Tracker
@@ -202,24 +113,37 @@ public:
 	/// Disable the Tracker
 	void Disable();
 	/// Get the Status
-	bool IsEnabled() { return ((m_state & RT_STATE_DISABLED) == 0); };
+	bool IsEnabled() const { return ((m_state & RT_STATE_DISABLED) == 0); };
+	/// Get Appearance Status
+	bool IsShown() const;
+	/// Hide the Tracker
+	void Hide();
+
+	/// Get current position of the tracker
+	wxRect GetTrackerRect() { return m_Rect; }
+	/// Set a new position for the tracker
+	void SetTrackerRect(const wxRect & rect) { m_Rect = rect; }
 	
 	// Scrolled Region Function --------------------------------------------------
 	/** Get the current size and position of the tracker. 
      * If the tracker is on a wxScrolledWindow component, this is the absolute 
      * position (as if the control was not scrolled) 
+	 *
+	 * Deprecated with wxEvtHandler ; will be soon removed, use GetRect / SetRect instead.
      */
-	wxRect GetUnscrolledRect();
-	/// Set a new position for the tracker
-	virtual void SetUnscrolledRect(wxRect rect);
-	/// Get the current position of the tracker, without taking in account any scroll area.
-	wxRect GetTrackerRect() { return m_curRect; };
+	wxRect GetUnscrolledRect() const;
+	/// Set a new position for the tracker ; deprecated with wxEvtHandlet, do not use.
+	virtual void SetUnscrolledRect(const wxRect& rect);
+	/// Get the current position of the tracker, without taking in account any scroll area  ; deprecated with wxEvtHandlet, do not use.
+	wxRect GetTrackerRect() const { return m_curRect; };
+
+	/// Callback on Draw event
+	virtual void OnDraw(wxDC*);
 
 protected:
 	// Internals : Events
     DECLARE_EVENT_TABLE()
 	// - Misc Events
-	virtual void OnEraseBackground(wxEraseEvent & event);
 	virtual void OnPaint(wxPaintEvent & event);
 	virtual void OnKey(wxKeyEvent & event);
 	virtual void OnMouseMotion(wxMouseEvent & event);
@@ -230,8 +154,8 @@ protected:
 	virtual void DrawRect(wxDC & dc, int x, int y, int w, int h);
 	virtual void DrawRect(wxDC & dc, wxRect rect);
 	virtual void DrawTracker(wxDC & dc, int x, int y, int w, int h);
-	virtual void DrawTracker(wxDC & dc, wxRect rect);
-	void ForwardMouseEventToParent(wxMouseEvent & event);
+	virtual void DrawTracker(wxDC & dc, const wxRect& rect);
+	//void ForwardMouseEventToParent(wxMouseEvent & event);
 
 protected:
 	// Behaviour Functions
@@ -259,28 +183,31 @@ protected:
 	wxPoint m_prevMove;  /// Coordinates of the previous move
 	wxRect m_prevRect;   /// Coordinates of the previous calculated tracker
 	wxRect m_curRect;    /// Coordinates of the current tracker
+	wxRect m_Rect;       /// Coordinates of the current tracker
 	wxCursor * m_cursorMove;
 
 	/// maxRect : the tracker should not go beyond this rect (Parent Coo)
 	wxRect m_maxRect;
-	/// For GTK transparency, See RT_GTK_HACK documentation.  @see RT_GTK_HACK
-	wxRectTrackerHost * m_pRectTrackerHost;
+	
+	/// m_wnd : the window containing the widget
+    wxWindow* m_wnd;
+
+	/// m_frame : the frame containing the widget
+    wxFrame* m_frame;
 };
 
-BEGIN_DECLARE_EVENT_TYPES()
-  DECLARE_EVENT_TYPE(EVT_TRACKER_CHANGED, 4212) 
-  DECLARE_EVENT_TYPE(EVT_TRACKER_CHANGING, 4213)
-END_DECLARE_EVENT_TYPES()
+extern const wxEventType wxEVT_TRACKER_CHANGING;
+extern const wxEventType wxEVT_TRACKER_CHANGED;
 
 /// Event fired when the user has decided a new position for the tracker (dragging is finished)
 #define EVT_TRACKER_CHANGED(id, fn)\
- DECLARE_EVENT_TABLE_ENTRY(EVT_TRACKER_CHANGED, id,\
+ DECLARE_EVENT_TABLE_ENTRY(wxEVT_TRACKER_CHANGED, id,\
  wxID_ANY,\
  (wxObjectEventFunction) (wxEventFunction) (wxCommandEventFunction)& fn, NULL),
 
 /// Event fired when the user is being moving or resizing the tracker (dragging in process)
 #define EVT_TRACKER_CHANGING(id, fn)\
- DECLARE_EVENT_TABLE_ENTRY(EVT_TRACKER_CHANGING, id,\
+ DECLARE_EVENT_TABLE_ENTRY(wxEVT_TRACKER_CHANGING, id,\
  wxID_ANY,\
  (wxObjectEventFunction) (wxEventFunction) (wxCommandEventFunction)& fn, NULL),
 

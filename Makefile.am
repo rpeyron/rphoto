@@ -1,5 +1,5 @@
 SUBDIRS= po lib src resources doc
-EXTRA_DIST = config.rpath m4/ChangeLog  config.rpath m4/ChangeLog  \
+EXTRA_DIST = config.rpath  config.rpath m4/ChangeLog  config.rpath m4/ChangeLog  \
         README \
         COPYING \
         AUTHORS \

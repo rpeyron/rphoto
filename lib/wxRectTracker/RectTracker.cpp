@@ -10,89 +10,57 @@
  *                                                                            *
  * ************************************************************************** */
 
-
 #include "RectTracker.h"
-#include <wx/dcbuffer.h>
 
-#ifdef RT_GTK_HACK
-#define wxDynamicCastHelper(obj, className, mixInClassName) \
- (obj && wxIsKindOf(((wxObject *)(void *)obj), className))? \
- (mixInClassName *)(className *)(void *)obj: \
- obj
- 
-#define IMPLEMENT_CLASS0(name) \
- wxClassInfo name::sm_class##name(wxT(#name), 0, 0, (int) sizeof(name), (wxObjectConstructorFn) 0);
+IMPLEMENT_CLASS(wxRectTracker, wxEvtHandler)
 
-// IMPLEMENT_ABSTRACT_CLASS(wxRectTrackerHost, wxObject)
-//IMPLEMENT_CLASS0(wxRectTrackerHost)
-#endif
+static const wxRect NullRect(0, 0, -1, -1);
 
-IMPLEMENT_ABSTRACT_CLASS(wxRectTrackerHost, wxObject)
-
-IMPLEMENT_CLASS(wxRectTracker, wxWindow)
-
-wxRectTracker::wxRectTracker(
-			wxWindow * parent, 
-			wxWindowID id,  
-			const wxPoint & pos, 
-			const wxSize& size, 
-			long style,
-            wxRectTrackerHost * rectTrackerHost) 
-			: wxWindow(parent, id, pos, size, style)
+wxRectTracker::wxRectTracker(wxWindow* wnd, wxFrame* frame) : 
+    wxEvtHandler(), m_wnd(wnd), m_frame(frame)
 {
 	m_iHandlerWidth = 5;
 	m_cursorMove = new wxCursor(wxCURSOR_SIZING);
 	m_state = 0;
-	m_maxRect = wxRect(0, 0, -1, -1); 
+	m_Rect = m_maxRect = NullRect;
 	m_iHandlerMask = RT_MASK_ALL;
-	m_pRectTrackerHost = rectTrackerHost;
-	SetBackgroundStyle(wxBG_STYLE_CUSTOM);
+	if (wnd) wnd->PushEventHandler(this);
 }
 
 wxRectTracker::~wxRectTracker()
 {
-	if (m_cursorMove) delete m_cursorMove;
+	if (m_wnd) m_wnd->RemoveEventHandler(this);
+	delete m_cursorMove;
 }
 
-
-BEGIN_EVENT_TABLE(wxRectTracker, wxWindow)
-   EVT_ERASE_BACKGROUND(wxRectTracker::OnEraseBackground)
+BEGIN_EVENT_TABLE(wxRectTracker, wxEvtHandler)
    EVT_PAINT(wxRectTracker::OnPaint)
    EVT_MOTION(wxRectTracker::OnMouseMotion)
    EVT_LEFT_DOWN(wxRectTracker::OnMouseLeftDown)
    EVT_LEFT_UP(wxRectTracker::OnMouseLeftUp)
-   EVT_RIGHT_DOWN(wxRectTracker::ForwardMouseEventToParent)
-   EVT_RIGHT_UP(wxRectTracker::ForwardMouseEventToParent)
    EVT_CHAR(wxRectTracker::OnKey)
 END_EVENT_TABLE()
 
-DEFINE_EVENT_TYPE(EVT_TRACKER_CHANGED)
-DEFINE_EVENT_TYPE(EVT_TRACKER_CHANGING)
+const wxEventType wxEVT_TRACKER_CHANGED = wxNewEventType();
+const wxEventType wxEVT_TRACKER_CHANGING = wxNewEventType();
 
-void wxRectTracker::OnEraseBackground(wxEraseEvent & event)
+void wxRectTracker::OnPaint(wxPaintEvent& event)
 {
-	// Transparency : Do Nothing  @See RT_GTK_HACK
+	this->GetNextHandler()->ProcessEvent(event);
+	wxClientDC dc(m_wnd);
+	if (wxDynamicCast(m_wnd,wxScrolledWindow))
+	{
+		wxDynamicCast(m_wnd,wxScrolledWindow)->DoPrepareDC(dc);
+	}   
+	OnDraw(&dc);
 }
 
-void wxRectTracker::OnPaint(wxPaintEvent & event)
+void wxRectTracker::OnDraw(wxDC* dc)
 {
-	int w, h ;
-    wxAutoBufferedPaintDC dc(this);
-//    wxPaintDC dc(this);
-
-#ifdef RT_GTK_HACK
-    if (m_pRectTrackerHost)
-    {
-		dc.SetDeviceOrigin(-GetPosition().x, -GetPosition().y);
-        m_pRectTrackerHost->PaintDC(dc);
-        dc.SetDeviceOrigin(0, 0);
-    }    
-#endif
-
-    GetClientSize(&w, &h);
-	DrawRect(dc, 0, 0, w, h);
+   if ((m_state & RT_STATE_DISABLED) != 0) return;
+   int w = m_Rect.width, h = m_Rect.height;
+   if ((w >=0) && (h >= 0)) DrawRect(*dc, m_Rect.GetLeft(), m_Rect.GetTop(), w, h);
 }
-
 
 // DrawRect operates with a wxPaintDC => Window coordinates
 void wxRectTracker::DrawRect(wxDC & dc, int x, int y, int w, int h)
@@ -132,25 +100,19 @@ void wxRectTracker::DrawRect(wxDC & dc, wxRect rect)
 void wxRectTracker::DrawTracker(wxDC & dc, int x, int y, int w, int h)
 {
 	// Convert coordinates if scrolled
-	if (wxDynamicCast(GetParent(),wxScrolledWindow) != NULL)
+	if (wxDynamicCast(m_wnd,wxScrolledWindow) != NULL)
 	{
-		wxDynamicCast(GetParent(),wxScrolledWindow)->CalcScrolledPosition(x, y, &x, &y);
+		wxDynamicCast(m_wnd,wxScrolledWindow)->CalcScrolledPosition(x, y, &x, &y);
 	}
 	// Inverted Rect
 	dc.SetLogicalFunction(wxINVERT);
 	dc.SetBrush(*wxTRANSPARENT_BRUSH);
 	dc.SetPen(*wxGREY_PEN);
 	dc.DrawRectangle(x,y,w,h);
-	/*
-	dc.DrawLine(x  ,y  ,x+w,y  );
-	dc.DrawLine(x  ,y  ,x  ,y+h);
-	dc.DrawLine(x+w,y  ,x+w,y+h);
-	dc.DrawLine(x  ,y+h,x+w,y+h);
-	*/
 	dc.SetLogicalFunction(wxCOPY);
 }
 
-void wxRectTracker::DrawTracker(wxDC & dc, wxRect rect)
+void wxRectTracker::DrawTracker(wxDC & dc, const wxRect& rect)
 {
 	DrawTracker(dc, rect.x, rect.y, rect.width, rect.height);
 }
@@ -158,8 +120,7 @@ void wxRectTracker::DrawTracker(wxDC & dc, wxRect rect)
 
 void wxRectTracker::OnKey(wxKeyEvent & event)
 {
-
-    if ((m_state & RT_STATE_DISABLED) != 0) { event.Skip(); return; } 
+    if ( ((m_state & RT_STATE_DISABLED) != 0) || !IsShown()) { event.Skip(); return; } 
     
 	int incr = 0, dx = 0, dy = 0;
 	int handler;
@@ -175,10 +136,14 @@ void wxRectTracker::OnKey(wxKeyEvent & event)
 	case WXK_ESCAPE :
 			if ((m_state & RT_STATE_MOUSE_CAPTURED) != 0)
 			{
-				ReleaseMouse();
+				m_wnd->ReleaseMouse();
 				m_state ^= RT_STATE_MOUSE_CAPTURED;
 				Update();
 			}
+            else
+            {
+                Hide();
+            }
 			break;
 	case WXK_LEFT	: dx -= incr; break;
 	case WXK_UP		: dy -= incr; break;
@@ -209,72 +174,79 @@ void wxRectTracker::OnKey(wxKeyEvent & event)
 
 }
 
-void wxRectTracker::ForwardMouseEventToParent(wxMouseEvent & event)
-{
-	// Forward simple Mouse Motion to parent window
-	if (GetParent())
-	{
-		ClientToScreen(&event.m_x, &event.m_y);
-		GetParent()->ScreenToClient(&event.m_x, &event.m_y);
-		GetParent()->AddPendingEvent(event);
-	}
-}
-
 void wxRectTracker::OnMouseMotion(wxMouseEvent & event)
 {
 	int hit;
 	int dx, dy;
-	
-	wxMouseEvent evt(event);
-	ForwardMouseEventToParent(evt);
 
     if ((m_state & RT_STATE_DISABLED) != 0) return;
 
+	wxMouseEvent mouse(event);
+
+	if (wxDynamicCast(m_wnd,wxScrolledWindow))
+	{
+		wxDynamicCast(m_wnd,wxScrolledWindow)->CalcUnscrolledPosition(mouse.m_x, mouse.m_y, &mouse.m_x, &mouse.m_y);
+	}
+	
+    if (m_frame && IsShown())
+    {
+	    m_frame->SetStatusText(wxString::Format(_("Mouse position : %d, %d / RectSize : %d,%d->%d,%d(+%d,%d)"),
+				event.m_x, event.m_y, 
+				m_Rect.GetLeft(), m_Rect.GetTop(), m_Rect.GetRight(), m_Rect.GetBottom(), m_Rect.GetWidth(), m_Rect.GetHeight()));
+    }
+	
 	// Just moving ?
 	if (!event.Dragging())
 	{
-		hit = HitTest(event.m_x, event.m_y);
+		hit = HitTest(mouse.m_x, mouse.m_y);
 		switch (hit)
 		{
 		case RT_HANDLER_TOP_MID:
 		case RT_HANDLER_BOTTOM_MID:
-			SetCursor(wxCursor(wxCURSOR_SIZENS));
+			m_wnd->SetCursor(wxCursor(wxCURSOR_SIZENS));
 			break;
 		case RT_HANDLER_MID_LEFT:
 		case RT_HANDLER_MID_RIGHT:
-			SetCursor(wxCursor(wxCURSOR_SIZEWE));
+			m_wnd->SetCursor(wxCursor(wxCURSOR_SIZEWE));
 			break;
 		case RT_HANDLER_TOP_LEFT:
 		case RT_HANDLER_BOTTOM_RIGHT:
-			SetCursor(wxCursor(wxCURSOR_SIZENWSE));
+			m_wnd->SetCursor(wxCursor(wxCURSOR_SIZENWSE));
 			break;
 		case RT_HANDLER_TOP_RIGHT:
 		case RT_HANDLER_BOTTOM_LEFT:
-			SetCursor(wxCursor(wxCURSOR_SIZENESW));
+			m_wnd->SetCursor(wxCursor(wxCURSOR_SIZENESW));
+			break;
+		case RT_HANDLER_NONE:
+			m_wnd->SetCursor(wxCursor(wxCURSOR_HAND /* *m_cursorMove */));
+			break;
+		case RT_HANDLER_OUTSIDE:
+			m_wnd->SetCursor(wxCursor(wxCURSOR_ARROW));
 			break;
 		default:
-			SetCursor(*m_cursorMove);
+			m_wnd->SetCursor(wxCursor(wxCURSOR_ARROW));
 		}
 	}
-	else if (event.LeftIsDown())
+	else if ((m_state & RT_STATE_DRAGGING))
 	{
 		// Dragging
 
-		wxASSERT(GetParent()!=NULL);
+		wxASSERT(m_wnd!=NULL);
 
 		// Drawing Tracker Rect
-		wxClientDC dc(GetParent());
-		// Use wxScreenDC instead to avoid clipping
-		//wxScreenDC dc;
+	    wxClientDC dc(m_wnd);
+		if (wxDynamicCast(m_wnd,wxScrolledWindow))
+		{
+			wxDynamicCast(m_wnd,wxScrolledWindow)->DoPrepareDC(dc);
+		} 
 
 		dx = 0; dy = 0;
-		//if (GetParent()) GetParent()->ClientToScreen(&dx, &dy);
 		dc.SetDeviceOrigin(dx, dy);
-		//dc.StartDrawingOnTop(GetParent());
 
-		if ((m_state & RT_STATE_DRAGGING) == 0)
+
+		if ((m_state & RT_STATE_FIRSTDRAG) == 0)
 		{
-			m_state |= RT_STATE_DRAGGING;
+			m_state |= RT_STATE_FIRSTDRAG;
 		}
 		else
 		{
@@ -286,35 +258,58 @@ void wxRectTracker::OnMouseMotion(wxMouseEvent & event)
 		// - Which Tracker ?
 		hit = HitTest(m_leftClick.x, m_leftClick.y);
 		// - Default Rect values
-		m_curRect = GetUnscrolledRect();
+		if (hit != RT_HANDLER_OUTSIDE) 
+		{
+			m_curRect = GetUnscrolledRect();
+		}
+		else
+		{
+			m_curRect = wxRect(m_leftClick, m_leftClick);
+			hit = RT_HANDLER_BOTTOM_RIGHT;
+		}
 		
-		dx = (event.m_x - m_leftClick.x);
-		dy = (event.m_y - m_leftClick.y);
+		dx = (mouse.m_x - m_leftClick.x);
+		dy = (mouse.m_y - m_leftClick.y);
 
-		if ( (hit & RT_HANDLER_MID_RIGHT) != 0)
+		if (hit == RT_HANDLER_OUTSIDE)
 		{
 			m_curRect.width += dx;
-		}
-		if ( (hit & RT_HANDLER_BOTTOM_MID) != 0)
-		{
 			m_curRect.height += dy;
 		}
-		if ( (hit & RT_HANDLER_MID_LEFT) != 0)
-		{
-			m_curRect.x += dx;
-			m_curRect.width -= dx;
-		}
-		if ( (hit & RT_HANDLER_TOP_MID) != 0)
-		{
-			m_curRect.y += dy;
-			m_curRect.height -= dy;
-		}
-		if (hit == RT_HANDLER_NONE)
+		else 	if (hit == RT_HANDLER_NONE)
 		{
 			m_curRect.x += dx;
 			m_curRect.y += dy;
 		}
-
+		else
+		{
+			// Use bit combination of handler values to update position
+			if ( (hit & RT_HANDLER_MID_RIGHT) != 0)
+			{
+				m_curRect.width += dx;
+			}
+			if ( (hit & RT_HANDLER_BOTTOM_MID) != 0)
+			{
+				m_curRect.height += dy;
+			}
+			if ( (hit & RT_HANDLER_MID_LEFT) != 0)
+			{
+				m_curRect.x += dx;
+				m_curRect.width -= dx;
+			}
+			if ( (hit & RT_HANDLER_TOP_MID) != 0)
+			{
+				m_curRect.y += dy;
+				m_curRect.height -= dy;
+			}
+		}
+        if (m_frame)
+        {
+		    m_frame->SetStatusText(wxString::Format(_("Mouse click : %d, %d / Hit : %d / RectSize : %d,%d->%d,%d(+%d,%d)"),
+				m_leftClick.x, m_leftClick.y, 
+				hit,
+				m_Rect.GetLeft(), m_Rect.GetTop(), m_Rect.GetRight(), m_Rect.GetBottom(), m_Rect.GetWidth(), m_Rect.GetHeight()));
+        }
 		// Correct Orientation (size and virtual handler)
         if (m_curRect.width < 0) 
         { 
@@ -339,57 +334,73 @@ void wxRectTracker::OnMouseMotion(wxMouseEvent & event)
 
 		// Update Parent's Status Bar
 		m_prevRect = m_curRect;
-		wxCommandEvent evt(EVT_TRACKER_CHANGING, this->GetId());
-		GetParent()->GetEventHandler()->ProcessEvent(evt);
-
-		//dc.EndDrawingOnTop();
+		wxCommandEvent evt(wxEVT_TRACKER_CHANGING, m_wnd->GetId());
+		m_wnd->GetEventHandler()->ProcessEvent(evt);
 	}
-	
+    
 	// Check there is no abuse mouse capture
 	if (!(event.LeftIsDown()) && ((m_state & RT_STATE_MOUSE_CAPTURED) != 0))
 	{
-		ReleaseMouse();
+		m_wnd->ReleaseMouse();
 		m_state ^= RT_STATE_MOUSE_CAPTURED;
 	}
-
+    
 	// Update prev_move
-	m_prevMove.x = event.m_x;
-	m_prevMove.y = event.m_y;
+	m_prevMove = mouse.GetPosition();
 
+   event.Skip();
 }
 
 void wxRectTracker::OnMouseLeftDown(wxMouseEvent & event)
 {
-	m_leftClick.x = event.m_x;
-	m_leftClick.y = event.m_y;
+	m_state |= RT_STATE_DRAGGING;
+	m_leftClick = event.GetPosition();
+	if (wxDynamicCast(m_wnd,wxScrolledWindow))
+	{
+		wxDynamicCast(m_wnd,wxScrolledWindow)->CalcUnscrolledPosition(m_leftClick.x, m_leftClick.y, &m_leftClick.x, &m_leftClick.y);
+	}
+	if (HitTest(m_leftClick.x, m_leftClick.y) == RT_HANDLER_OUTSIDE) 
+	{
+		Hide();
+		Update();
+	}
+	
 	if ((m_state & RT_STATE_MOUSE_CAPTURED) == 0)
 	{
-		CaptureMouse();
+		m_wnd->CaptureMouse();
 		m_state |= RT_STATE_MOUSE_CAPTURED;
 	}
+
+    event.Skip();
 }
 
 void wxRectTracker::OnMouseLeftUp(wxMouseEvent & event)
 {
 	if ((m_state & RT_STATE_MOUSE_CAPTURED) != 0)
 	{
-		ReleaseMouse();
+		m_wnd->ReleaseMouse();
 		m_state ^= RT_STATE_MOUSE_CAPTURED;
 	}
 	if ((m_state & RT_STATE_DRAGGING) != 0)
 	{
 		SetUnscrolledRect(m_prevRect);
 		m_state ^= RT_STATE_DRAGGING;
+		m_state ^= RT_STATE_FIRSTDRAG;
+		m_leftClick = wxPoint(0, 0);
 		Update();
 	}
+   event.Skip();
 }
 
-int wxRectTracker::HitTest(int x, int y)
+int wxRectTracker::HitTest(int x, int y) const
 {
 	int w, h;
 	int z = m_iHandlerWidth;
-
-	GetClientSize(&w, &h);
+	
+	w = m_Rect.GetWidth();
+	h = m_Rect.GetHeight();
+	x = x - m_Rect.GetLeft();
+	y = y - m_Rect.GetTop();
 
 	if ( (y < 0) || (y > h) || (x < 0) || (x > w) ) return RT_HANDLER_OUTSIDE;
 	
@@ -482,14 +493,16 @@ void wxRectTracker::AdjustTrackerRectMax(wxRect &m_curRect, int handler)
 
 }
 
-void wxRectTracker::AdjustTrackerRect(wxRect &m_curRect, int handler)
+void wxRectTracker::AdjustTrackerRect(wxRect &curRect, int handler)
 {
-	AdjustTrackerRectMax(m_curRect, handler);
+	AdjustTrackerRectMax(curRect, handler);
 }
 
-void wxRectTracker::SetMaxRect(wxRect m_maxRect)
+void wxRectTracker::SetMaxRect(const wxRect& maxRect)
 {
-	this->m_maxRect = m_maxRect;
+	this->m_maxRect = maxRect;
+	if (this->m_maxRect.height < 0) this->m_maxRect.height = - this->m_maxRect.height;
+	if (this->m_maxRect.width < 0)  this->m_maxRect.width  = - this->m_maxRect.width;
 	Update();
 }
 
@@ -501,64 +514,81 @@ void wxRectTracker::Update()
 	{
 		SetUnscrolledRect(m_curRect);
 	}
-	GetParent()->Refresh();
-    wxCommandEvent evt(EVT_TRACKER_CHANGED, this->GetId());
-    GetParent()->GetEventHandler()->ProcessEvent(evt);
+	m_wnd->Refresh();
+    wxCommandEvent evt(wxEVT_TRACKER_CHANGED, m_wnd->GetId());
+    m_wnd->GetEventHandler()->ProcessEvent(evt);
 }
+
+
+// TODO : rename this function, as it is now returning the scrolled rect
+wxRect wxRectTracker::GetUnscrolledRect() const
+{
+	return m_Rect;
+}
+
+void wxRectTracker::SetUnscrolledRect(const wxRect &rect_ref)
+{
+	m_Rect = rect_ref;
+}
+
 
 /*
 wxRect wxRectTracker::GetUnscrolledRect()
 {
 	wxRect rect;
-	rect = GetRect();
+	rect = m_wnd->GetRect();
+   //rect = m_Rect;
+
+	// Convert coordinates if scrolled
+	if (wxDynamicCast(m_wnd,wxScrolledWindow))
+	{
+		wxDynamicCast(m_wnd,wxScrolledWindow)->CalcUnscrolledPosition(rect.x, rect.y, &rect.x, &rect.y);
+	}
 	return rect;
 }
 
-void wxRectTracker::SetUnscrolledRect(wxRect rect)
+void wxRectTracker::SetUnscrolledRect(const wxRect& rect_ref)
 {
-	SetSize(rect);
+   wxRect rect = rect_ref;
+   
+	// Convert coordinates if scrolled
+	if (wxDynamicCast(m_wnd,wxScrolledWindow))
+	{
+		wxDynamicCast(m_wnd,wxScrolledWindow)->CalcScrolledPosition(rect.x, rect.y, &rect.x, &rect.y);
+	}
+	m_wnd->SetSize(rect);
+	
+   //m_Rect = rect;
 }
 */
 
-
-wxRect wxRectTracker::GetUnscrolledRect()
-{
-	wxRect rect;
-	rect = GetRect();
-	// Convert coordinates if scrolled
-	if (wxDynamicCast(GetParent(),wxScrolledWindow) != NULL)
-	{
-		wxDynamicCast(GetParent(),wxScrolledWindow)->CalcUnscrolledPosition(rect.x, rect.y, &rect.x, &rect.y);
-	}
-	return rect;
-}
-
-void wxRectTracker::SetUnscrolledRect(wxRect rect)
-{
-	// Convert coordinates if scrolled
-	if (wxDynamicCast(GetParent(),wxScrolledWindow) != NULL)
-	{
-		wxDynamicCast(GetParent(),wxScrolledWindow)->CalcScrolledPosition(rect.x, rect.y, &rect.x, &rect.y);
-	}
-	SetSize(rect);
-}
-
-
 void wxRectTracker::Enable()
 {
+	this->SetEvtHandlerEnabled(TRUE);
     m_state &= ~RT_STATE_DISABLED;
 }
 
 void wxRectTracker::Disable()
 {
+	this->SetEvtHandlerEnabled(FALSE);
 	if ((m_state & RT_STATE_MOUSE_CAPTURED) != 0)
 	{
-		ReleaseMouse();
+		m_wnd->ReleaseMouse();
 		m_state ^= RT_STATE_MOUSE_CAPTURED;
 	}
-    SetSize(wxRect(0, 0, 0, 0));
+    //SetSize(wxRect(0, 0, 0, 0));
     Update();
     m_state |= RT_STATE_DISABLED;
 }
 
+bool wxRectTracker::IsShown() const
+{
+    return (m_Rect != NullRect);
+}
 
+void wxRectTracker::Hide()
+{
+    m_Rect = NullRect;
+    m_prevRect = NullRect;
+    m_wnd->Refresh(false);
+}

@@ -31,35 +31,42 @@
 // wxImageBox does not implement RTTI
 //IMPLEMENT_CLASS2(wxRatioImageBox, wxWindow, wxRectTrackerHost)
 //IMPLEMENT_CLASS(wxRatioImageBox, wxWindow)
-IMPLEMENT_CLASS2(wxRatioImageBox, wxScrolledWindow, wxRectTrackerHost)
+//IMPLEMENT_CLASS2(wxRatioImageBox, wxScrolledWindow, wxRectTrackerHost)
+IMPLEMENT_CLASS(wxRatioImageBox, wxScrolledWindow)
 
 wxRatioImageBox::wxRatioImageBox(
 			wxWindow * parent, 
 			wxWindowID id) 
-			: wxImageBox(parent, id), wxRectTrackerHost()
+			: wxImageBox(parent, id)
 {
 	m_image = wxImage(2,2);
 	m_buffer = new wxBitmap(m_image);
-	rectTracker = new wxRectTrackerRatio(this, -1, wxPoint(0,0), wxSize(0,0), 0, this);
-	lineTracker = new wxLineTracker(this, -1, wxPoint(0,0), wxPoint(0,0), 0, this);
+	
+	rectTracker = NULL;
+	lineTracker = NULL;
+	rectTracker = new wxRectTrackerRatio(this);
+	lineTracker = new wxLineTracker(this);
+	
 	captured = 0;
 	m_state = RIB_STATE_CROP;
-	rectTracker->Enable();
-	lineTracker->Disable();
+	if (rectTracker) rectTracker->Enable();
+	if (lineTracker) lineTracker->Disable();
 }
 
 wxRatioImageBox::~wxRatioImageBox(void)
 {
-	if (rectTracker) delete rectTracker;
-	if (lineTracker) delete lineTracker;
+	if (rectTracker)  delete rectTracker; 
+	if (lineTracker)  delete lineTracker; 
 }
 
 BEGIN_EVENT_TABLE(wxRatioImageBox, wxImageBox)
+	/*
 	EVT_MOTION(wxRatioImageBox::OnMouseMotion)
 	EVT_LEFT_DOWN(wxRatioImageBox::OnMouseLeftDown)
 	EVT_LEFT_UP(wxRatioImageBox::OnMouseLeftUp)
 	EVT_RIGHT_DOWN(wxRatioImageBox::OnMouseRightDown)
 	EVT_RIGHT_UP(wxRatioImageBox::OnMouseRightUp)
+	*/
 	EVT_SIZE(wxRatioImageBox::OnResize)
 	EVT_TRACKER_CHANGED(wxID_ANY, wxRatioImageBox::OnTrackerChanged)
 	EVT_TRACKER_CHANGING(wxID_ANY, wxRatioImageBox::OnTrackerChanged)
@@ -127,7 +134,7 @@ void wxRatioImageBox::OnMouseLeftDown(wxMouseEvent & event)
     myEvent.m_y = 0;
 	if (rectTracker && rectTracker->IsEnabled())
 	{
-		rectTracker->SetSize(wxRect(event.m_x, event.m_y, 0, 0));
+		rectTracker->SetTrackerRect(wxRect(event.m_x, event.m_y, 0, 0));
 		rectTracker->AddPendingEvent(myEvent);
 	}
 	if (lineTracker && lineTracker->IsEnabled())
@@ -221,7 +228,7 @@ void wxRatioImageBox::AdjustTrackerSize(double ratio)
 
 	if (rectTracker != NULL)
 	{
-		// On remet en taille maximale pour que a passe tout le temps
+		// On remet en taille maximale pour que ca passe tout le temps
 		rectTracker->SetMaxRect(
 			wxRect(0,
 				   0,
@@ -301,7 +308,7 @@ void wxRatioImageBox::OnTrackerChanged(wxCommandEvent &event)
 
 	if (!IsModeInclinaison())
 	{
-		if (event.GetEventType() != EVT_TRACKER_CHANGING)  
+		if (event.GetEventType() != wxEVT_TRACKER_CHANGING)  
 				  myRect = GetRectTracker().GetUnscrolledRect();
 			else  myRect = GetRectTracker().GetTrackerRect();
 		msg = wxString::Format(wxT("%dx%d+%d,%d"),

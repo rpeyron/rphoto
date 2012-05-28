@@ -1,3 +1,25 @@
+2012-05-28 16:17  remi  0.4.1
+	* Added Guide Ratio feature (feature request from Wolfgang Z.)
+    * Moved wxRectTracker to new wxEvtHandler (from Troels K)
+        - no more background problems
+        - wxRectTracker interface has slighly changed and is not backward compatible (easy changes)
+        - working for wxRectRatioTracker and wxLineRatioTracker 
+    * Moved to wxWidgets 2.9
+    * Fixed some bugs reported by Marcus S.
+        - Keyboard not functionning in ratio mode
+        - Selection Handles disappear 
+        - Crop border do not move when being dragged smaller
+        - Readonly files
+        - The 0x0+0,0 zone is too small
+        - Translation notes (Free Rotation, Ratio : Free, Resize : No)
+    * Updated documentation
+    * Changing ratio now updates the tracked
+    * Fixed behaviour while getting back to ratio from fixed size
+    * Fixed default handles
+    * Fixed AdjustRectMax when ratio < 0
+    * Fixed empty filename save bug
+    * Updated TODO list with features request from Marcus S.
+ 
 2009-10-18 18:03  remi  0.4.0
 	* Fixed MoveTo directory tree bug
 	* Added Resize feature
