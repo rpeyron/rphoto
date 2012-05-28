@@ -3,7 +3,7 @@
 // Purpose:     wxVerticalToolbar class
 // Author:      Alex Thuering
 // Created:		11.03.2003
-// RCS-ID:      $Id: VerticalToolbar.cpp 365 2008-06-21 23:15:43Z remi $
+// RCS-ID:      $Id: VerticalToolbar.cpp 658 2017-05-01 11:19:59Z remi $
 // Copyright:   (c) Alex Thuering
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
@@ -61,8 +61,8 @@ void wxVerticalToolbar::InsertVerticalButton(int pos, wxVertButton& button)
 {
   wxBitmap btBitmap(m_sw, m_sh);
   m_btDc.SelectObject(btBitmap);
-  m_btDc.SetBrush(wxBrush(m_toolbar->GetBackgroundColour(),wxSOLID));
-  m_btDc.SetPen(wxPen(*wxBLACK,0,wxTRANSPARENT));
+  m_btDc.SetBrush(wxBrush(m_toolbar->GetBackgroundColour(), wxBRUSHSTYLE_SOLID));
+  m_btDc.SetPen(wxPen(*wxBLACK,0,wxPENSTYLE_TRANSPARENT));
   m_btDc.DrawRectangle(0,0,m_sw,m_sh);
   int sw1, sh1;
   m_btDc.GetTextExtent(button.label, &sw1, &sh1);

@@ -55,7 +55,7 @@ void wxLineTracker::DrawLine(wxDC & dc, wxPoint begin, wxPoint end)
 	dc.SetBrush(*wxTRANSPARENT_BRUSH);
 	dc.SetPen(*wxBLACK_PEN);
 	dc.DrawLine(begin.x, begin.y, end.x, end.y);
-	dc.SetPen(wxPen(*wxWHITE,1,wxDOT));
+	dc.SetPen(wxPen(*wxWHITE,1, wxPENSTYLE_DOT));
 	dc.DrawLine(begin.x, begin.y, end.x, end.y);
 
 	// Handlers

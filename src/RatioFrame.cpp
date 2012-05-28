@@ -172,7 +172,7 @@ void RatioFrame::InitConfig()
 {
     // Config
     m_pConfig = new wxConfig(wxT("RPhoto"));
-    m_pConfigDialog = new wxConfigDialog(*m_pConfig, this, -1, _("Preferences"), wxDefaultPosition, wxSize(600,400), wxDEFAULT_DIALOG_STYLE | wxRESIZE_BORDER );
+    m_pConfigDialog = new wxConfigDialog(*m_pConfig, this, -1, _("Preferences"), wxDefaultPosition, wxSize(500,450), wxDEFAULT_DIALOG_STYLE | wxRESIZE_BORDER );
 
     // Setup options
     // * General stuff
@@ -1176,14 +1176,14 @@ void RatioFrame::imageUpdateExif()
 	int fav, exifLen;
 
 	// Comment
-	m_pTextComment->Clear();
+	m_pTextComment->ChangeValue(wxT(""));  // Clear
 	if (m_pImageBox->GetImage().HasOption(wxT("COM")))
 	{
 		strExif = m_pImageBox->GetImage().GetOption(wxT("COM"));
 		favExif = strExif.DecodeBase64(conv);
 		wxLogDebug(wxT("COM='") +strExif+wxT("' : '") + favExif + wxT("'\n")); 
-		m_pTextComment->SetValue(favExif);
-		m_pTextComment->DiscardEdits();
+		m_pTextComment->ChangeValue(favExif);
+        m_pTextComment->DiscardEdits(); // Should not be necessary with ChangeValue instead of SetValue (2016/06/05)
 	}
 
 	m_pAttrCtrl->DeleteAllItems();
@@ -1273,7 +1273,7 @@ void RatioFrame::OnMenuFileQuit(wxCommandEvent &event)
 
 void RatioFrame::OnHelpAbout(wxCommandEvent &event)
 {
-    wxMessageBox(wxString::Format(_("%s %s\n\n(c) %s\nhttp://people.via.ecp.fr/~remi"), RPHOTO_NAME, RPHOTO_VERSION, RPHOTO_COPYRIGHT), RPHOTO_NAME, wxOK |wxICON_INFORMATION);
+    wxMessageBox(wxString::Format(_("%s %s\nBuild: %s\n\n(c) %s\n%s"), RPHOTO_NAME, RPHOTO_VERSION, RPHOTO_BUILD, RPHOTO_COPYRIGHT, RPHOTO_URL), RPHOTO_NAME, wxOK |wxICON_INFORMATION);
 }
 
 void RatioFrame::OnHelpHelp(wxCommandEvent &event)

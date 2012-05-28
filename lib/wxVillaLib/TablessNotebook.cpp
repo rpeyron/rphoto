@@ -3,7 +3,7 @@
 // Purpose:     implementation of wxTablessNotebook
 // Author:      Alex Thuering (a modifiecation of generic/notebook.h)
 // Created:     06.10.03
-// RCS-ID:      $Id: TablessNotebook.cpp,v 1.1 2003/12/29 15:22:26 remi Exp $
+// RCS-ID:      $Id: TablessNotebook.cpp 263 2005-11-21 23:14:19Z remi $
 // Copyright:   (c) Alex Thuering
 // Licence:     wxWindows licence
 ///////////////////////////////////////////////////////////////////////////////
@@ -27,8 +27,8 @@
 // event table
 // ----------------------------------------------------------------------------
 
-DEFINE_EVENT_TYPE(wxEVT_COMMAND_NOTEBOOK_PAGE_CHANGED)
-DEFINE_EVENT_TYPE(wxEVT_COMMAND_NOTEBOOK_PAGE_CHANGING)
+//DEFINE_EVENT_TYPE(wxEVT_COMMAND_NOTEBOOK_PAGE_CHANGED)
+//DEFINE_EVENT_TYPE(wxEVT_COMMAND_NOTEBOOK_PAGE_CHANGING)
 
 BEGIN_EVENT_TABLE(wxTablessNotebook, wxControl)
     EVT_NOTEBOOK_PAGE_CHANGED(-1, wxTablessNotebook::OnSelChange)
@@ -111,14 +111,14 @@ int wxTablessNotebook::GetRowCount() const
     return 0;
 }
 
-int wxTablessNotebook::SetSelection(int nPage)
+int wxTablessNotebook::SetSelection(size_tt nPage)
 {
-    if (nPage == -1)
+    if ((int)nPage == -1)
       return 0;
 
     wxASSERT( IS_VALID_PAGE(nPage) );
 	
-	if (m_nSelection != nPage)
+	if (m_nSelection != (int)nPage)
 	  ChangePage(m_nSelection, nPage);
 	
     return 0;
@@ -129,7 +129,7 @@ int wxTablessNotebook::SetSelection(int nPage)
 // ----------------------------------------------------------------------------
 
 // remove one page from the notebook and delete it
-bool wxTablessNotebook::DeletePage(int nPage)
+bool wxTablessNotebook::DeletePage(size_tt nPage)
 {
     wxCHECK( IS_VALID_PAGE(nPage), FALSE );
 
@@ -152,7 +152,7 @@ bool wxTablessNotebook::DeletePage(int nPage)
     {
       // Only change the selection if the page we
       // deleted was the selection.
-      if (nPage == m_nSelection)
+      if ((int)nPage == m_nSelection)
       {
          m_nSelection = -1;
          // Select the first tab. Generates a ChangePage.
@@ -163,7 +163,7 @@ bool wxTablessNotebook::DeletePage(int nPage)
 		// We must adjust which tab we think is selected.
         // If greater than the page we deleted, it must be moved down
         // a notch.
-        if (m_nSelection > nPage)
+        if (m_nSelection > (int)nPage)
           m_nSelection -- ;
       }
     }
@@ -183,7 +183,7 @@ bool wxTablessNotebook::DeletePage(wxNotebookPage* page)
 }
 
 // remove one page from the notebook
-bool wxTablessNotebook::RemovePage(int nPage)
+bool wxTablessNotebook::RemovePage(size_tt nPage)
 {
     wxCHECK( IS_VALID_PAGE(nPage), FALSE );
 
@@ -201,7 +201,7 @@ bool wxTablessNotebook::RemovePage(int nPage)
     {
       // Only change the selection if the page we
       // deleted was the selection.
-      if (nPage == m_nSelection)
+      if ((int)nPage == m_nSelection)
       {
          m_nSelection = -1;
          // Select the first tab. Generates a ChangePage.
@@ -212,7 +212,7 @@ bool wxTablessNotebook::RemovePage(int nPage)
 		// We must adjust which tab we think is selected.
         // If greater than the page we deleted, it must be moved down
         // a notch.
-        if (m_nSelection > nPage)
+        if (m_nSelection > (int)nPage)
           m_nSelection -- ;
       }
     }
@@ -256,7 +256,7 @@ bool wxTablessNotebook::DeleteAllPages()
 }
 
 // same as AddPage() but does it at given position
-bool wxTablessNotebook::InsertPage(int nPage,
+bool wxTablessNotebook::InsertPage(size_tt nPage,
                             wxNotebookPage *pPage,
                             const wxString& strText,
                             bool bSelect,
@@ -418,7 +418,7 @@ bool wxTablessNotebook::DoPhase(int /* nPhase */)
 
 void wxTablessNotebook::Command(wxCommandEvent& WXUNUSED(event))
 {
-    wxFAIL_MSG("wxTablessNotebook::Command not implemented");
+    wxFAIL_MSG(_T("wxTablessNotebook::Command not implemented"));
 }
 
 // ----------------------------------------------------------------------------

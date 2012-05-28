@@ -35,7 +35,12 @@ EXTRA_DIST = config.rpath  config.rpath m4/ChangeLog  config.rpath m4/ChangeLog 
 	build/vc2013/RPhoto.vcxproj \
 	build/vc2013/RPhoto.sln \
 	build/vc2013/RPhoto.vcxproj.filters \
-        build/debian/rules \
+    build/vc2017/RPhoto.vcxproj \
+	build/vc2017/RPhoto.sln \
+	build/vc2017/RPhoto.vcxproj.filters \
+	build/vc2017/wxWidgets.props \
+	build/vc2017/wxWidgets30.props \
+	    build/debian/rules \
         build/debian/RPhoto.1 \
         build/debian/conffiles \
         build/debian/changelog \
@@ -99,6 +104,12 @@ deb-src: dist
 	cd ..; \
 	rm --force $(DEBSOURCEPKG); \
 	rm --recursive --force $(DEBSOURCEDIR)
+
+ppa:
+	scite debian/control
+	scite debian/changelog
+	debuild -S -sa
+	dput ppa:rpeyron/ppa ../*.changes
 
 
 ACLOCAL_AMFLAGS = -I m4

@@ -104,7 +104,7 @@ void wxRectTracker::DrawRect(wxDC & dc, int x, int y, int w, int h)
 	dc.SetBrush(*wxTRANSPARENT_BRUSH);
 	dc.SetPen(*wxBLACK_PEN);
 	dc.DrawRectangle(x,y,w,h);
-	dc.SetPen(wxPen(*wxWHITE,1,wxDOT));  // wxSHORT_DASH  in wxGCDC
+	dc.SetPen(wxPen(*wxWHITE,1, wxPENSTYLE_DOT));  // wxSHORT_DASH  in wxGCDC
 	dc.DrawRectangle(x,y,w,h);
 
 	// Handlers

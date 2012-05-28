@@ -3,7 +3,7 @@
 // Purpose:     Image Filters (middle-value filter, Gauss filter, etc.)
 // Author:      Alex Thuering
 // Created:		21.06.2003
-// RCS-ID:      $Id: ImageFilters.h 263 2005-11-21 23:14:19Z remi $
+// RCS-ID:      $Id: ImageFilters.h 658 2017-05-01 11:19:59Z remi $
 // Copyright:   (c) Alex Thuering
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
@@ -43,7 +43,7 @@ class wxMedianImageFilter: public wxImageFilter
     virtual void AdjustPixel(uchar* image, int x, int y);
 };
 
-typedef enum wxLinearImageFilterType
+enum wxLinearImageFilterType
 { lftMiddleValue, lftGauss };
 
 /** An image processing filter of linears filters (middle value, Gauss).

@@ -1,4 +1,10 @@
-rphoto (0.4.4-1) stable; urgency=low
+rphoto (0.4.4-2ppa4) xenial; urgency=low
+
+  * Update PPA for Xenial
+
+ -- Remi Peyronnet <remi+debian@via.ecp.fr>  Sat, 4 Jun 2016 19:45:07 +0200
+
+rphoto (0.4.4-2) stable; urgency=low
 
   * Released 0.4.4 ; see changelog dor details 
 

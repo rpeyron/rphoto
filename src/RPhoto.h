@@ -23,7 +23,9 @@
 
 #define RPHOTO_NAME wxT("RPhoto")
 #define RPHOTO_VERSION wxT("v0.4.4")
-#define RPHOTO_COPYRIGHT wxT("2004-2015 - Remi Peyronnet")
+#define RPHOTO_BUILD wxT(__DATE__)
+#define RPHOTO_COPYRIGHT wxT("2004-2017 - Remi Peyronnet")
+#define RPHOTO_URL wxT("http://www.lprp.fr/")
 
 #define RT_DEFAULT_IMAGE wxT("test.jpg")
 
