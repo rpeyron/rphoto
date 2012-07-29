@@ -59,7 +59,7 @@ wxConfigDialog::wxConfigDialog(wxConfig & config,
     // Add sizer sizer
     wxBoxSizer * sizer = new wxBoxSizer(wxVERTICAL);
     // Add Tab Control
-    m_pTabs = new wxNotebook(this, -1, wxDefaultPosition, wxSize(250,150));
+    m_pTabs = new wxNotebook(this, -1, wxDefaultPosition, wxSize(350,250));
     // wxNotebookSizer * nbs = new wxNotebookSizer(m_pTabs);
     sizer->Add(m_pTabs, 1, wxEXPAND);
     // Add buttons

@@ -308,8 +308,8 @@ void wxRatioImageBox::OnTrackerChanged(wxCommandEvent &event)
 
 	if (!IsModeInclinaison())
 	{
-		if (event.GetEventType() != wxEVT_TRACKER_CHANGING)  
-				  myRect = GetRectTracker().GetUnscrolledRect();
+		if (event.GetEventType() == wxEVT_TRACKER_CHANGING)  
+				  myRect = GetRectTracker().GetTrackingRect();
 			else  myRect = GetRectTracker().GetTrackerRect();
 		msg = wxString::Format(wxT("%dx%d+%d,%d"),
 				(int)(myRect.width / GetScaleValue()),

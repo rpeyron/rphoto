@@ -1,10 +1,8 @@
 Bugs :
 
 Features :
-- Mask off areas to be cropped off (Marcus S.)
 - Guides / Rulers (Marcus S.)
 - Zooms (Marcus S.)
-- Confirmation when not save (Marcus S.)
 - Snap borders to lossless (Marcus S.)
 - Update Exif tags (Marcus S.)
 - Print (Catherine)
@@ -31,6 +29,9 @@ Bugs:
 - Bizarre tree behavior on linux, when saving (Marcus, marcus.sundman@iki.fi) -> not observed
 
 Features :
+- Confirmation when not save (Marcus S.) -> ok
+- AutoSave Folder & Suffix (Fank B.) -> ok
+- Mask off areas to be cropped off (Marcus S. & Fank B.) -> ok
 - Print angle -> ok
 - Edit comments (text field in the bottom) -> ok
 - Save last entered ratio or size -> ok

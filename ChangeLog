@@ -1,3 +1,9 @@
+2012-07-28 17:33  remi  0.4.2
+    * Added Mask off areas to be cropped off (feature requested by Marcus S. & Fank B.)
+    * Added AutoSave Folder & Suffix (feature requested by Fank B.)
+    * Added Confirmation when not save (Marcus S.)
+    * Fixed tracker size when tracking
+
 2012-05-28 16:17  remi  0.4.1
 	* Added Guide Ratio feature (feature request from Wolfgang Z.)
     * Moved wxRectTracker to new wxEvtHandler (from Troels K)

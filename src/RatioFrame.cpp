@@ -156,17 +156,20 @@ RatioFrame::RatioFrame(wxWindow* parent,
     isInInit = false;
 	UpdateControlsState();
 	imageUpdateExif();
+	m_bDirty = FALSE;
 }
 
 void RatioFrame::InitConfig()
 {
     // Config
     m_pConfig = new wxConfig(wxT("RPhoto"));
-    m_pConfigDialog = new wxConfigDialog(*m_pConfig, this, -1, _("Preferences"), wxDefaultPosition, wxDefaultSize, wxDEFAULT_DIALOG_STYLE | wxRESIZE_BORDER );
+    m_pConfigDialog = new wxConfigDialog(*m_pConfig, this, -1, _("Preferences"), wxDefaultPosition, wxSize(600,400), wxDEFAULT_DIALOG_STYLE | wxRESIZE_BORDER );
 
     // Setup options
     // * General stuff
     new wxConfigDialog_EntryCheck(*m_pConfigDialog, wxT("Main"), wxT("AutoSave"), _("Main"), _("Auto Save"), FALSE);
+    new wxConfigDialog_EntryTextEdit(*m_pConfigDialog, wxT("Main"), wxT("AutoSaveFolder"), _("Main"), _("Auto Save Folder"), wxT(""));
+    new wxConfigDialog_EntryTextEdit(*m_pConfigDialog, wxT("Main"), wxT("AutoSaveSuffix"), _("Main"), _("Auto Save Suffix"), wxT(""));
     new wxConfigDialog_EntryCheck(*m_pConfigDialog, wxT("Main"), wxT("AutoRotateCrop"), _("Main"), _("Auto Crop after Rotation"), FALSE);
     new wxConfigDialog_EntryTextEdit(*m_pConfigDialog, wxT("Main"), wxT("UndoHistory"), _("Main"), _("Undo History"), wxT("10"));
 
@@ -209,6 +212,7 @@ void RatioFrame::InitConfig()
     // * Appearance
     new wxConfigDialog_EntryCheck(*m_pConfigDialog, wxT("View"), wxT("FitWindow"), _("Appearance"), _("Fit the image inside the window"), TRUE);
     // new wxConfigDialog_EntryCheck(*m_pConfigDialog, wxT("View"), wxT("Explorer"), _("Appearance"), _("View explorer panel"), TRUE);
+    new wxConfigDialog_EntryTextEdit(*m_pConfigDialog, wxT("View"), wxT("GreyOut"), _("Appearance"), _("Grey Out cutted off area (percent)"), wxT("50"));
 
     m_pConfigDialog->doLayout();
 }
@@ -217,6 +221,7 @@ void RatioFrame::DoConfig()
 {
     wxCommandEvent evt;
     int i;
+	double d;
     bool opt;
     // Toggle Explorer
 	/*
@@ -297,6 +302,16 @@ void RatioFrame::DoConfig()
     opt = FALSE;
     m_pConfig->Read(wxT("Main/AutoSave"), &opt);
     m_bAutoSave = opt;
+    m_pConfig->Read(wxT("Main/AutoSaveFolder"), &str);
+	m_sAutoSaveFolder = str;
+    m_pConfig->Read(wxT("Main/AutoSaveSuffix"), &str);
+	m_sAutoSaveSuffix = str;
+	// Grey Out area
+	m_pConfig->Read(wxT("View/GreyOut"), &str);
+	str.ToDouble(&d); i = (int)d;
+	if (i < 0) i = 0;
+	if (i > 100) i = 100;
+	m_pImageBox->GetRectTracker().SetGreyOutColour(i);
 }
 
 void RatioFrame::InitMenu()
@@ -775,6 +790,7 @@ BEGIN_EVENT_TABLE(RatioFrame, wxFrame)
    EVT_BUTTON(WIDGET_APPLY_COM, RatioFrame::OnImageWriteComment)
    EVT_MENU(MENU_ACCEL_APPLY_COMMENT, RatioFrame::OnImageWriteComment)
    EVT_TEXT(WIDGET_EDIT_COM, RatioFrame::UpdateControlsStateEvt)
+   EVT_CLOSE(RatioFrame::OnClose)
 END_EVENT_TABLE()
 
 
@@ -897,28 +913,68 @@ void RatioFrame::ImageLoad(wxString name, bool original)
 	m_isFileLoading = true;
 	BEGIN_IMAGE()
     wxBeginBusyCursor();
-	ImageCleanup();
-	if (original) SetStatusText(wxString::Format(_("Loading %s..."), name.c_str()));
-	m_sFilename = name;
-	if ((!m_bTemp) || (original)) { m_sOriginalFilename = m_sFilename; m_bTemp = false; }
-	m_pImageBox->LoadFile(m_sFilename);
-	m_pImageBox->TrackerReset();
-	imageUpdateExif();
-    m_bJPEGlossless = (isJPEGFile(name))?TRUE:FALSE;
+	if (ImageCleanup())
+	{
+		if (original) SetStatusText(wxString::Format(_("Loading %s..."), name.c_str()));
+		m_sFilename = name;
+		if ((!m_bTemp) || (original)) { m_sOriginalFilename = m_sFilename; m_bTemp = false; }
+		m_pImageBox->LoadFile(m_sFilename);
+		m_pImageBox->TrackerReset();
+		imageUpdateExif();
+		m_bJPEGlossless = (isJPEGFile(name))?TRUE:FALSE;
+	}
 	UpdateControlsState();
-    UpdateDirCtrl();
+	UpdateDirCtrl();
     wxEndBusyCursor();
 	END_IMAGE();
 	m_isFileLoading = false;
 }
 
-void RatioFrame::ImageCleanup()
+bool RatioFrame::ImageCleanup()
 {
     wxCommandEvent evt;
+	wxFileName destFn;
     if ((m_bDirty) && (m_bAutoSave))
     {
-        OnFileSave(evt);
-    }
+		if (m_sAutoSaveFolder.IsEmpty() && m_sAutoSaveSuffix.IsEmpty())
+		{
+			OnFileSave(evt);
+		}
+		else
+		{
+			destFn = m_sOriginalFilename;
+			destFn.SetName(destFn.GetName() + m_sAutoSaveSuffix);
+			if (!m_sAutoSaveFolder.IsEmpty())
+			{
+				if (wxFileName(m_sAutoSaveFolder).IsAbsolute())
+				{
+					destFn.SetPath(m_sAutoSaveFolder);
+				}
+				else
+				{
+					destFn.SetPath(destFn.GetPath() + destFn.GetPathSeparator() + m_sAutoSaveFolder);
+					destFn.Normalize();
+				}
+			}
+			ImageSaveAs(destFn.GetFullPath());
+		}
+	}
+	else if (m_bDirty)
+	{
+		switch (wxMessageBox(_("The current image has unsaved changes. \nDo you want to save it ?"),_("Save file?"), wxYES_NO | wxCANCEL, this))
+		{
+		case wxYES:
+			OnFileSave(evt);
+			break;
+		case wxNO:
+			m_bDirty = false;
+			break;
+		case wxCANCEL:
+		default:
+			return false;
+		}
+	}
+	return true;
 }
 
 void RatioFrame::imageUpdateExif()
@@ -996,6 +1052,19 @@ void RatioFrame::UpdateDirCtrl(const wxString & from)
     }
 }
 
+void RatioFrame::OnClose(wxCloseEvent& event)
+{
+	if ( event.CanVeto() )
+	{
+		if (!ImageCleanup())
+		{
+			event.Veto();
+			return;
+		}
+	}
+	event.Skip();  //  the default event handler does call Destroy()
+}
+
 void RatioFrame::OnMenuFileQuit(wxCommandEvent &event)
 {
   Close(FALSE);
@@ -1017,11 +1086,18 @@ void RatioFrame::OnDirCtrlChange(wxCommandEvent &event)
 	wxString curFilename;
 	if (m_pDirCtrl->GetFilePath() != wxT(""))
 	{
-		if (!m_isFileLoading)
+		curFilename = m_pDirCtrl->GetFilePath();
+		if ((!m_isFileLoading) && (curFilename != m_sOriginalFilename))
 		{
-			curFilename = m_pDirCtrl->GetFilePath();
-			ImageCleanup();
-			ImageLoad(curFilename, true);
+			if (!ImageCleanup())
+			{
+				event.Skip();
+				UpdateDirCtrl();
+			}
+			else
+			{
+				ImageLoad(curFilename, true);
+			}
 		}
 	}
 	else
@@ -1078,11 +1154,14 @@ void RatioFrame::OnFileOpen(wxCommandEvent &event)
 	name = wxFileSelector(_("Open a file"),wxT(""),wxT(""),wxT(""), RPHOTO_FILTERIMGLIST_WORLD, wxFD_OPEN | wxFD_FILE_MUST_EXIST /* wxOPEN | wxFILE_MUST_EXIST */);
     if (name != wxT(""))
     {
-        ImageCleanup();
-        ImageLoad(name);
-        m_sFilename = m_sOriginalFilename = name;
-		m_bTemp = false;
-    }
+        if (ImageCleanup())
+		{
+			ImageLoad(name);
+			m_sFilename = m_sOriginalFilename = name;
+			m_bTemp = false;
+
+		}
+	}
 }
 
 void RatioFrame::OnFileSave(wxCommandEvent &event)
@@ -1123,33 +1202,39 @@ void RatioFrame::OnFileSave(wxCommandEvent &event)
     }
 } 
 
+void RatioFrame::ImageSaveAs(wxString name)
+{
+	if (name == wxT("")) return;
+	if (m_bTemp) { m_sFilename = m_sOriginalFilename; m_bTemp = false; }
+    if ((!m_bDirty) && (m_bJPEGlossless) && isJPEGFile(m_sOriginalFilename) && isJPEGFile(name))
+    {
+       	wxCopyFile(m_sFilename, name, TRUE);
+        Clean();
+    }
+    else if (m_pImageBox != NULL)
+    {
+        if (isJPEGFile(m_sFilename))
+        {
+            wxString squality = wxT("");   m_pConfig->Read(wxT("JPEG/Quality"),&squality);
+            long quality = 0;          squality.ToLong(&quality);
+            m_pImageBox->GetImage().SetOption(wxT("quality"), (int)quality);
+            m_pImageBox->GetImage().SaveFile(name, wxBITMAP_TYPE_JPEG);
+        }
+        else  m_pImageBox->GetImage().SaveFile(name);
+        Clean();
+    }
+
+    ImageCleanup();
+    m_sFilename = m_sOriginalFilename = name;
+}
+
 void RatioFrame::OnFileSaveAs(wxCommandEvent &event)
 {
     wxString name;
 	name = wxFileSelector(_("Save a file"),wxT(""),m_sOriginalFilename,wxT(""), RPHOTO_FILTERIMGLIST_WORLD,wxFD_SAVE /* wxSAVE*/);
     if (name != wxT(""))
     {
-		if (m_bTemp) { m_sFilename = m_sOriginalFilename; m_bTemp = false; }
-        if ((!m_bDirty) && (m_bJPEGlossless) && isJPEGFile(m_sOriginalFilename) && isJPEGFile(name))
-        {
-       	    wxCopyFile(m_sFilename, name, TRUE);
-            Clean();
-        }
-        else if (m_pImageBox != NULL)
-        {
-            if (isJPEGFile(m_sFilename))
-            {
-                wxString squality = wxT("");   m_pConfig->Read(wxT("JPEG/Quality"),&squality);
-                long quality = 0;          squality.ToLong(&quality);
-                m_pImageBox->GetImage().SetOption(wxT("quality"), (int)quality);
-                m_pImageBox->GetImage().SaveFile(name, wxBITMAP_TYPE_JPEG);
-            }
-            else  m_pImageBox->GetImage().SaveFile(name);
-            Clean();
-        }
-
-        ImageCleanup();
-        m_sFilename = m_sOriginalFilename = name;
+		ImageSaveAs(name);
         m_pDirCtrl->ReCreateTree();
         ImageLoad(m_sFilename);
     }

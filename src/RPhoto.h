@@ -22,7 +22,7 @@
  * ************************************************************************** */
 
 #define RPHOTO_NAME wxT("RPhoto")
-#define RPHOTO_VERSION wxT("v0.4.1")
+#define RPHOTO_VERSION wxT("v0.4.2")
 #define RPHOTO_COPYRIGHT wxT("2004-2012 - Remi Peyronnet")
 
 #define RT_DEFAULT_IMAGE wxT("test.jpg")

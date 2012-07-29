@@ -202,6 +202,7 @@ protected:
 	void OnResizeEnter(wxCommandEvent &event);
 	void OnGuideChange(wxCommandEvent &event);
 	void OnGuideEnter(wxCommandEvent &event);
+	void OnClose(wxCloseEvent& event);
 	// - Misc
 	void UpdateControlsState();
 	void UpdateControlsStateEvt(wxCommandEvent & event);
@@ -210,7 +211,8 @@ protected:
 
 	// Gestion des images
 	void ImageLoad(wxString name, bool original = false);
-	void ImageCleanup();
+	void ImageSaveAs(wxString name);
+	bool ImageCleanup();
 	void imageUndoPoint();
 	void imageUpdateExif();
 	bool CallJPEGTranTryPerfect(const wxString &command);
@@ -222,7 +224,7 @@ protected:
     void UpdateDirCtrl(const wxString &from = wxT(""));
 
 public:
-	void LoadFile(const wxString & filename) { ImageCleanup(); ImageLoad(filename, true); }
+	void LoadFile(const wxString & filename) { if (ImageCleanup()) ImageLoad(filename, true); }
 
 public: // Hack : TODO : Move Dirty/Clean in a document class
     bool isJPEGFile(const wxString & name);
@@ -254,6 +256,8 @@ protected:
     bool m_bJPEGlossless;
 	wxString m_sComEncoding;
     bool m_bAutoSave;
+	wxString m_sAutoSaveFolder;
+	wxString m_sAutoSaveSuffix;
     bool m_bDirty;
 	wxArrayString m_saRatios;
 	wxArrayString m_saResize;

@@ -12,12 +12,17 @@
 
 #include "RectTracker.h"
 
+#ifdef wxUSE_GRAPHICS_CONTEXT
+#include <wx/graphics.h>
+#include <wx/dcgraph.h>
+#endif
+
 IMPLEMENT_CLASS(wxRectTracker, wxEvtHandler)
 
 static const wxRect NullRect(0, 0, -1, -1);
 
 wxRectTracker::wxRectTracker(wxWindow* wnd, wxFrame* frame) : 
-    wxEvtHandler(), m_wnd(wnd), m_frame(frame)
+    wxEvtHandler(), m_wnd(wnd), m_frame(frame), m_cGreyOut(0,0,0,0)
 {
 	m_iHandlerWidth = 5;
 	m_cursorMove = new wxCursor(wxCURSOR_SIZING);
@@ -47,11 +52,14 @@ const wxEventType wxEVT_TRACKER_CHANGING = wxNewEventType();
 void wxRectTracker::OnPaint(wxPaintEvent& event)
 {
 	this->GetNextHandler()->ProcessEvent(event);
+
 	wxClientDC dc(m_wnd);
+	m_wnd->PrepareDC(dc);
 	if (wxDynamicCast(m_wnd,wxScrolledWindow))
 	{
 		wxDynamicCast(m_wnd,wxScrolledWindow)->DoPrepareDC(dc);
-	}   
+	}  
+
 	OnDraw(&dc);
 }
 
@@ -65,11 +73,38 @@ void wxRectTracker::OnDraw(wxDC* dc)
 // DrawRect operates with a wxPaintDC => Window coordinates
 void wxRectTracker::DrawRect(wxDC & dc, int x, int y, int w, int h)
 {
+
+	// Grey out cutted off area
+	// Use wxGraphicsContext for transparency support
+#ifdef wxUSE_GRAPHICS_CONTEXT
+	if ((w != 0) && (h != 0) && (m_cGreyOut.Alpha() != 0))
+	{
+		if (wxDynamicCast(&dc,wxWindowDC))  // If needed more casting are available to create wxGraphicsContext
+		{
+			int cw, ch;
+			dc.GetSize(&cw,&ch);
+			if (cw > GetMaxRect().GetWidth()) cw = GetMaxRect().GetWidth();
+			if (ch > GetMaxRect().GetHeight()) ch = GetMaxRect().GetHeight();
+			wxGraphicsContext * gc;
+			gc = wxGraphicsContext::Create(*wxDynamicCast(&dc,wxWindowDC));
+			gc->SetBrush(wxBrush(m_cGreyOut));
+			gc->SetPen(wxPen(m_cGreyOut));
+			wxGraphicsPath gp = gc->CreatePath();
+			gp.AddRectangle(0  ,0  ,cw ,y );
+			gp.AddRectangle(0  ,y  ,x  ,h  );
+			gp.AddRectangle(x+w,y  ,cw-x-w,h  );
+			gp.AddRectangle(0  ,y+h,cw ,ch-y-h );
+			gc->FillPath(gp);
+			delete gc;
+		}  
+	}
+#endif
+	
 	// Rect
 	dc.SetBrush(*wxTRANSPARENT_BRUSH);
 	dc.SetPen(*wxBLACK_PEN);
 	dc.DrawRectangle(x,y,w,h);
-	dc.SetPen(wxPen(*wxWHITE,1,wxDOT));
+	dc.SetPen(wxPen(*wxWHITE,1,wxDOT));  // wxSHORT_DASH  in wxGCDC
 	dc.DrawRectangle(x,y,w,h);
 
 	// Handlers
@@ -88,7 +123,8 @@ void wxRectTracker::DrawRect(wxDC & dc, int x, int y, int w, int h)
     	if (m_iHandlerMask & RT_MASK_BOTTOM_MID) dc.DrawRectangle(x+(w-z)/2, y+h-z-1, z, z);
     	if (m_iHandlerMask & RT_MASK_MID_LEFT) dc.DrawRectangle(x+1    , y+(h-z)/2, z, z);
     	if (m_iHandlerMask & RT_MASK_MID_RIGHT) dc.DrawRectangle(x+w-z-1, y+(h-z)/2, z, z);
-    }   	
+    }
+
 }
 
 void wxRectTracker::DrawRect(wxDC & dc, wxRect rect)

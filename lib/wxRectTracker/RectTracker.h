@@ -118,6 +118,11 @@ public:
 	bool IsShown() const;
 	/// Hide the Tracker
 	void Hide();
+	/// Set Grey Out Colour
+	void SetGreyOutColour(const wxColour & col) { m_cGreyOut = col; }
+	void SetGreyOutColour(int percent, const wxColour & col = *wxBLACK) { m_cGreyOut = wxColour(col.Red(), col.Green(), col.Blue(), (percent*255/100)); }
+	/// Get Grey Out Colour
+	const wxColour & GetGreyOutColour() {return m_cGreyOut; }
 
 	/// Get current position of the tracker
 	wxRect GetTrackerRect() { return m_Rect; }
@@ -134,8 +139,8 @@ public:
 	wxRect GetUnscrolledRect() const;
 	/// Set a new position for the tracker ; deprecated with wxEvtHandlet, do not use.
 	virtual void SetUnscrolledRect(const wxRect& rect);
-	/// Get the current position of the tracker, without taking in account any scroll area  ; deprecated with wxEvtHandlet, do not use.
-	wxRect GetTrackerRect() const { return m_curRect; };
+	/// Get the current position of the tracker ; deprecated with wxEvtHandler, do not use.
+	wxRect GetTrackingRect() const { return m_curRect; };
 
 	/// Callback on Draw event
 	virtual void OnDraw(wxDC*);
@@ -178,6 +183,7 @@ protected:
 	int m_iHandlerWidth; /// Width of drawn handler
 	int m_iHandlerMask;  /// Mask describing which handlers will be drawn
 	int m_state;         /// Current state of the control (See RT_STATE)
+	wxColour m_cGreyOut; /// Colour to grey out the region outside selection
 
 	wxPoint m_leftClick; /// Coordinates of the last left clic
 	wxPoint m_prevMove;  /// Coordinates of the previous move

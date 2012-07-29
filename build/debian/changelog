@@ -1,3 +1,17 @@
+rphoto (0.4-2) jaunty; urgency=low
+
+  * See local ChangeLog for details
+
+ -- Remi Peyronnet <remi+debian@via.ecp.fr>  Sat, 28 Jul 2012 17:38:00 +0000
+ 
+rphoto (0.4-1) stable; urgency=low
+
+  * Added guide ratio feature.
+  * Fixed bugs.
+  See local ChangeLog for details
+
+ -- Remi Peyronnet <remi+debian@via.ecp.fr>  Sun, 27 Apr 2012 16:48:00 +0000
+ 
 rphoto (0.4-0) jaunty; urgency=low
 
   * Added resize feature. See local ChangeLog for details
