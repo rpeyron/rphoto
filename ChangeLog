@@ -1,3 +1,25 @@
+2013-06-08 15:28  remi  0.4.3
+	* Released as 0.4.3
+
+2013-05-20 15:33  remi  0.4.3alpha3
+	* Added Default Folder and Remember Last Opened Folder option (feature request from Asen A. and Eric D.)
+
+2013-05-20 15:33  remi  0.4.3alpha3
+	* Updated libexif, jpegtran  to their latest versions
+	* Added jhead dependancy (for -autorot)
+	* Added AutoRot feature (not activated by default) (feature request from Asen and Max)
+	* Added support for buggy JPEG with multi APP1 tags (will parse all tags for Exif and keep all duplicated while saving)
+	* Fixed resize bug : fixed size did not take care of portrait / landscape orientation
+	* Fixed temporary files not deleted when deleting original file
+	* Fixed undo when deteling files (not undelete, but ignore ok)
+	* Fixed hazardous selection in the tree when deleting files
+    * Fixed size tracker does not adjust to screen size (with a smaller ratio)
+
+2012-10-21 20:33  remi  0.4.3alpha1
+	* Added Auto Select Max feature  (feature request from Eric D.)
+	* Added Save Path and Save Path and Next feature  (feature request from Eric D.)
+	* Fixed reinitialization of resize combo when changing of picture (submitted by Eric D.)
+
 2012-07-28 17:33  remi  0.4.2
     * Added Mask off areas to be cropped off (feature requested by Marcus S. & Fank B.)
     * Added AutoSave Folder & Suffix (feature requested by Fank B.)

@@ -44,6 +44,9 @@ public:
 	void SetGuideRatio(double ratio);
 	void SetOrientation(int orientation);
 	void SetFixedSize(int width, int height);
+	bool IsFixedSize() { return (this->fixedWidth != -1); }
+
+	void AdjustTrackerRectFixed(wxRect & curRect, int handler);
 
 protected:
 	// Behaviour Functions
@@ -51,7 +54,6 @@ protected:
 	wxRect CalcRectNearer(wxRect rr, wxRect r1, wxRect r2);
 	virtual void AdjustTrackerRect(wxRect & curRect, int handler);
 	void AdjustTrackerRectRatio(wxRect & curRect, int handler, bool expand);
-	void AdjustTrackerRectFixed(wxRect & curRect, int handler);
 	// Helper Functions
 	virtual void DrawRect(wxDC & dc, int x, int y, int w, int h);
 	virtual void DrawTracker(wxDC & dc, int x, int y, int w, int h);

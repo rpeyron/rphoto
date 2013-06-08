@@ -7,6 +7,7 @@ EXTRA_DIST = config.rpath  config.rpath m4/ChangeLog  config.rpath m4/ChangeLog 
         INSTALL \
         NEWS \
         TODO \
+        build/vc/RPhoto.vcxproj \
         build/vc/RPhoto.vcproj \
         build/vc/RPhoto.sln \
         build/vc/RPhoto.dsp \

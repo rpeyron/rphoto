@@ -59,6 +59,8 @@
 #define MENU_FILE_DELETE    10004
 #define MENU_FILE_MOVE      10005
 #define MENU_FILE_MOVENEXT  10006
+#define MENU_FILE_SAVEPATH  10007
+#define MENU_FILE_SAVEPATHN 10008
 #define MENU_FILE_RELOAD	10013
 #define MENU_FILE_PREV		10011
 #define MENU_FILE_NEXT		10012
@@ -170,6 +172,8 @@ protected:
 	void OnFileDelete(wxCommandEvent &event);
 	void OnFileMove(wxCommandEvent &event);
 	void OnFileMoveAndNext(wxCommandEvent &event);
+	void OnFileSavePath(wxCommandEvent &event);
+	void OnFileSavePathAndNext(wxCommandEvent &event);
 	void OnFileReload(wxCommandEvent &event);
 	void OnFilePrev(wxCommandEvent &event);
 	void OnFileNext(wxCommandEvent &event);
@@ -216,6 +220,7 @@ protected:
 	void imageUndoPoint();
 	void imageUpdateExif();
 	bool CallJPEGTranTryPerfect(const wxString &command);
+	bool CallJHead(const wxString &command);
 
 	// Fonctions Diverses
 	bool CalcRatio(const wxString &str);
@@ -254,8 +259,12 @@ protected:
 	wxString m_sOriginalFilename;
 	bool m_bTemp;
     bool m_bJPEGlossless;
+	bool m_bSaveCurFolder;
+	bool m_bAutoRot;
+	int m_iOrientation;
 	wxString m_sComEncoding;
     bool m_bAutoSave;
+	bool m_bAutoSelectMax;
 	wxString m_sAutoSaveFolder;
 	wxString m_sAutoSaveSuffix;
     bool m_bDirty;
@@ -265,6 +274,7 @@ protected:
     wxConfig * m_pConfig;
     wxConfigDialog * m_pConfigDialog;
 	bool m_isFileLoading;
+	bool m_isAutorotating;
 
    	DECLARE_CLASS(RatioFrame)
 
@@ -280,7 +290,7 @@ public:
 	virtual ~rpUndo() {};
 	virtual bool isAction() { return false; };
 	virtual void save(RatioFrame & frame) = 0;
-	virtual void restore(RatioFrame & frame) = 0;
+	virtual bool restore(RatioFrame & frame) = 0;
 };
 
 class rpImage : public rpUndo
@@ -305,7 +315,7 @@ public:
 
 	virtual ~rpImage()
 	{
-		if (!this->bKeepFiles && this->bTemp) wxRemoveFile(this->sFilename);
+		if (!this->bKeepFiles && this->bTemp && wxFileExists(this->sFilename)) wxRemoveFile(this->sFilename);
 	};
 
 	virtual bool isAction() { return false; };
@@ -327,9 +337,11 @@ public:
 		scale = frame.m_pImageBox->GetScale();
 	};
 
-	void restore(RatioFrame & frame)
+	bool restore(RatioFrame & frame)
 	{
 		wxString oldOriginalFilename;
+
+		if ((!wxFileExists(sOriginalFilename)) || (!wxFileExists(sFilename))) return false;
 
 		oldOriginalFilename = frame.m_sOriginalFilename;
 		bKeepFiles = true;
@@ -350,6 +362,7 @@ public:
 		frame.UpdateControlsState();
 		frame.imageUpdateExif();
 		if (oldOriginalFilename != frame.m_sOriginalFilename) frame.UpdateDirCtrl();
+		return true;
 	};
 
 };
@@ -373,7 +386,7 @@ public:
 		frame.UpdateDirCtrl(m_sSourceFilename);
 		frame.m_isFileLoading = false;
 	};
-	virtual void restore(RatioFrame & frame) 
+	virtual bool restore(RatioFrame & frame) 
 	{ 
 		frame.m_isFileLoading = true; // Avoid harmfull reload of image
 		wxRenameFile(m_sDestFilename, m_sSourceFilename); 
@@ -381,6 +394,7 @@ public:
 		if (frame.m_sFilename == m_sDestFilename) frame.m_sFilename = m_sSourceFilename;
 		frame.UpdateDirCtrl(m_sDestFilename);
 		frame.m_isFileLoading = false;
+		return true;
 	};
 };
 

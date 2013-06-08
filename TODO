@@ -1,6 +1,8 @@
 Bugs :
 
 Features :
+- Suggestions de Eric Derbuel (eoderbu@laposte.net, mail 24/10/2012) :
+  - Dans l'optique d'un traitement pour un cadre : Le mieux serait que tout le paramétrage soit choisi en amont. Ratio, redimensionnement, dossiers, choix remplacement ou sauvegarde etc. Ensuite on traite à la chaine toutes les photos avec les mêmes paramètres : quand la position du cadre a été choisie, le passage à la photo suivante entraine redim et sauvegarde… en deux clics : 1 – je cadre 2 – photo suivante…
 - Guides / Rulers (Marcus S.)
 - Zooms (Marcus S.)
 - Snap borders to lossless (Marcus S.)
@@ -13,6 +15,8 @@ Features :
 - Red Eye
 - Color Adjustement
 
+Refactoring : 
+- Update imagejpg with latest imagjpeg (and provide a patch for imagejpg and image, to keep options, and iterate through options)
 
 Done ----------------------------------------------------------------------------
 
@@ -27,8 +31,13 @@ Bugs:
 - Lossless warnings not functionnal (Marcus) -> verified ok : jpegtran warns rotation, but not cropping
 - Translation notes (Free Rotation, Ratio : Free, Resize : No) -> ok
 - Bizarre tree behavior on linux, when saving (Marcus, marcus.sundman@iki.fi) -> not observed
+- Delete with Del key does not always go to the next file (Max PUECH <max.puech@laposte.net>, mail du 15/05/2013)
+- Le redimensionne en taille fixe ne tient pas compte de l'orientation
+- Bug ? les photos "retournées"  (de paysage à portrait) et sauvegardées en 800X600 sont  déformées (je n'ai passé que quelques minutes sur Rphoto … peut-être pas tout compris…   (E. Derbuel)
+- Fixed size tracker does not adjust to screen size (try with a smaller screen size)
 
 Features :
+- Conservation dernier chemin ouvert (E. Derbuel, A. Anastassov) -> ok
 - Confirmation when not save (Marcus S.) -> ok
 - AutoSave Folder & Suffix (Fank B.) -> ok
 - Mask off areas to be cropped off (Marcus S. & Fank B.) -> ok
@@ -37,3 +46,7 @@ Features :
 - Save last entered ratio or size -> ok
 - Display EXIF Tags (tabs on the right, order main tags, display alls tags) -> ok
 - Slight Rotation (By selecting 2 points for vertical or horizontal, not lossless) -> ok
+- Option to automatically rotate according EXIF data (Asen, smaragdus@gmail.com, 16/11/2012) :
+   - need to update exif while rotating -> not necessary with jhead, and would not have worked with jpegtran
+   - or auto preprocess with jhead -autorot  -> ok
+   (Also asked by Max PUECH <max.puech@laposte.net>, mail du 15/05/2013)

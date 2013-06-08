@@ -39,6 +39,7 @@
 #include "../lib/wxmisc/str64.h"
 #include <wx/arrstr.h>
 #include <wx/tokenzr.h>
+#include <wx/stdpaths.h>
 
 #ifdef __WXMSW__
 #include <windows.h>
@@ -126,6 +127,9 @@ RatioFrame::RatioFrame(wxWindow* parent,
     m_bDirty = FALSE;
     m_bJPEGlossless = FALSE;
 	m_isFileLoading = FALSE;
+	m_isAutorotating = FALSE;
+	m_bSaveCurFolder = FALSE;
+	m_iOrientation = 1;
 	m_HistoryUndo.DeleteContents(true);
 	m_HistoryRedo.DeleteContents(true);
 
@@ -154,6 +158,11 @@ RatioFrame::RatioFrame(wxWindow* parent,
 	SetDropTarget(new rpFrameDropTarget(this));
 
     isInInit = false;
+
+	wxString defPath;
+	m_pConfig->Read(wxT("Defaults/DefPath"), &defPath, wxT(""));
+	if (defPath.Length() > 1)  m_pDirCtrl->ExpandPath(defPath);
+
 	UpdateControlsState();
 	imageUpdateExif();
 	m_bDirty = FALSE;
@@ -172,9 +181,12 @@ void RatioFrame::InitConfig()
     new wxConfigDialog_EntryTextEdit(*m_pConfigDialog, wxT("Main"), wxT("AutoSaveSuffix"), _("Main"), _("Auto Save Suffix"), wxT(""));
     new wxConfigDialog_EntryCheck(*m_pConfigDialog, wxT("Main"), wxT("AutoRotateCrop"), _("Main"), _("Auto Crop after Rotation"), FALSE);
     new wxConfigDialog_EntryTextEdit(*m_pConfigDialog, wxT("Main"), wxT("UndoHistory"), _("Main"), _("Undo History"), wxT("10"));
+    new wxConfigDialog_EntryCheck(*m_pConfigDialog, wxT("Main"), wxT("AutoSelectMax"), _("Main"), _("Auto Select Max"), FALSE);
 
     // * JPEG stuff
     new wxConfigDialog_EntryTextEdit(*m_pConfigDialog, wxT("JPEG"), wxT("JPEGTran"), _("JPEG"), _("JPEGTran's path"), wxT("jpegtran"));
+    new wxConfigDialog_EntryTextEdit(*m_pConfigDialog, wxT("JPEG"), wxT("JHead"), _("JPEG"), _("JHead's path"), wxT("jhead"));
+    new wxConfigDialog_EntryCheck(*m_pConfigDialog, wxT("JPEG"), wxT("AutoRot"), _("JPEG"), _("AutoRot on Load"), FALSE);
     // new wxConfigDialog_EntryTextEdit(*m_pConfigDialog, wxT("JPEG"), wxT("WrJpgCom"), _("JPEG"), _("WrJpgCom's path"), wxT("wrjpgcom"));
     new wxConfigDialog_EntryCheck(*m_pConfigDialog, wxT("JPEG"), wxT("DisplayLosslessWarnings"), _("JPEG"), _("Display Lossless warnings"), TRUE);
     new wxConfigDialog_EntryTextEdit(*m_pConfigDialog, wxT("JPEG"), wxT("Quality"), _("JPEG"), _("JPEG Quality (0-100)"), wxT("80"));
@@ -182,6 +194,8 @@ void RatioFrame::InitConfig()
     new wxConfigDialog_EntryTextEdit(*m_pConfigDialog, wxT("JPEG"), wxT("ComEncoding"), _("JPEG"), _("Comments Encoding"), RPHOTO_DEFAULT_COMMENT_ENCODING);
     
     // * Default settings
+    new wxConfigDialog_EntryTextEdit(*m_pConfigDialog, wxT("Defaults"), wxT("DefPath"), _("Defaults"), _("Default Path"), wxT(""));
+    new wxConfigDialog_EntryCheck(*m_pConfigDialog, wxT("Defaults"), wxT("SaveDefPath"), _("Defaults"), _("Remember Last Opened Path"), FALSE);
 	wxArrayString ratios;
     wxStringTokenizer tkz(wxString(RPHOTO_DEFAULT_FORCED_RATIO) + wxT("|") + wxString(RPHOTO_DEFAULT_CUSTOM_RATIO), wxT("|"));
 	while ( tkz.HasMoreTokens() )
@@ -306,6 +320,18 @@ void RatioFrame::DoConfig()
 	m_sAutoSaveFolder = str;
     m_pConfig->Read(wxT("Main/AutoSaveSuffix"), &str);
 	m_sAutoSaveSuffix = str;
+	// AutoSelectMax
+    opt = FALSE;
+    m_pConfig->Read(wxT("Main/AutoSelectMax"), &opt);
+    m_bAutoSelectMax = opt;
+	// AutoRot
+    opt = FALSE;
+    m_pConfig->Read(wxT("JPEG/AutoRot"), &opt);
+	m_bAutoRot = opt;
+	// AutoRot
+    opt = FALSE;
+    m_pConfig->Read(wxT("Defaults/SaveDefPath"), &opt);
+	m_bSaveCurFolder = opt;
 	// Grey Out area
 	m_pConfig->Read(wxT("View/GreyOut"), &str);
 	str.ToDouble(&d); i = (int)d;
@@ -329,6 +355,8 @@ void RatioFrame::InitMenu()
 	curMenu->Append(MENU_FILE_DELETE, _("&Delete") + wxString(wxT("\t Del")), _("Suppress the file."));
 	curMenu->Append(MENU_FILE_MOVE, _("&Move") + wxString(wxT("\t m")), _("Move the file to the selected folder."));
 	curMenu->Append(MENU_FILE_MOVENEXT, _("Mo&ve Next") + wxString(wxT("\t *")), _("Move the file to the selected folder and go to the next file."));
+	curMenu->Append(MENU_FILE_SAVEPATH, _("Save to &Path") + wxString(wxT("\t p")), _("Save the file to the selected folder."));
+	curMenu->Append(MENU_FILE_SAVEPATHN, _("Save to Path &and Next") + wxString(wxT("\t a")), _("Save the file to the selected folder and go to the next file."));
 	curMenu->AppendSeparator();
 	curMenu->Append(MENU_FILE_PREV, _("&Previous File")+wxString(wxT("\t PageUp")), _("Open the previous file in the explorer."));
 	curMenu->Append(MENU_FILE_NEXT, _("&Next File")+wxString(wxT("\t PageDown")), _("Open the next file in the explorer."));
@@ -540,6 +568,7 @@ void RatioFrame::InitControls()
 	panel->SetSizer(new wxBoxSizer(wxVERTICAL));
 	panel->GetSizer()->Add(m_pMoveCtrl, 1, wxEXPAND);
 	panel->GetSizer()->Add(new wxButton(panel, MENU_FILE_MOVE, _("Move Here")), 0, wxEXPAND);
+	panel->GetSizer()->Add(new wxButton(panel, MENU_FILE_SAVEPATH, _("Save Here")), 0, wxEXPAND);
 	m_pNbFiles->AddPage(panel, _("Move To"), false);
 
 	Connect(m_pMoveCtrl->GetTreeCtrl()->GetId(), wxEVT_COMMAND_TREE_SEL_CHANGED,
@@ -680,11 +709,13 @@ void RatioFrame::UpdateControlsState()
 	{
 		GetMenuBar()->Enable(MENU_FILE_MOVE, true);
 		m_pMoveCtrl->FindWindowById(MENU_FILE_MOVE, m_pMoveCtrl->GetParent())->Enable(true);
+		m_pMoveCtrl->FindWindowById(MENU_FILE_SAVEPATH, m_pMoveCtrl->GetParent())->Enable(true);
 	}
 	else
 	{
 		GetMenuBar()->Enable(MENU_FILE_MOVE, false);
 		m_pMoveCtrl->FindWindowById(MENU_FILE_MOVE, m_pMoveCtrl->GetParent())->Enable(false);
+		m_pMoveCtrl->FindWindowById(MENU_FILE_SAVEPATH, m_pMoveCtrl->GetParent())->Enable(false);
 	}
 
 	// Comment
@@ -714,7 +745,7 @@ void RatioFrame::UpdateControlsState()
 RatioFrame::~RatioFrame()
 {
 	ImageCleanup();
-	if (m_bTemp) wxRemoveFile(m_sFilename);
+	if (m_bTemp && wxFileExists(m_sFilename)) wxRemoveFile(m_sFilename);
     if (m_pConfig) delete m_pConfig;
     if (m_pConfigDialog) delete m_pConfigDialog;
 }
@@ -727,6 +758,8 @@ BEGIN_EVENT_TABLE(RatioFrame, wxFrame)
    EVT_MENU(MENU_FILE_DELETE, RatioFrame::OnFileDelete)
    EVT_MENU(MENU_FILE_MOVE, RatioFrame::OnFileMove)
    EVT_MENU(MENU_FILE_MOVENEXT, RatioFrame::OnFileMoveAndNext)
+   EVT_MENU(MENU_FILE_SAVEPATH, RatioFrame::OnFileSavePath)
+   EVT_MENU(MENU_FILE_SAVEPATHN, RatioFrame::OnFileSavePathAndNext)
    EVT_MENU(MENU_FILE_RELOAD, RatioFrame::OnFileReload)
    EVT_MENU(MENU_FILE_PREV, RatioFrame::OnFilePrev)
    EVT_MENU(MENU_FILE_NEXT, RatioFrame::OnFileNext)
@@ -907,6 +940,104 @@ bool RatioFrame::CallJPEGTranTryPerfect(const wxString & command)
 	return rc;
 }
 
+bool RatioFrame::CallJHead(const wxString & command)
+{
+	wxString oldFilename;
+	wxString pathJhead = wxT("jhead");
+	wxString pathJpegtran = wxT("jpegtran");
+	wxFileName pathFilename;
+    const wxString extraJheadOptions = wxT("-q ");
+	long rc;
+	wxString cmd;
+
+
+	BEGIN_IMAGE_JPEG()
+
+	if (m_bTemp != TRUE) m_sFilename = m_sOriginalFilename;
+	oldFilename = m_sFilename;
+
+	m_bTemp = TRUE;
+	m_sFilename = wxFileName::CreateTempFileName(RPHOTO_TEMP_PREFIX); // +wxT(".")+wxFileName(m_sOriginalFilename).GetExt();
+
+	// Readonly support : wxCopyFile copie également le caractère readonly et il n'y a pas de fonctions portable pour changer les attributs, donc une copie manuelle
+	if (wxFileName::IsFileWritable(oldFilename))
+	{
+		wxCopyFile(oldFilename,m_sFilename,TRUE);
+	}
+	else
+	{
+		// Depuis wxDoCopyFile de filefn.cpp
+		wxFile fileIn;
+		wxFile fileOut;
+		if (!fileIn.Open(oldFilename)) return false;
+		if (!fileOut.Create(m_sFilename, TRUE) )	return false;
+		char buf[4096];
+		for ( ;; )
+		{
+			ssize_t count = fileIn.Read(buf, WXSIZEOF(buf));
+			if ( count == wxInvalidOffset )	return false;
+			if ( !count )	break;
+			if ( fileOut.Write(buf, count) < (size_t)count )	return false;
+		}
+		fileIn.Close();
+		fileOut.Close();
+	}
+
+    m_pConfig->Read(wxT("JPEG/JHead"), &pathJhead);
+    m_pConfig->Read(wxT("JPEG/JPEGTran"), &pathJpegtran);
+	pathFilename.Assign(pathJpegtran);
+	pathFilename.Normalize();
+
+#ifdef _WINDOWS
+	wxSetEnv(wxT("PATH"), wxString(wxGetenv(wxT("PATH"))) + wxT(";") + wxFileName(wxStandardPaths::Get().GetExecutablePath()).GetPath());
+#endif
+	//cmd = wxT("PATH=") + pathFilename.GetPath() + wxT(";%PATH%& ") + pathJhead + wxT(" ") + extraJheadOptions + command + wxT(" \"") + m_sFilename + wxT("\"");
+	cmd = pathJhead + wxT(" ") + extraJheadOptions + command + wxT(" \"") + m_sFilename + wxT("\"");
+	this->GetStatusBar()->PushStatusText(_("Executing : ") + cmd + wxT(" ..."));
+
+	wxProcess process(this);
+	process.Redirect();
+	wxBeginBusyCursor();
+
+    {
+        wxLogNull noLog;
+        rc = wxExecute(cmd, wxEXEC_SYNC, &process);
+    }
+
+	wxEndBusyCursor();
+	this->GetStatusBar()->PopStatusText();
+	if ((process.GetErrorStream() != NULL))
+	{
+		process.GetErrorStream()->Peek();
+		if (!(process.GetErrorStream()->Eof()))
+		{
+			char buffer[10240];
+			process.GetErrorStream()->Read(buffer, sizeof(buffer));
+			buffer[process.GetErrorStream()->LastRead()] = 0;
+			wxMessageBox(_("JHead has returned an error : \n\n") +wxString(buffer,wxConvLocal) + wxT("\n\n") + cmd, _("JHead Error"), wxOK | wxICON_ERROR, this);
+		}
+	}
+	if (rc)
+	{
+		// Error
+        // -1 : the process cannot be launched, probably because of jpegtran path
+        if ((rc == -1)) 
+            wxMessageBox(_("Unable to launch JHead : \n\nPlease check that jpegtran executable is in the path.")  + wxString(wxT("\n\n")) + wxString(cmd), 
+            _("JHead Error"), wxOK | wxICON_ERROR, this);
+        // Other error
+	}
+	else
+	{
+    	wxBeginBusyCursor();
+		m_pImageBox->LoadFile(m_sFilename);
+		m_pImageBox->TrackerReset();
+    	wxEndBusyCursor();
+	}
+	END_IMAGE_JPEG()
+
+	return (rc)?FALSE:TRUE;
+}
+
 void RatioFrame::ImageLoad(wxString name, bool original)
 {
 	if (m_isFileLoading) return;
@@ -915,12 +1046,43 @@ void RatioFrame::ImageLoad(wxString name, bool original)
     wxBeginBusyCursor();
 	if (ImageCleanup())
 	{
-		if (original) SetStatusText(wxString::Format(_("Loading %s..."), name.c_str()));
+		if (original) 
+		{
+				SetStatusText(wxString::Format(_("Loading %s..."), name.c_str()));
+				if (m_bSaveCurFolder) m_pConfig->Write(wxT("Defaults/DefPath"), wxFileName(name).GetPath());
+		}
 		m_sFilename = name;
 		if ((!m_bTemp) || (original)) { m_sOriginalFilename = m_sFilename; m_bTemp = false; }
 		m_pImageBox->LoadFile(m_sFilename);
-		m_pImageBox->TrackerReset();
+		if ((m_bAutoSelectMax) && (! m_pImageBox->IsModeInclinaison()))
+		{
+			wxRect tracker, tracker_max;
+			// Set Tracker to max according ratio / fixed size
+			m_pImageBox->GetRectTracker().SetTrackerRect(wxRect(0,0,1000000,1000000));
+			m_pImageBox->GetRectTracker().Update();
+			// Center Tracker
+			tracker = m_pImageBox->GetRectTracker().GetTrackerRect();
+			tracker_max = m_pImageBox->GetRectTracker().GetMaxRect();
+			tracker.x = (tracker_max.width - tracker.width) / 2;
+			tracker.y = (tracker_max.height - tracker.height) / 2;
+			m_pImageBox->GetRectTracker().SetTrackerRect(tracker);
+			m_pImageBox->GetRectTracker().Update();
+			// Check if Fixed Size exceeds image
+			if ((m_pImageBox->GetRectTracker().GetFixedHeight() > 0) && (m_pImageBox->GetRectTracker().GetFixedWidth() > 0))
+			{
+				if ( ( tracker.x < 0 ) || ( tracker.y < 0)  )
+				{
+					m_pImageBox->TrackerReset();
+				}
+			}
+		}
+		else
+		{
+			m_pImageBox->TrackerReset();
+		}
+		m_iOrientation = 1;
 		imageUpdateExif();
+		m_pResizeCombo->Select(0);
 		m_bJPEGlossless = (isJPEGFile(name))?TRUE:FALSE;
 	}
 	UpdateControlsState();
@@ -928,6 +1090,15 @@ void RatioFrame::ImageLoad(wxString name, bool original)
     wxEndBusyCursor();
 	END_IMAGE();
 	m_isFileLoading = false;
+
+	// AutoRot
+	if ((m_bAutoRot) && (m_iOrientation != 1) && (!m_isAutorotating))
+	{
+		m_isAutorotating = true;
+		// Dirty(); // Uncomment to ask for save (else it will always been autorotating)
+		CallJHead(wxT("-autorot"));
+		m_isAutorotating = false;
+	}
 }
 
 bool RatioFrame::ImageCleanup()
@@ -1012,27 +1183,39 @@ void RatioFrame::imageUpdateExif()
 
 	if (!m_pImageBox->GetImage().HasOption(wxT("APP1"))) return;
 		
-	strExif = m_pImageBox->GetImage().GetOption(wxT("APP1"));
-	exifLen = strExif.DecodeBase64(bufExif);
-	edata = exif_data_new();
-	if ((bufExif) && (edata))
+	// Loop between all APP1 tags, and process multiples Exif if is has
+	wxStringTokenizer tkz;
+	tkz.SetString(m_pImageBox->GetImage().GetOption(wxT("APP1")), wxT("#"));
+	while ( tkz.HasMoreTokens() )
 	{
-		exif_data_load_data(edata, bufExif, exifLen);
-
-		for (ifd = 0; ifd < EXIF_IFD_COUNT; ifd++) 
+		strExif = tkz.GetNextToken();
+		exifLen = strExif.DecodeBase64(bufExif);
+		edata = exif_data_new();
+		if ((bufExif) && (edata))
 		{
-			if (edata->ifd[ifd] && edata->ifd[ifd]->count) 
+			exif_data_load_data(edata, bufExif, exifLen);
+
+			for (ifd = 0; ifd < EXIF_IFD_COUNT; ifd++) 
 			{
-				for (ientry = 0; ientry < edata->ifd[ifd]->count; ientry++)
+				if (edata->ifd[ifd] && edata->ifd[ifd]->count) 
 				{
-					m_pAttrCtrl->InsertItem(m_pAttrCtrl->GetItemCount(),  
-						wxString((const char *)exif_tag_get_name(edata->ifd[ifd]->entries[ientry]->tag),wxConvLocal));
-					exif_entry_get_value(edata->ifd[ifd]->entries[ientry], (char *) value, sizeof(value));
-					m_pAttrCtrl->SetItem(m_pAttrCtrl->GetItemCount()-1, 1,  wxString((const char *)value,wxConvLocal));
-					// Favorites
-					for (fav = 0; fav < m_pAttrFavCtrl->GetItemCount(); fav++)
-						if (m_pAttrFavCtrl->GetItemText(fav) == wxString((const char *)exif_tag_get_name(edata->ifd[ifd]->entries[ientry]->tag),wxConvLocal))
-							m_pAttrFavCtrl->SetItem(fav, 1,  wxString((const char *)value,wxConvLocal));
+					for (ientry = 0; ientry < edata->ifd[ifd]->count; ientry++)
+					{
+						m_pAttrCtrl->InsertItem(m_pAttrCtrl->GetItemCount(),  
+							wxString((const char *)exif_tag_get_name(edata->ifd[ifd]->entries[ientry]->tag),wxConvLocal));
+						exif_entry_get_value(edata->ifd[ifd]->entries[ientry], (char *) value, sizeof(value));
+						m_pAttrCtrl->SetItem(m_pAttrCtrl->GetItemCount()-1, 1,  wxString((const char *)value,wxConvLocal));
+						// Favorites
+						for (fav = 0; fav < m_pAttrFavCtrl->GetItemCount(); fav++)
+							if (m_pAttrFavCtrl->GetItemText(fav) == wxString((const char *)exif_tag_get_name(edata->ifd[ifd]->entries[ientry]->tag),wxConvLocal))
+								m_pAttrFavCtrl->SetItem(fav, 1,  wxString((const char *)value,wxConvLocal));
+
+						// OrientationTag (for AutoRot)
+						if (edata->ifd[ifd]->entries[ientry]->tag == EXIF_TAG_ORIENTATION)
+						{
+							m_iOrientation = exif_get_short(edata->ifd[ifd]->entries[ientry]->data, exif_data_get_byte_order (edata));
+						}
+					}
 				}
 			}
 		}
@@ -1050,6 +1233,7 @@ void RatioFrame::UpdateDirCtrl(const wxString & from)
     {
         m_pDirCtrl->SetPath(fn.GetFullPath());
     }
+	m_pImageBox->SetFocus();
 }
 
 void RatioFrame::OnClose(wxCloseEvent& event)
@@ -1243,18 +1427,21 @@ void RatioFrame::OnFileSaveAs(wxCommandEvent &event)
 
 void RatioFrame::OnFileDelete(wxCommandEvent &event)
 {
-    if (wxMessageBox(_("Are you sure to delete the file ") + m_sFilename + wxT(" ?"), _("Delete confirmation"), wxYES_NO | wxICON_QUESTION, this) == wxYES)
+    wxString path, name;
+    path = wxT("");
+    name = m_pDirCtrl->GetFilePath();
+    if (wxMessageBox(_("Are you sure to delete the file ") + name + wxT(" ?"), _("Delete confirmation"), wxYES_NO | wxICON_QUESTION, this) == wxYES)
     {
-        wxString path, name;
-        path = wxT("");
-        name = m_pDirCtrl->GetFilePath();
         // Find another file
         OnFileNext(event);
         if (m_pDirCtrl->GetFilePath() == name) OnFilePrev(event);
+		isInUpdate = true;
         if (m_pDirCtrl->GetFilePath() == name) path = m_pDirCtrl->GetPath();
-        wxRemoveFile(name);
+        if (wxFileExists(name)) wxRemoveFile(name);
+		Clean();
         m_pDirCtrl->ReCreateTree();
         if (path != wxT(""))  m_pDirCtrl->SetPath(path); else UpdateDirCtrl();
+		isInUpdate = false;
     }
 }
 
@@ -1290,6 +1477,35 @@ void RatioFrame::OnFileMoveAndNext(wxCommandEvent &event)
 	fn = wxFileName(m_pDirCtrl->GetPath());
 	fn.SetFullName(m_pDirCtrl->GetTreeCtrl()->GetItemText(m_pDirCtrl->GetTreeCtrl()->GetNextSibling(m_pDirCtrl->GetTreeCtrl()->GetSelection())));
 	OnFileMove(event);
+	m_pDirCtrl->SetPath(fn.GetFullPath());
+}
+
+
+void RatioFrame::OnFileSavePath(wxCommandEvent &event)
+{
+	wxString fn;
+	if (m_pMoveCtrl->GetPath() == wxT(""))
+	{
+		SetStatusText(_("No destination path selected."));
+		return;
+	}
+	else
+	{
+		fn = wxFileName(m_pMoveCtrl->GetPath(), wxFileName(m_sOriginalFilename).GetFullName()).GetFullPath();
+		SetStatusText(wxString::Format(_("Save to %s"),fn.c_str()));
+		ImageSaveAs(fn);
+	}
+
+	UpdateControlsState();
+}
+
+void RatioFrame::OnFileSavePathAndNext(wxCommandEvent &event)
+{
+	// TODO
+	wxFileName fn;
+	fn = wxFileName(m_pDirCtrl->GetPath());
+	fn.SetFullName(m_pDirCtrl->GetTreeCtrl()->GetItemText(m_pDirCtrl->GetTreeCtrl()->GetNextSibling(m_pDirCtrl->GetTreeCtrl()->GetSelection())));
+	OnFileSavePath(event);
 	m_pDirCtrl->SetPath(fn.GetFullPath());
 }
 
@@ -1665,7 +1881,7 @@ void RatioFrame::OnImageJPEGDetectQuality(wxCommandEvent &event)
             quality = (int)((quality + maxQual) / 2);
         }
     }
-    wxRemoveFile(fname);
+    if (wxFileExists(fname)) wxRemoveFile(fname);
     wxEndBusyCursor();
     m_pConfig->Write(wxT("JPEG/Quality"), wxString::Format(wxT("%d"),quality));
     GetStatusBar()->SetStatusText(wxString::Format(_("Detected the quality %d."), quality));
@@ -1822,11 +2038,14 @@ bool RatioFrame::Resize(const wxString &str)
 {
 	long lNum = 0, lDenom = 0;
 	double ratio;
-	long destWidth, destHeight;
+	long destWidth, destHeight, curWidth, curHeight, swap;
+	int porl;
 
-	destWidth = m_pImageBox->GetImage().GetWidth();
-	destHeight = m_pImageBox->GetImage().GetHeight();
+	destWidth  = curWidth = m_pImageBox->GetImage().GetWidth();
+	destHeight = curHeight = m_pImageBox->GetImage().GetHeight();
 	ratio = m_pImageBox->GetRatio();
+	porl = m_pImageBox->GetOrientation();
+
 	if (ratio == 0) ratio = destWidth / destHeight;
 
 	if (str.Find('%') != -1)
@@ -1873,6 +2092,22 @@ bool RatioFrame::Resize(const wxString &str)
     		wxMessageBox(wxString::Format(_("Invalid fixed size : %ld x %ld\nThis should have the following format : '111x222 description'"), lNum, lDenom));
     		return FALSE;
     	}
+
+		// Adjust Portait Or Landscape
+		if (
+			// Automatic : swap if not in the same direction
+			( (porl == 0) && ( ((curWidth > curHeight) && (destWidth < destHeight)) || ((curWidth < curHeight) && (destWidth > destHeight)) ) ) ||
+			// Landscape : swap if portrait
+			( (porl > 0) && (destWidth < destHeight) ) ||
+			// Portrait : swap if landscape
+			( (porl < 0) && (destWidth > destHeight) )
+		   )
+		{
+			// Swap
+			swap = destWidth;
+			destWidth = destHeight;
+			destHeight = swap;
+		}
 	}
 	else if (str.Find(_("kb")) != -1)
 	{
@@ -1902,7 +2137,7 @@ bool RatioFrame::Resize(const wxString &str)
 			}
 			// Adjust to wxIMAGE_QUALITY_HIGH (experimental...)
 			ratio = ratio * 0.90;
-			wxRemoveFile(fname);
+			if (wxFileExists(fname)) wxRemoveFile(fname);
 			wxEndBusyCursor();
 			GetStatusBar()->SetStatusText(wxString::Format(_("Detected the size ok !"), ratio));
 		}

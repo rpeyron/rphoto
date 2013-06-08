@@ -3,7 +3,7 @@
 
 [Setup]
 AppName=RPhoto
-AppVerName=RPhoto 0.4.2
+AppVerName=RPhoto 0.4.3
 AppPublisherURL=http://www.via.ecp.fr/~remi/soft/rphoto/
 AppSupportURL=http://www.via.ecp.fr/~remi/soft/rphoto/
 AppUpdatesURL=http://www.via.ecp.fr/~remi/soft/rphoto/
@@ -18,6 +18,7 @@ ShowLanguageDialog=yes
 [Files]
 Source: ..\..\bin\RPhoto.exe; DestDir: {app}; Flags: ignoreversion
 Source: ..\..\bin\jpegtran.exe; DestDir: {app}; Flags: ignoreversion
+Source: ..\..\bin\jhead.exe; DestDir: {app}; Flags: ignoreversion
 Source: ..\..\bin\rphoto.htb; DestDir: {app}; Flags: ignoreversion
 Source: ..\..\bin\fr\RPhoto.mo; DestDir: {app}/fr; Flags: ignoreversion
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files

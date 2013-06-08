@@ -222,6 +222,17 @@ void wxRatioImageBox::OnMouseRightUp(wxMouseEvent & event)
 	Refresh();
 }
 
+void wxRatioImageBox::SetFixedSize(int width, int height) 
+{ 
+	originalFixedTrackerSize.width = width; 
+	originalFixedTrackerSize.height = height; 
+	rectTracker->SetFixedSize(
+		width * GetScaleValue(), 
+		height * GetScaleValue()); 
+	rectTracker->Update(); 
+}
+
+
 void wxRatioImageBox::AdjustTrackerSize(double ratio)
 {
 	wxRect rect;
@@ -236,7 +247,7 @@ void wxRatioImageBox::AdjustTrackerSize(double ratio)
 				   (int)(GetImage().GetHeight())
 				   ));
 		// On adapte  la nouvelle taille
-		if (ratio != 0)
+		if ((ratio != 0))
 		{
 			rect = rectTracker->GetUnscrolledRect();
 			rect.x = (int) ((double)rect.x * ratio);
@@ -253,6 +264,8 @@ void wxRatioImageBox::AdjustTrackerSize(double ratio)
 				   (int)(GetImage().GetWidth()*GetScaleValue()), 
 				   (int)(GetImage().GetHeight()*GetScaleValue())
 				   ));
+		// Si c'est une taille fixe, on adapte aussi la taille fixe : attention, méthode approximative (ne garantit pas que la taille finale sera la taille indiquée)
+		if (rectTracker->IsFixedSize()) rectTracker->SetFixedSize(originalFixedTrackerSize.width * GetScaleValue(), originalFixedTrackerSize.height * GetScaleValue());
 	}
 
 
@@ -394,6 +407,28 @@ wxRect wxRatioImageBox::GetSelectedZone()
         rect.y = (int)(rect.y / ratio);
         rect.width = (int)(rect.width / ratio);
         rect.height = (int)(rect.height / ratio);
+		// Si taille fixe et image contractée, alors il faut ajuster le rectangle à taille réelle pour respecter la taille fixe
+		if (rectTracker->IsFixedSize() && (ratio < 1))
+		{
+			// Readjust rect as if ratio = 1
+			rectTracker->SetMaxRect(
+				wxRect(0,
+					   0,
+					   (int)(GetImage().GetWidth()), 
+					   (int)(GetImage().GetHeight())
+					   ));		
+			rectTracker->SetFixedSize(originalFixedTrackerSize.width, originalFixedTrackerSize.height);
+			// Adjust rect
+			rectTracker->AdjustTrackerRectFixed(rect, 0);
+			// Restore values
+			rectTracker->SetMaxRect(
+				wxRect(0,
+					   0,
+					   (int)(GetImage().GetWidth() * ratio), 
+					   (int)(GetImage().GetHeight() * ratio)
+					   ));
+			rectTracker->SetFixedSize(originalFixedTrackerSize.width * ratio, originalFixedTrackerSize.height * ratio);
+		}
     }
     return rect;
 }

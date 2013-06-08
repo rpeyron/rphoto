@@ -2,7 +2,7 @@
 // Name:        src/common/imagjpeg.cpp
 // Purpose:     wxImage JPEG handler
 // Author:      Rémi Peyronnet, based on imagjpeg by Vaclav Slavik
-// RCS-ID:      $Id: imagejpg.cpp 400 2008-10-11 15:29:21Z remi $
+// RCS-ID:      $Id: imagejpg.cpp 526 2013-05-23 14:48:47Z remi $
 // Copyright:   (c)  Vaclav Slavik, modified by Rémi Peyronnet
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
@@ -19,6 +19,7 @@
 // EJPG - Begin
 #include "imagejpg.h"
 #include "wxmisc/str64.h"
+#include <wx/tokenzr.h>
 // EJPG - End
 
 #ifndef WX_PRECOMP
@@ -353,7 +354,14 @@ bool wxEJPGHandler::LoadFile( wxImage *image, wxInputStream& stream, bool verbos
 		default: markerName = wxT("UNKNOWN");	break;
 		}
 		markerValue = wxStringBase64::EncodeBase64((const unsigned char *)curMarker->data, curMarker->data_length);
-		image->SetOption(markerName, markerValue);
+		if (image->HasOption(markerName))
+		{
+			image->SetOption(markerName, image->GetOption(markerName) + wxT("#") + markerValue);
+		}
+		else
+		{
+			image->SetOption(markerName, markerValue);
+		}
 		wxLogDebug(wxT("Tag '") + markerName + wxT("' = '") + markerValue + wxT("' / '") + image->GetOption(markerName) + wxT("'"));
 		// wxLogDebug(wxT("markerValue '%d' '%s'"), curMarker->data_length, curMarker->data);
 		curMarker = curMarker->next;
@@ -534,15 +542,20 @@ bool wxEJPGHandler::SaveFile( wxImage *image, wxOutputStream& stream, bool verbo
 
 // EJPG - Begin
 	wxStringBase64 str;
+	wxStringTokenizer tkz;
 	unsigned char * buf;
 
 	#define SAVE_OPTION(name, index) \
 		if (image->HasOption((name))) \
 		{ \
 			wxLogDebug(wxT("%s"), name); \
-			str = image->GetOption((name)); \
-			jpeg_write_marker(&cinfo, (index), buf, str.DecodeBase64(buf)); \
-			if (buf != NULL) free(buf); \
+			tkz.SetString(image->GetOption((name)), wxT("#"), wxTOKEN_RET_EMPTY); \
+			while ( tkz.HasMoreTokens() ) \
+			{ \
+				str = tkz.GetNextToken(); \
+				jpeg_write_marker(&cinfo, (index), buf, str.DecodeBase64(buf)); \
+				if (buf != NULL) free(buf); \
+			} \
 		}
 
 	SAVE_OPTION(wxT("APP0"), M_APP0);

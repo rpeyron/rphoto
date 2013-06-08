@@ -72,7 +72,7 @@ h3 {
 <p>Choose your target format : 4:3 for digital pictures, 24:36 for paper pictures, or in any other format you like. You may choose also other settings as your prefered orientation, a destination folder, and many other settings.</p>
 <h2>Rotation / Inclinaison correction</h2>
 <div class="imgr"><img src="classic_orient.jpg" width="400px" height="225px" alt="Main Screen" /></div>
-<p>Use the buttons Rotate Left / Rotate Right or shortcuts <b>l</b> (left) / <b>r</b> (right) to rotate the picture by 90°.</p>
+<p>Use the buttons Rotate Left / Rotate Right or shortcuts <b>l</b> (left) / <b>r</b> (right) to rotate the picture by 90Â°.</p>
 <p>But if the photo had been taken with a wrong angle, you will need to correct inclinaison (this cannot be done lossless) : </p>
 <ul>
  <li>Select the mode inclinaison (with the toolbar, the menu or the shortcut <b>'i'</b>) ; lossless mode is automatically disabled.</li>
@@ -116,7 +116,7 @@ The toolbar, lateral tabs, and statusbar are described in separated sections bel
   <li>You can change the space allowed for tabs by drag'n drop on the separation line.</li>
   <li>In order to not interfer with input boxes, shortcuts are only available in the image field. If they don't work, a simple clic on the picture screen will correct that.</li>
   <li>In crop mode, the selection is a rectangle that respects the choosen ratio (4:3, 24:36,...) and the prefered orientation (portrait, landscape, auto). In the auto mode, the selection tool will catch the orientation that is closer to your mouse pointer.</li> 
-  <li>In inclinaison mode, the selection tool is a simple segment. Just draw a line, and the software will detect automatically if it should be a horizontal line or vertical line. If this does not fit you, just rotate again the picture with the 90° left / right buttons..</li>
+  <li>In inclinaison mode, the selection tool is a simple segment. Just draw a line, and the software will detect automatically if it should be a horizontal line or vertical line. If this does not fit you, just rotate again the picture with the 90Â° left / right buttons..</li>
   <li>To move the selection, you just have to drag'n drop the center of the rectangle or segment. You can also move with the keyboard arrows (while pressing Ctrl if you wish to move faster).</li>
   <li>To modify the selection, drag'n drop one of the handles (black squares), or use arrows keys while pressing Shift. A simple clic outside the selection will remove the current selection.</li>
   <li>You can switch with the "Full screen" toolbar button between "Full screen" or "No adjustment" to adjust your selection pixel by pixel.</li>
@@ -159,8 +159,8 @@ To move a file, select in the "Move To" tab the target folder, and press "Move H
 <img src="mode_crop.ico" alt="Crop Mode" /> / <img src="mode_inclinaison.ico" alt="Inclinaison Mode" /> : select the <b>current mode</b> : crop / inclinaison. A second press of this button will do the default operation.<br />
 <img src="undo.ico" alt="Undo last operation" /> : <b>undo</b> the previous operation, limited to the maximum number provided in the settings ; while no other operation has been done, you can cancel the undo by using Edit / Redo.<br />
 <img src="crop.ico" alt="Crop" /> : <b>crop</b> the picture with the current selection rectangle <i>(JPEG lossless is possible)</i>.<br />
-<img src="rotate_left.ico" alt="Rotate 90° to the left" /> : rotate the picture of 90 degrees to the <b>left</b> <i>(JPEG lossless is possible)</i>.<br />
-<img src="rotate_right.ico" alt="Rotate 90° to the right" /> : rotate the picture of 90 degrees to the <b>right</b> <i>(JPEG lossless is possible)</i>.<br />
+<img src="rotate_left.ico" alt="Rotate 90Â° to the left" /> : rotate the picture of 90 degrees to the <b>left</b> <i>(JPEG lossless is possible)</i>.<br />
+<img src="rotate_right.ico" alt="Rotate 90Â° to the right" /> : rotate the picture of 90 degrees to the <b>right</b> <i>(JPEG lossless is possible)</i>.<br />
 <img src="inclinaison.ico" alt="Correct Inclinaison" /> : rotate the image of a few degrees ; you must be in inclinaison mode.<br />
 <img src="landorpo.ico" alt="Landscape or Portrait" /> / <img src="portrait.ico" alt="Portrait" /> / <img src="landscap.ico" alt="Landscape" /> : select the wished <b>shape</b> : both / portrait / landscape.<br />
 <img src="combo_ratio.jpg" alt="Ratio Selection" /> : select the wished <b>ratio</b> or size of the rectangle ; in addition to the one predefined, you can enter one yourself : for ratios, use format x:y (ex : 4:3) or for fixed sizes, use format WxH (ex : 320x200).<br />
@@ -171,11 +171,15 @@ This screen allows you to modify every single settings.
  <li><b>General / Autosave :</b> save automatically before opening a new file. Very efficient, but to use with care..</li>
  <li><b>General / Autocrop :</b> crop automatically the picture after a rotation, with the most appropriate selection. If not set, select the most appropriate rectangle, but let the user to choose to crop or not.</li>
  <li><b>General / Undo history :</b> maximum number of undoable operations.</li>
- <li><b>JPEG / JPEGTran Path :</b> jpegtran is the tool used for lossless operations. You should not have to modify this setting.</li>
- <li><b>JPEG / WrJpgCom Path :</b> wrjpgcom is the tool used for comments in lossless operations. You should not have to modify this setting.</li>
+ <li><b>JPEG / JPEGTran Path :</b> jpegtran is the tool used for lossless operations. It is bundled with windows binaries, you should not have to modify this setting.</li>
+ <li><b>JPEG / JHead Path :</b> jhead is the tool used to rotate image according to Exif tag. It is bundled with windows binaries, you should not have to modify this setting.</li>
+<!-- <li><b>JPEG / WrJpgCom Path :</b> wrjpgcom is the tool used for comments in lossless operations. You should not have to modify this setting.</li> -->
+ <li><b>JPEG / Auto Rotate on load :</b> in case of a specific orientation given in Exif tags, this will rotate automatically the image according to this tag, and reset the Exif tag. Need jhead installed.</li>
  <li><b>JPEG / JPEGTran Alerts :</b> some lossless operations cannot be done without the loss of 8 pixels blocs. In most of the cases, you should ignore these messages, as they won't affect visibly the picture ; they will appear in the statusbar.</li>
  <li><b>JPEG / JPEG Quality :</b> quality used to save JPEG file when the lossless mode is not used ; a classic value for a good camera is 98 ; you can estimate this value with the menu Image / JPEG / Detect Quality</li>
  <li><b>JPEG / Exif Favorites :</b> Exif tags are often numerous and without any order ; this setting allows you to select the one you want to see in the Favorites Exif tab (semi-colon ";" separated-list).</li>
+ <li><b>Startup / Default Path : </b>open this path at startup.</li>
+ <li><b>Startup / Remember Last Opened Path : </b>update default path with the path of the last image opened.</li>
  <li><b>Startup / Ratio &amp; Orientation : </b>set the ratio and kind of rectangle to use at application startup</li>
  <li><b>Startup / Ratio's list : </b>list of values in the dropdown list of ratios (format : "x:y (Comment)", separated by "|")</li>
  <li><b>Startup / Guides ratio : </b>you can have two horizontal and vertical guide lines ; you can select a proposition value in the dropdown list, or type another value (format : "0.xx (Comment)") ; 0 means no guides</li>
