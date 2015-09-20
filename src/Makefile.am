@@ -1,5 +1,5 @@
 bin_PROGRAMS=RPhoto
-RPhoto_LDADD= ../lib/wxVillaLib/libwxvilla.a ../lib/wxFix/libwxFix.a ../lib/wxmisc/libwxmisc.a ../lib/wxRectTracker/libwxrecttracker.a ../lib/wxJPEGExifHandler/libwxjpegexifhandler.a
+RPhoto_LDADD=  ../lib/wxVillaLib/libwxvilla.a ../lib/wxFix/libwxFix.a  ../lib/wxmisc/libwxmisc.a ../lib/wxRectTracker/libwxrecttracker.a ../lib/wxJPEGExifHandler/libwxjpegexifhandler.a
 RPhoto_SOURCES= \
 	RatioPrecomp.cpp \
 	RatioPrecomp.h \

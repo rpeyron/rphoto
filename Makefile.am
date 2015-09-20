@@ -7,16 +7,34 @@ EXTRA_DIST = config.rpath  config.rpath m4/ChangeLog  config.rpath m4/ChangeLog 
         INSTALL \
         NEWS \
         TODO \
-        build/vc/RPhoto.vcxproj \
-        build/vc/RPhoto.vcproj \
-        build/vc/RPhoto.sln \
-        build/vc/RPhoto.dsp \
-        build/vc/RPhoto.dsw \
-        build/vc/RPhoto.iss \
-        build/vc/jpeg6bcrop.dsp \
-        build/vc/wxVillaLib.dsp \
-        build/vc/make_zip.bat \
-        build/vc/upx_compress.bat \
+	build/win32/upx_compress.bat \
+	build/win32/RPhoto.iss \
+	build/win32/make_zip.bat \
+	build/win32/make_wxRectTracker_zip.bat \
+	build/dev-cpp/.cvsignore \
+	build/dev-cpp/RPhoto_private.h \
+	build/dev-cpp/RPhoto_private.res \
+	build/dev-cpp/RPhoto.layout \
+	build/dev-cpp/RPhoto_private.rc \
+	build/dev-cpp/classfolders.dcf \
+	build/dev-cpp/RPhoto.ico \
+	build/dev-cpp/Makefile.win \
+	build/dev-cpp/RPhoto.dev \
+	build/vc/RPhoto.dsp \
+	build/vc/RPhoto.dsw \
+	build/vc/.cvsignore \
+	build/vc/upx_compress.bat \
+	build/vc/RPhoto.vcproj \
+	build/vc/RPhoto.vcxproj \
+	build/vc/RPhoto.iss \
+	build/vc/RPhoto.sln \
+	build/vc/jpeg6bcrop.dsp \
+	build/vc/make_zip.bat \
+	build/vc/make_wxRectTracker_zip.bat \
+	build/vc/wxVillaLib.dsp \
+	build/vc2013/RPhoto.vcxproj \
+	build/vc2013/RPhoto.sln \
+	build/vc2013/RPhoto.vcxproj.filters \
         build/debian/rules \
         build/debian/RPhoto.1 \
         build/debian/conffiles \
@@ -32,10 +50,55 @@ EXTRA_DIST = config.rpath  config.rpath m4/ChangeLog  config.rpath m4/ChangeLog 
         po/po_build.bat \
         po/po_update.bat
 
-deb:
+old-deb:  dist
 	ln -sf build/debian .
 	chmod +x debian/rules
 	dpkg-buildpackage -rfakeroot
 	fakeroot debian/rules clean
+    
+DEBSOURCEPKG=$(PACKAGE)_$(VERSION).orig.tar.gz
+DEBSOURCEDIR=$(PACKAGE)-$(VERSION)
+deb: dist
+	ln -sf build/debian .
+	@echo "Building Debian package..."; \
+	if test ! -d debian; then \
+		echo "The files needed for building a Debian package are not" \
+		"included by default in the distribution. To build a package, check" \
+		"out the project from source control."; \
+		exit 1; \
+	fi; \
+	mv $(PACKAGE)-$(VERSION).tar.gz $(DEBSOURCEPKG) && \
+	tar --extract --gunzip --file $(DEBSOURCEPKG) && \
+	mkdir -p $(DEBSOURCEDIR)/debian && \
+	cp \
+		debian/* \
+		$(DEBSOURCEDIR)/debian && \
+	cd $(DEBSOURCEDIR) && \
+	debuild --no-tgz-check -rfakeroot -D ; \
+	cd .. ; \
+	rm --force $(DEBSOURCEPKG); \
+	rm --recursive --force $(DEBSOURCEDIR)
+
+deb-src: dist
+	ln -sf build/debian .
+	@echo "Building Debian package..."; \
+	if test ! -d debian; then \
+		echo "The files needed for building a Debian package are not" \
+		"included by default in the distribution. To build a package, check" \
+		"out the project from source control."; \
+		exit 1; \
+	fi; \
+	mv $(PACKAGE)-$(VERSION).tar.gz $(DEBSOURCEPKG) && \
+	tar --extract --gunzip --file $(DEBSOURCEPKG) && \
+	mkdir -p $(DEBSOURCEDIR)/debian && \
+	cp \
+		debian/* \
+		$(DEBSOURCEDIR)/debian && \
+	cd $(DEBSOURCEDIR) && \
+	debuild --no-tgz-check -rfakeroot -S -sa  ; \
+	cd ..; \
+	rm --force $(DEBSOURCEPKG); \
+	rm --recursive --force $(DEBSOURCEDIR)
+
 
 ACLOCAL_AMFLAGS = -I m4

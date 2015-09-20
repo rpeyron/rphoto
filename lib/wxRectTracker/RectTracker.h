@@ -123,6 +123,10 @@ public:
 	void SetGreyOutColour(int percent, const wxColour & col = *wxBLACK) { m_cGreyOut = wxColour(col.Red(), col.Green(), col.Blue(), (percent*255/100)); }
 	/// Get Grey Out Colour
 	const wxColour & GetGreyOutColour() {return m_cGreyOut; }
+	/// Set Handler Width
+	void SetHandlesWidth(int handlesWidth) { m_iHandlerWidth = handlesWidth; Update(); }
+	/// Get Handler Width
+	int GetHandlesWidth() { return m_iHandlerWidth; }
 
 	/// Get current position of the tracker
 	wxRect GetTrackerRect() { return m_Rect; }

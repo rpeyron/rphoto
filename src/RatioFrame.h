@@ -264,6 +264,7 @@ protected:
 	int m_iOrientation;
 	wxString m_sComEncoding;
     bool m_bAutoSave;
+	bool m_bAutoCrop;
 	bool m_bAutoSelectMax;
 	wxString m_sAutoSaveFolder;
 	wxString m_sAutoSaveSuffix;

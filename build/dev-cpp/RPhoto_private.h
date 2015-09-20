@@ -1,0 +1,23 @@
+// THIS FILE WILL BE OVERWRITTEN BY DEV-C++!
+// DO NOT EDIT!
+
+#ifndef RPHOTO_PRIVATE_H
+#define RPHOTO_PRIVATE_H
+
+// VERSION DEFINITIONS
+#define VER_STRING	"0.2.3.1"
+#define VER_MAJOR	0
+#define VER_MINOR	2
+#define VER_RELEASE	3
+#define VER_BUILD	1
+#define COMPANY_NAME	""
+#define FILE_VERSION	""
+#define FILE_DESCRIPTION	"RPhoto"
+#define INTERNAL_NAME	""
+#define LEGAL_COPYRIGHT	"(c) 2004 - Rémi Peyronnet"
+#define LEGAL_TRADEMARKS	""
+#define ORIGINAL_FILENAME	""
+#define PRODUCT_NAME	"RPhoto"
+#define PRODUCT_VERSION	""
+
+#endif //RPHOTO_PRIVATE_H

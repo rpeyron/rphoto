@@ -22,8 +22,8 @@
  * ************************************************************************** */
 
 #define RPHOTO_NAME wxT("RPhoto")
-#define RPHOTO_VERSION wxT("v0.4.3")
-#define RPHOTO_COPYRIGHT wxT("2004-2013 - Remi Peyronnet")
+#define RPHOTO_VERSION wxT("v0.4.4")
+#define RPHOTO_COPYRIGHT wxT("2004-2015 - Remi Peyronnet")
 
 #define RT_DEFAULT_IMAGE wxT("test.jpg")
 

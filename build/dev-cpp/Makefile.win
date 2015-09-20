@@ -1,0 +1,77 @@
+# Project: RPhoto
+# Makefile created by Dev-C++ 4.9.9.0
+
+CPP  = g++.exe
+CC   = gcc.exe
+WINDRES = windres.exe
+RES  = RPhoto_private.res
+OBJ  = ../dev-cpp/obj/RatioFrame.o ../dev-cpp/obj/RatioImageBox.o ../dev-cpp/obj/RatioPrecomp.o ../dev-cpp/obj/RPhoto.o ../dev-cpp/obj/ImageBox.o ../dev-cpp/obj/ImageFilters.o ../dev-cpp/obj/ImageProc.o ../dev-cpp/obj/Thumbnails.o ../dev-cpp/obj/VerticalToolbar.o ../dev-cpp/obj/dirctrlg.o ../dev-cpp/obj/ConfigDialog.o ../dev-cpp/obj/RectTracker.o ../dev-cpp/obj/RectTrackerRatio.o ../dev-cpp/obj/PropDlg.o ../dev-cpp/obj/ThumbnailFactory.o ../dev-cpp/obj/utils.o $(RES)
+LINKOBJ  = ../dev-cpp/obj/RatioFrame.o ../dev-cpp/obj/RatioImageBox.o ../dev-cpp/obj/RatioPrecomp.o ../dev-cpp/obj/RPhoto.o ../dev-cpp/obj/ImageBox.o ../dev-cpp/obj/ImageFilters.o ../dev-cpp/obj/ImageProc.o ../dev-cpp/obj/Thumbnails.o ../dev-cpp/obj/VerticalToolbar.o ../dev-cpp/obj/dirctrlg.o ../dev-cpp/obj/ConfigDialog.o ../dev-cpp/obj/RectTracker.o ../dev-cpp/obj/RectTrackerRatio.o ../dev-cpp/obj/PropDlg.o ../dev-cpp/obj/ThumbnailFactory.o ../dev-cpp/obj/utils.o $(RES)
+LIBS =  -L"C:/Program Files/Dev-cpp/lib" -mwindows -Wl,--subsystem,windows -mwindows  -lwx_mswu-2.5 -ljpeg -lpng -ltiff -lz -lole32 -loleaut32 -lwsock32 -lstdc++ -lgcc -lwinspool -lwinmm -lshell32 -lcomctl32 -lctl3d32 -lodbc32 -ladvapi32 -luuid   -fmessage-length=0 
+INCS =  -I"C:/Program Files/Dev-cpp/include"  -I"C:/Program Files/Dev-Cpp/include/wx-2.5"  -I"C:/Program Files/Dev-Cpp/lib/wx/include/msw-unicode-release-static-2.5" 
+CXXINCS =  -I"C:/Program Files/Dev-cpp/include/c++/3.3.1"  -I"C:/Program Files/Dev-cpp/include/c++/3.3.1/mingw32"  -I"C:/Program Files/Dev-cpp/include/c++/3.3.1/backward"  -I"C:/Program Files/Dev-cpp/lib/gcc-lib/mingw32/3.3.1/include"  -I"C:/Program Files/Dev-cpp/include"  -I"C:/Program Files/Dev-Cpp/include/wx-2.5"  -I"C:/Program Files/Dev-Cpp/lib/wx/include/msw-unicode-release-static-2.5" 
+BIN  = ../../bin/RPhoto.exe
+CXXFLAGS = $(CXXINCS) -DWINVER=0x0400 -D__WIN95__ -D__GNUWIN32__ -D__WIN32__ -DHAVE_W32API_H  -D__WXMSW__ -D__WINDOWS__ -Wall -fno-pcc-struct-return -O2 -Os -fno-rtti -fno-exceptions -I../../lib -D__WXMSW__    -fexpensive-optimizations -O3 -fmessage-length=0
+CFLAGS = $(INCS)   -fexpensive-optimizations -O3 -fmessage-length=0
+
+.PHONY: all all-before all-after clean clean-custom
+
+all: all-before ../../bin/RPhoto.exe all-after
+
+
+clean: clean-custom
+	rm -f $(OBJ) $(BIN)
+
+$(BIN): $(OBJ)
+	$(CPP) $(LINKOBJ) -o "..\..\bin\RPhoto.exe" $(LIBS)
+
+../dev-cpp/obj/RatioFrame.o: ../../src/RatioFrame.cpp
+	$(CPP) -c ../../src/RatioFrame.cpp -o ../dev-cpp/obj/RatioFrame.o $(CXXFLAGS)
+
+../dev-cpp/obj/RatioImageBox.o: ../../src/RatioImageBox.cpp
+	$(CPP) -c ../../src/RatioImageBox.cpp -o ../dev-cpp/obj/RatioImageBox.o $(CXXFLAGS)
+
+../dev-cpp/obj/RatioPrecomp.o: ../../src/RatioPrecomp.cpp
+	$(CPP) -c ../../src/RatioPrecomp.cpp -o ../dev-cpp/obj/RatioPrecomp.o $(CXXFLAGS)
+
+../dev-cpp/obj/RPhoto.o: ../../src/RPhoto.cpp
+	$(CPP) -c ../../src/RPhoto.cpp -o ../dev-cpp/obj/RPhoto.o $(CXXFLAGS)
+
+../dev-cpp/obj/ImageBox.o: ../../lib/wxVillaLib/ImageBox.cpp
+	$(CPP) -c ../../lib/wxVillaLib/ImageBox.cpp -o ../dev-cpp/obj/ImageBox.o $(CXXFLAGS)
+
+../dev-cpp/obj/ImageFilters.o: ../../lib/wxVillaLib/ImageFilters.cpp
+	$(CPP) -c ../../lib/wxVillaLib/ImageFilters.cpp -o ../dev-cpp/obj/ImageFilters.o $(CXXFLAGS)
+
+../dev-cpp/obj/ImageProc.o: ../../lib/wxVillaLib/ImageProc.cpp
+	$(CPP) -c ../../lib/wxVillaLib/ImageProc.cpp -o ../dev-cpp/obj/ImageProc.o $(CXXFLAGS)
+
+../dev-cpp/obj/Thumbnails.o: ../../lib/wxVillaLib/Thumbnails.cpp
+	$(CPP) -c ../../lib/wxVillaLib/Thumbnails.cpp -o ../dev-cpp/obj/Thumbnails.o $(CXXFLAGS)
+
+../dev-cpp/obj/VerticalToolbar.o: ../../lib/wxVillaLib/VerticalToolbar.cpp
+	$(CPP) -c ../../lib/wxVillaLib/VerticalToolbar.cpp -o ../dev-cpp/obj/VerticalToolbar.o $(CXXFLAGS)
+
+../dev-cpp/obj/dirctrlg.o: ../../lib/wxFix/dirctrlg.cpp
+	$(CPP) -c ../../lib/wxFix/dirctrlg.cpp -o ../dev-cpp/obj/dirctrlg.o $(CXXFLAGS)
+
+../dev-cpp/obj/ConfigDialog.o: ../../lib/wxmisc/ConfigDialog.cpp
+	$(CPP) -c ../../lib/wxmisc/ConfigDialog.cpp -o ../dev-cpp/obj/ConfigDialog.o $(CXXFLAGS)
+
+../dev-cpp/obj/RectTracker.o: ../../lib/wxRectTracker/RectTracker.cpp
+	$(CPP) -c ../../lib/wxRectTracker/RectTracker.cpp -o ../dev-cpp/obj/RectTracker.o $(CXXFLAGS)
+
+../dev-cpp/obj/RectTrackerRatio.o: ../../lib/wxRectTracker/RectTrackerRatio.cpp
+	$(CPP) -c ../../lib/wxRectTracker/RectTrackerRatio.cpp -o ../dev-cpp/obj/RectTrackerRatio.o $(CXXFLAGS)
+
+../dev-cpp/obj/PropDlg.o: ../../lib/wxVillaLib/PropDlg.cpp
+	$(CPP) -c ../../lib/wxVillaLib/PropDlg.cpp -o ../dev-cpp/obj/PropDlg.o $(CXXFLAGS)
+
+../dev-cpp/obj/ThumbnailFactory.o: ../../lib/wxVillaLib/ThumbnailFactory.cpp
+	$(CPP) -c ../../lib/wxVillaLib/ThumbnailFactory.cpp -o ../dev-cpp/obj/ThumbnailFactory.o $(CXXFLAGS)
+
+../dev-cpp/obj/utils.o: ../../lib/wxVillaLib/utils.cpp
+	$(CPP) -c ../../lib/wxVillaLib/utils.cpp -o ../dev-cpp/obj/utils.o $(CXXFLAGS)
+
+RPhoto_private.res: RPhoto_private.rc 
+	$(WINDRES) -i RPhoto_private.rc -I rc -o RPhoto_private.res -O coff  --include-dir C:/PROGRA~1/Dev-Cpp/include --include-dir ../../RESOUR~1

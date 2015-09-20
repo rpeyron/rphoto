@@ -1,23 +1,29 @@
 
 noinst_LIBRARIES = libwxvilla.a
-libwxvilla_a_SOURCES = ImageBox.cpp ImageFilters.cpp ImageProc.cpp\
- imagjpg.cpp PipeExecute.cpp SConv.cpp\
- Thumbnails.cpp ThumbnailFactory.cpp\
- utils.cpp VerticalToolbar.cpp \
+libwxvilla_a_SOURCES = ImageBox.cpp \
+    ImageFilters.cpp \
+    ImageProc.cpp\
+    imagjpg.cpp \
+    utils.cpp \
+    VerticalToolbar.cpp \
 	ImageBox.h \
 	ImageFilters.h \
 	ImageProc.h \
 	imagjpg.h \
-	PipeExecute.h \
-	PropDlg.h \
-	SConv.h \
-	TablessNotebook.h \
-	ThumbnailFactory.h \
-	Thumbnails.h \
 	utils.h \
 	VerticalToolbar.h \
-	ExifHandler.h \
-	ExifHandler.cpp
+	#PipeExecute.h \
+	#PropDlg.h \
+	#SConv.h \
+	#TablessNotebook.h \
+    #Thumbnails.cpp \
+    #ThumbnailFactory.cpp\
+	#ThumbnailFactory.h \
+	#Thumbnails.h \
+    #PipeExecute.cpp \
+    #SConv.cpp\
+	#ExifHandler.h \
+	#ExifHandler.cpp
 
 EXTRA_DIST= \
 	rc/gnome-fs-loading-icon.png \

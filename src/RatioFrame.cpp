@@ -139,9 +139,9 @@ RatioFrame::RatioFrame(wxWindow* parent,
 
     InitConfig();
     InitMenu();
+    InitStatusBar();
     InitToolBar();
     InitControls();
-    InitStatusBar();
     InitAccelerator();
 
 	fn = wxFileName(wxT("rphoto.htb"));
@@ -177,11 +177,13 @@ void RatioFrame::InitConfig()
     // Setup options
     // * General stuff
     new wxConfigDialog_EntryCheck(*m_pConfigDialog, wxT("Main"), wxT("AutoSave"), _("Main"), _("Auto Save"), FALSE);
+    new wxConfigDialog_EntryCheck(*m_pConfigDialog, wxT("Main"), wxT("AutoCrop"), _("Main"), _("Crop before saving"), FALSE);
     new wxConfigDialog_EntryTextEdit(*m_pConfigDialog, wxT("Main"), wxT("AutoSaveFolder"), _("Main"), _("Auto Save Folder"), wxT(""));
     new wxConfigDialog_EntryTextEdit(*m_pConfigDialog, wxT("Main"), wxT("AutoSaveSuffix"), _("Main"), _("Auto Save Suffix"), wxT(""));
     new wxConfigDialog_EntryCheck(*m_pConfigDialog, wxT("Main"), wxT("AutoRotateCrop"), _("Main"), _("Auto Crop after Rotation"), FALSE);
     new wxConfigDialog_EntryTextEdit(*m_pConfigDialog, wxT("Main"), wxT("UndoHistory"), _("Main"), _("Undo History"), wxT("10"));
     new wxConfigDialog_EntryCheck(*m_pConfigDialog, wxT("Main"), wxT("AutoSelectMax"), _("Main"), _("Auto Select Max"), FALSE);
+    new wxConfigDialog_EntryTextEdit(*m_pConfigDialog, wxT("Main"), wxT("HandlesWidth"), _("Main"), _("Width of the handles (pixels)"), wxT("5"));
 
     // * JPEG stuff
     new wxConfigDialog_EntryTextEdit(*m_pConfigDialog, wxT("JPEG"), wxT("JPEGTran"), _("JPEG"), _("JPEGTran's path"), wxT("jpegtran"));
@@ -328,16 +330,27 @@ void RatioFrame::DoConfig()
     opt = FALSE;
     m_pConfig->Read(wxT("JPEG/AutoRot"), &opt);
 	m_bAutoRot = opt;
-	// AutoRot
+	// Default Path
     opt = FALSE;
     m_pConfig->Read(wxT("Defaults/SaveDefPath"), &opt);
 	m_bSaveCurFolder = opt;
+	// AutoCrop
+    opt = FALSE;
+    m_pConfig->Read(wxT("Main/AutoCrop"), &opt);
+	m_bAutoCrop = opt;
 	// Grey Out area
 	m_pConfig->Read(wxT("View/GreyOut"), &str);
 	str.ToDouble(&d); i = (int)d;
 	if (i < 0) i = 0;
 	if (i > 100) i = 100;
 	m_pImageBox->GetRectTracker().SetGreyOutColour(i);
+	// Handles Width
+	m_pConfig->Read(wxT("Main/HandlesWidth"), &str);
+	str.ToDouble(&d); i = (int)d;
+	if (i < 1) i = 1;
+	if (i > 100) i = 100;
+	m_pImageBox->GetRectTracker().SetHandlesWidth(i);
+	m_pImageBox->GetLineTracker().SetHandlesWidth(i);
 }
 
 void RatioFrame::InitMenu()
@@ -1105,6 +1118,10 @@ bool RatioFrame::ImageCleanup()
 {
     wxCommandEvent evt;
 	wxFileName destFn;
+	if (m_bAutoCrop)
+	{
+		OnToolAction(evt);
+	}
     if ((m_bDirty) && (m_bAutoSave))
     {
 		if (m_sAutoSaveFolder.IsEmpty() && m_sAutoSaveSuffix.IsEmpty())
@@ -2115,10 +2132,11 @@ bool RatioFrame::Resize(const wxString &str)
 		str.BeforeFirst('k').ToLong(&lNum);
 
 		wxString fname;
-		wxImage & image = m_pImageBox->GetImage();
+		wxImage & image = m_pImageBox->GetImage(), work;
 		fname = wxFileName::CreateTempFileName(wxT("rphoto_test"));
 		long sizeTarget, sizeCur;
-		double ratio = 0.5, minratio = 0, maxratio = 1;
+		double ratio = 1, minratio = 0, maxratio = 1, oldratio = 0;
+		bool minok, maxok;
 
 	    sizeCur = wxFile(m_sFilename).Length();
 		sizeTarget = lNum * 1024;
@@ -2126,20 +2144,43 @@ bool RatioFrame::Resize(const wxString &str)
 		{
 			wxBeginBusyCursor();
 			GetStatusBar()->SetStatusText(wxString::Format(_("Detecting optimal size to obtain a size below %d bytes."), sizeTarget));
-			// Target to 2%, but the error will be superior, as the real rescale will be done with high quality
-			while ((abs(sizeCur - sizeTarget) > (sizeTarget * 2 / 100)) )
+
+			// Check boudary max
+			maxok = true;
+			work = image.Copy();
+			work.SaveFile(fname, wxBITMAP_TYPE_JPEG);
+			sizeCur = wxFile(fname).Length();
+			if (sizeCur < sizeTarget) { maxok = false; GetStatusBar()->SetStatusText(wxString::Format(_("Current size is already below %d bytes !"), sizeTarget)); }
+			// Check boudary min
+			minok = true;
+			work = image.Copy();
+			work.Rescale(1, 1 /*, wxIMAGE_QUALITY_HIGH */);
+			work.SaveFile(fname, wxBITMAP_TYPE_JPEG);
+			sizeCur = wxFile(fname).Length();
+			if (sizeCur > sizeTarget) { minok = false; GetStatusBar()->SetStatusText(wxString::Format(_("Empty image size is above %d bytes !"), sizeTarget)); }
+
+			// If ok, continue
+			if ((maxok) && (minok))
 			{
-				image.Rescale(destWidth * ratio, destHeight * ratio /*, wxIMAGE_QUALITY_HIGH */);
-				image.SaveFile(fname, wxBITMAP_TYPE_JPEG);
-				sizeCur = wxFile(fname).Length();
-				if (sizeCur > sizeTarget) { maxratio = ratio; ratio = (ratio + minratio) / 2; }
-				if (sizeCur < sizeTarget) { minratio = ratio; ratio = (ratio + maxratio) / 2; }
+				oldratio = 1; ratio = 0.5;
+				// Target to 2%, but the error will be superior, as the real rescale will be done with high quality + avoid ratio loops
+				while ( ((abs(sizeCur - sizeTarget) > (sizeTarget * 2 / 100)) ) && ( abs(oldratio-ratio) > 0.001) )
+				{
+					work = image.Copy();
+//					work.Rescale(destWidth * ratio, destHeight * ratio, wxIMAGE_QUALITY_HIGH);
+					work.Rescale(destWidth * ratio, destHeight * ratio /*, wxIMAGE_QUALITY_HIGH */);
+					work.SaveFile(fname, wxBITMAP_TYPE_JPEG);
+					sizeCur = wxFile(fname).Length();
+					oldratio = ratio;
+					if (sizeCur > sizeTarget) { maxratio = ratio; ratio = (ratio + minratio) / 2; }
+					if (sizeCur < sizeTarget) { minratio = ratio; ratio = (ratio + maxratio) / 2; }
+				}
+				// Adjust to wxIMAGE_QUALITY_HIGH (experimental...)  (if rescale is done without)
+				ratio = ratio * 0.90;
+				GetStatusBar()->SetStatusText(wxString::Format(_("Detected the size ok !"), ratio));
 			}
-			// Adjust to wxIMAGE_QUALITY_HIGH (experimental...)
-			ratio = ratio * 0.90;
 			if (wxFileExists(fname)) wxRemoveFile(fname);
 			wxEndBusyCursor();
-			GetStatusBar()->SetStatusText(wxString::Format(_("Detected the size ok !"), ratio));
 		}
 		destWidth = destWidth * ratio;
 		destHeight = destHeight * ratio;

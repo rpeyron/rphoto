@@ -1,3 +1,10 @@
+2015-09-20 15:28  remi  0.4.4
+	* Released as 0.4.4
+
+2013-06-11 15:52  remi  0.4.4alpha1
+	* Added option to set the size of the handles (feature request from S. Groteloh)
+	* Added option AutoCrop to crop before saving (feature request from S. Groteloh)
+
 2013-06-08 15:28  remi  0.4.3
 	* Released as 0.4.3
 
