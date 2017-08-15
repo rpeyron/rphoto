@@ -17,7 +17,7 @@ Homepage : http://www.lprp.fr/soft/rphoto/rphoto_en.php3
 
 See prebuilt binary packages in release tab for Windows and Debian.
 
-PPA repository for Ubuntu : ppa:rpeyron/ppa
+PPA repository for Ubuntu : [ppa:rpeyron/ppa](https://launchpad.net/~rpeyron/+archive/ubuntu/ppa)
 
 Other OSes should build the package (see below).
 
