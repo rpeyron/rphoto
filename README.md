@@ -1,5 +1,3 @@
-# rphoto
-
 RPhoto is a small software aiming at the easy handling of digital camera's photos. (RPhoto is the next generation of IMPhoto). 
 Its origin resides in the lack of a simple software capable of cropping photos with a constant ratio, to avoid white borders when printing.
 
@@ -12,6 +10,14 @@ Main features are :
 See the user manual to have the extensive list of features.
 
 Homepage : http://www.lprp.fr/soft/rphoto/rphoto_en.php3
+
+# Install
+
+See prebuilt binary packages in release tab for Windows and Debian.
+
+PPA repository for Ubuntu : [ppa:rpeyron/ppa](https://launchpad.net/~rpeyron/+archive/ubuntu/ppa)
+
+Other OSes should build the package (see below).
 
 # Build instructions
 
