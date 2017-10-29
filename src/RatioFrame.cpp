@@ -1169,9 +1169,10 @@ void RatioFrame::imageUpdateExif()
 {
 	wxString favExif, favCur;
 	wxStringBase64 strExif;
-    wxCSConv conv(m_sComEncoding);
-	unsigned char * bufExif, value[1024];
-	ExifData * edata;
+	wxCSConv conv(m_sComEncoding);
+	unsigned char * bufExif = NULL;
+	unsigned char value[1024];
+	ExifData * edata = NULL;
 	unsigned int ifd, ientry;
 	int fav, exifLen;
 
@@ -1181,15 +1182,15 @@ void RatioFrame::imageUpdateExif()
 	{
 		strExif = m_pImageBox->GetImage().GetOption(wxT("COM"));
 		favExif = strExif.DecodeBase64(conv);
-		wxLogDebug(wxT("COM='") +strExif+wxT("' : '") + favExif + wxT("'\n")); 
+		wxLogDebug(wxT("COM='") + strExif + wxT("' : '") + favExif + wxT("'\n"));
 		m_pTextComment->ChangeValue(favExif);
-        m_pTextComment->DiscardEdits(); // Should not be necessary with ChangeValue instead of SetValue (2016/06/05)
+		m_pTextComment->DiscardEdits(); // Should not be necessary with ChangeValue instead of SetValue (2016/06/05)
 	}
 
 	m_pAttrCtrl->DeleteAllItems();
 	m_pAttrFavCtrl->DeleteAllItems();
 	favExif = RPHOTO_DEFAULT_EXIF_FAVORITES;
-	m_pConfig->Read(wxT("JPEG/FavExif"),&favExif);
+	m_pConfig->Read(wxT("JPEG/FavExif"), &favExif);
 	while (favExif.Length() > 0)
 	{
 		favCur = favExif.BeforeFirst(',');
@@ -1199,46 +1200,47 @@ void RatioFrame::imageUpdateExif()
 	}
 
 	if (!m_pImageBox->GetImage().HasOption(wxT("APP1"))) return;
-		
+
 	// Loop between all APP1 tags, and process multiples Exif if is has
 	wxStringTokenizer tkz;
 	tkz.SetString(m_pImageBox->GetImage().GetOption(wxT("APP1")), wxT("#"));
-	while ( tkz.HasMoreTokens() )
+	while (tkz.HasMoreTokens())
 	{
 		strExif = tkz.GetNextToken();
+		if (bufExif != NULL) free(bufExif);
 		exifLen = strExif.DecodeBase64(bufExif);
 		edata = exif_data_new();
 		if ((bufExif) && (edata))
 		{
 			exif_data_load_data(edata, bufExif, exifLen);
 
-			for (ifd = 0; ifd < EXIF_IFD_COUNT; ifd++) 
+			for (ifd = 0; ifd < EXIF_IFD_COUNT; ifd++)
 			{
-				if (edata->ifd[ifd] && edata->ifd[ifd]->count) 
+				if (edata->ifd[ifd] && edata->ifd[ifd]->count)
 				{
 					for (ientry = 0; ientry < edata->ifd[ifd]->count; ientry++)
 					{
-						m_pAttrCtrl->InsertItem(m_pAttrCtrl->GetItemCount(),  
-							wxString((const char *)exif_tag_get_name(edata->ifd[ifd]->entries[ientry]->tag),wxConvLocal));
-						exif_entry_get_value(edata->ifd[ifd]->entries[ientry], (char *) value, sizeof(value));
-						m_pAttrCtrl->SetItem(m_pAttrCtrl->GetItemCount()-1, 1,  wxString((const char *)value,wxConvLocal));
+						m_pAttrCtrl->InsertItem(m_pAttrCtrl->GetItemCount(),
+							wxString((const char *)exif_tag_get_name(edata->ifd[ifd]->entries[ientry]->tag), wxConvLocal));
+						exif_entry_get_value(edata->ifd[ifd]->entries[ientry], (char *)value, sizeof(value));
+						m_pAttrCtrl->SetItem(m_pAttrCtrl->GetItemCount() - 1, 1, wxString((const char *)value, wxConvLocal));
 						// Favorites
 						for (fav = 0; fav < m_pAttrFavCtrl->GetItemCount(); fav++)
-							if (m_pAttrFavCtrl->GetItemText(fav) == wxString((const char *)exif_tag_get_name(edata->ifd[ifd]->entries[ientry]->tag),wxConvLocal))
-								m_pAttrFavCtrl->SetItem(fav, 1,  wxString((const char *)value,wxConvLocal));
+							if (m_pAttrFavCtrl->GetItemText(fav) == wxString((const char *)exif_tag_get_name(edata->ifd[ifd]->entries[ientry]->tag), wxConvLocal))
+								m_pAttrFavCtrl->SetItem(fav, 1, wxString((const char *)value, wxConvLocal));
 
 						// OrientationTag (for AutoRot)
 						if (edata->ifd[ifd]->entries[ientry]->tag == EXIF_TAG_ORIENTATION)
 						{
-							m_iOrientation = exif_get_short(edata->ifd[ifd]->entries[ientry]->data, exif_data_get_byte_order (edata));
+							m_iOrientation = exif_get_short(edata->ifd[ifd]->entries[ientry]->data, exif_data_get_byte_order(edata));
 						}
 					}
 				}
 			}
 		}
 	}
-	if (bufExif != NULL) free(bufExif);
-	if (edata) exif_data_free(edata);
+	if (bufExif != NULL) { free(bufExif); bufExif = NULL; }
+	if (edata != NULL) {	exif_data_free(edata); edata = NULL; }
 }
 
 void RatioFrame::UpdateDirCtrl(const wxString & from)

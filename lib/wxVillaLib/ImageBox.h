@@ -3,7 +3,7 @@
 // Purpose:     wxImageBox class
 // Author:      Alex Thuering
 // Created:		8.10.2003
-// RCS-ID:      $Id: ImageBox.h 263 2005-11-21 23:14:19Z remi $
+// RCS-ID:      $Id: ImageBox.h 665 2017-10-29 18:04:31Z remi $
 // Copyright:   (c) Alex Thuering
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
@@ -20,7 +20,7 @@ class wxPaintBox: public wxScrolledWindow
 {
   public:
     wxPaintBox(wxWindow *parent, wxWindowID id = -1);
-    ~wxPaintBox() {}
+	~wxPaintBox();
     wxBitmap& GetBuffer() { return *m_buffer; }
     virtual void Update() {}
 

@@ -3,7 +3,7 @@
 // Purpose:     wxImageBox class
 // Author:      Alex Thuering
 // Created:		8.10.2003
-// RCS-ID:      $Id: ImageBox.cpp 658 2017-05-01 11:19:59Z remi $
+// RCS-ID:      $Id: ImageBox.cpp 665 2017-10-29 18:04:31Z remi $
 // Copyright:   (c) Alex Thuering
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
@@ -223,6 +223,11 @@ wxPaintBox::wxPaintBox(wxWindow *parent, wxWindowID id):
   m_bufferX = m_bufferY = 0;
   m_imageWidth = m_imageHeight = 0;
   SetBackgroundColour(wxSystemSettings::GetColour(wxSYS_COLOUR_LISTBOX));
+}
+
+wxPaintBox::~wxPaintBox()    // AWW
+{
+	delete m_buffer;
 }
 
 void wxPaintBox::OnPaint(wxPaintEvent& WXUNUSED(event))

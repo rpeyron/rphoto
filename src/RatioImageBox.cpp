@@ -40,6 +40,7 @@ wxRatioImageBox::wxRatioImageBox(
 			: wxImageBox(parent, id)
 {
 	m_image = wxImage(2,2);
+	if (m_buffer != NULL) free(m_buffer);
 	m_buffer = new wxBitmap(m_image);
 	
 	rectTracker = NULL;
