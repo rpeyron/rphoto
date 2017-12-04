@@ -8,6 +8,7 @@ Main features are :
   * Available under Linux and Windows.
 
 See the user manual to have the extensive list of features.
+A [FAQ](doc/FAQ.md) is also available on this github
 
 Homepage : http://www.lprp.fr/soft/rphoto/rphoto_en.php3
 
