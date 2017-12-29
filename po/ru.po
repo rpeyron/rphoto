@@ -1,65 +1,64 @@
-# RatioPhoto Translation File
-# Copyright (C) 2003 - Rémi Peyronnet
-# This file is distributed under the same license as the PACKAGE package.
-# Rémi Peyronnet <remi.peyronnet@via.ecp.fr>, 2003
+# Russian translation for rphoto
+# Copyright (c) 2013 Rosetta Contributors and Canonical Ltd 2013
+# This file is distributed under the same license as the rphoto package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2013.
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: RPhoto\n"
+"Project-Id-Version: rphoto\n"
 "Report-Msgid-Bugs-To: remi+rphoto@via.ecp.fr\n"
 "POT-Creation-Date: 2017-12-28 19:28+0100\n"
-"PO-Revision-Date: 2013-06-13 14:57+0100\n"
-"Last-Translator: Rémi Peyronnet <remi+poedit@via.ecp.fr>\n"
-"Language-Team: remi+rphoto@via.ecp.fr <remi+rphoto@via.ecp.fr>\n"
-"Language: fr\n"
+"PO-Revision-Date: 2014-03-11 08:31+0000\n"
+"Last-Translator: Aleksey Kabanov <Unknown>\n"
+"Language-Team: Russian <ru@li.org>\n"
+"Language: ru\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Poedit-Basepath: E:\\Programmation\\RPhoto\\rphoto\n"
-"X-Generator: Poedit 1.5.4\n"
-"X-Poedit-SearchPath-0: src\n"
+"X-Launchpad-Export-Date: 2017-12-28 15:24+0000\n"
+"X-Generator: Launchpad (build 18521)\n"
 
 #: src/RatioFrame.cpp:175
 msgid "Preferences"
-msgstr "Préférences"
+msgstr "Параметры"
 
 #: src/RatioFrame.cpp:179 src/RatioFrame.cpp:180 src/RatioFrame.cpp:181
 #: src/RatioFrame.cpp:182 src/RatioFrame.cpp:183 src/RatioFrame.cpp:184
 #: src/RatioFrame.cpp:185 src/RatioFrame.cpp:186
 msgid "Main"
-msgstr "Général"
+msgstr "Основные"
 
 #: src/RatioFrame.cpp:179
 msgid "Auto Save"
-msgstr "Enregistrement automatique"
+msgstr "Автоматическое сохранение"
 
 #: src/RatioFrame.cpp:180
 msgid "Crop before saving"
-msgstr "Recadrer avant d'enregistrer"
+msgstr ""
 
 #: src/RatioFrame.cpp:181
 msgid "Auto Save Folder"
-msgstr "Répertoire d'enregistrement automatique"
+msgstr "Папка автосохранения"
 
 #: src/RatioFrame.cpp:182
 msgid "Auto Save Suffix"
-msgstr "Suffix d'enregistrement automatique"
+msgstr "Расширение автосохранения"
 
 #: src/RatioFrame.cpp:183
 msgid "Auto Crop after Rotation"
-msgstr "Taille automatique après rotation"
+msgstr "Автоматически обрезать после поворота"
 
 #: src/RatioFrame.cpp:184
 msgid "Undo History"
-msgstr "Historique Annulation"
+msgstr "Журнал действий"
 
 #: src/RatioFrame.cpp:185
 msgid "Auto Select Max"
-msgstr "Région Max Auto"
+msgstr ""
 
 #: src/RatioFrame.cpp:186
 msgid "Width of the handles (pixels)"
-msgstr "Largeur des poignées (pixels)"
+msgstr ""
 
 #: src/RatioFrame.cpp:189 src/RatioFrame.cpp:190 src/RatioFrame.cpp:191
 #: src/RatioFrame.cpp:193 src/RatioFrame.cpp:194 src/RatioFrame.cpp:195
@@ -69,344 +68,335 @@ msgstr "JPEG"
 
 #: src/RatioFrame.cpp:189
 msgid "JPEGTran's path"
-msgstr "Chemin de l'exécutable JPEGTran"
+msgstr "Путь к JPEGTran"
 
 #: src/RatioFrame.cpp:190
 msgid "JHead's path"
-msgstr "Chemin de l'exécutable JHead"
+msgstr "Путь к JHead"
 
 #: src/RatioFrame.cpp:191
 msgid "AutoRot on Load"
-msgstr "Rotation automatique à l'ouverture"
+msgstr "Автоповорот при загрузке"
 
 #: src/RatioFrame.cpp:193
 msgid "Display Lossless warnings"
-msgstr "Affiche les alertes JPEGTran"
+msgstr "Показывать предупреждения о потере качества"
 
 #: src/RatioFrame.cpp:194
 msgid "JPEG Quality (0-100)"
-msgstr "Qualité JPEG (0-100)"
+msgstr "Качество JPEG (0-100)"
 
 #: src/RatioFrame.cpp:195
 msgid "Favorite Exif Tags"
-msgstr "Sélection de tags Exif"
+msgstr "Избранные метки Exif"
 
 #: src/RatioFrame.cpp:196
 msgid "Comments Encoding"
-msgstr "Encodage des commentaires"
+msgstr "Кодировка комментариев"
 
 #: src/RatioFrame.cpp:199 src/RatioFrame.cpp:200 src/RatioFrame.cpp:208
 #: src/RatioFrame.cpp:209 src/RatioFrame.cpp:217 src/RatioFrame.cpp:218
 #: src/RatioFrame.cpp:219 src/RatioFrame.cpp:226
 msgid "Defaults"
-msgstr "Initialisation"
+msgstr "По умолчанию"
 
 #: src/RatioFrame.cpp:199
 msgid "Default Path"
-msgstr "Répertoire par défaut"
+msgstr "Расположение по умолчанию"
 
 #: src/RatioFrame.cpp:200
 msgid "Remember Last Opened Path"
-msgstr "Se souvenir du dernier répertoire ouvert"
+msgstr "Запоминать последнее расположение"
 
 #: src/RatioFrame.cpp:208
 msgid "Ratio"
-msgstr "Ratio"
+msgstr "Соотношение сторон"
 
 #: src/RatioFrame.cpp:209
 msgid "Ratio's List"
-msgstr "Liste des ratios"
+msgstr ""
 
 #: src/RatioFrame.cpp:217
 msgid "Guide Ratio"
-msgstr "Ratio des guides"
+msgstr "Направляющие"
 
 #: src/RatioFrame.cpp:218
 msgid "Guide Lines Ratio's List"
-msgstr "Liste des ratios des guides"
+msgstr ""
 
 #: src/RatioFrame.cpp:219
 msgid "Resize's List"
-msgstr "Liste des dimensions"
+msgstr ""
 
 #: src/RatioFrame.cpp:223
 msgid "Automatic"
-msgstr "Automatique"
+msgstr "Выбирать автоматически"
 
 #: src/RatioFrame.cpp:224 src/RatioFrame.cpp:471
 msgid "Landscape"
-msgstr "Paysage"
+msgstr "Альбомная"
 
 #: src/RatioFrame.cpp:225 src/RatioFrame.cpp:472
 msgid "Portrait"
-msgstr "Portrait"
+msgstr "Книжная"
 
 #: src/RatioFrame.cpp:226
 msgid "Orientation"
-msgstr "Orientation"
+msgstr "Ориентация"
 
 #: src/RatioFrame.cpp:229 src/RatioFrame.cpp:231
 msgid "Appearance"
-msgstr "Apparence"
+msgstr "Оформление"
 
 #: src/RatioFrame.cpp:229
 msgid "Fit the image inside the window"
-msgstr "Affiche l'image entière dans la fenêtre."
+msgstr "Уместить изображение внутри окна"
 
 #: src/RatioFrame.cpp:231
 msgid "Grey Out cutted off area (percent)"
-msgstr "Griser l'extérieur (pourcentage)"
+msgstr "Затемнение обрезаемой области (%)"
 
-# ###################################################### #
-# Menus et Barres d'outils
-# ###################################################### #
-# Menu Fichier ######################################### #
 #: src/RatioFrame.cpp:364
 msgid "&Open..."
-msgstr "&Ouvrir..."
+msgstr "&Открыть..."
 
 #: src/RatioFrame.cpp:364
 msgid "Open a file."
-msgstr "Ouvre un fichier"
+msgstr "Открыть файл."
 
 #: src/RatioFrame.cpp:365
 msgid "&Save"
-msgstr "&Enregistrer"
+msgstr "&Сохранить"
 
 #: src/RatioFrame.cpp:365
 msgid "Save the current file."
-msgstr "Enregistre le fichier courant."
+msgstr "Сохранить текущий файл."
 
 #: src/RatioFrame.cpp:366
 msgid "&Save as..."
-msgstr "Enregistrer &sous..."
+msgstr "&Сохранить как..."
 
 #: src/RatioFrame.cpp:366
 msgid "Save the current file under another name."
-msgstr "Enregistre le fichier sous un autre nom."
+msgstr "Сохранить текущий файл под другим именем."
 
 #: src/RatioFrame.cpp:367
 msgid "&Reload"
-msgstr "&Ré-ouvrir"
+msgstr "Пе&резагрузить"
 
 #: src/RatioFrame.cpp:367
 msgid "Reload original file."
-msgstr "Ré-ouvre le fichier dans sa version originale."
+msgstr "Загрузить повторно исходный файл."
 
 #: src/RatioFrame.cpp:368
 msgid "&Delete"
-msgstr "S&upprimer"
+msgstr "&Удалить"
 
 #: src/RatioFrame.cpp:368
 msgid "Suppress the file."
-msgstr "Efface le fichier du disque dur"
+msgstr "Игнорировать файл."
 
 #: src/RatioFrame.cpp:369
 msgid "&Move"
-msgstr "&Déplacer"
+msgstr "&Переместить"
 
 #: src/RatioFrame.cpp:369
 msgid "Move the file to the selected folder."
-msgstr "Déplace le fichier dans le répertoire sélectionné."
+msgstr "Переместить файл в заданную папку."
 
 #: src/RatioFrame.cpp:370
 msgid "Mo&ve Next"
-msgstr "Déplace et S&uivant"
+msgstr "П&ереместить далее"
 
 #: src/RatioFrame.cpp:370
 msgid "Move the file to the selected folder and go to the next file."
-msgstr ""
-"Déplace le fichier dans le répertoire sélectionné et ouvre le fichier "
-"suivant."
+msgstr "Переместить файл в заданную папку и перейти к следующему файлу."
 
 #: src/RatioFrame.cpp:371
 msgid "Save to &Path"
-msgstr "Enregistre dans le ré&pertoire sélectionné"
+msgstr "Сохранить по месту &расположения"
 
 #: src/RatioFrame.cpp:371
 msgid "Save the file to the selected folder."
-msgstr "Enregistre dans le répertoire sélectionné."
+msgstr "Сохранить файл в заданную папку."
 
 #: src/RatioFrame.cpp:372
 msgid "Save to Path &and Next"
-msgstr "Enregistre dans le répertoire et suiv&ant"
+msgstr "Сохранить по месту расположения &и далее"
 
 #: src/RatioFrame.cpp:372
 msgid "Save the file to the selected folder and go to the next file."
 msgstr ""
-"Enregistre le fichier dans le répertoire sélectionné et ouvre le fichier "
-"suivant."
+"Сохранить файл по заданному месту расположения &и перейти к следующему файлу."
 
 #: src/RatioFrame.cpp:374
 msgid "&Previous File"
-msgstr "Fichier &précédent"
+msgstr "&Предыдущий файл"
 
 #: src/RatioFrame.cpp:374
 msgid "Open the previous file in the explorer."
-msgstr "Ouvre le fichier précédent."
+msgstr "Открыть предыдущий файл в обозревателе."
 
 #: src/RatioFrame.cpp:375
 msgid "&Next File"
-msgstr "Fichier suiva&nt"
+msgstr "&Следующий файл"
 
 #: src/RatioFrame.cpp:375
 msgid "Open the next file in the explorer."
-msgstr "Ouvre le fichier suivant"
+msgstr "Открыть следующий файл в обозревателе."
 
 #: src/RatioFrame.cpp:377
 msgid "&Preferences"
-msgstr "&Préférences"
+msgstr "&Настройки"
 
 #: src/RatioFrame.cpp:377
 msgid "Define application's settings."
-msgstr "Définit les options utilisateurs."
+msgstr "Настройки программы."
 
 #: src/RatioFrame.cpp:379
 msgid "&Quit"
-msgstr "&Quitter"
+msgstr "В&ыйти"
 
 #: src/RatioFrame.cpp:379
 msgid "Quit the application."
-msgstr "Quitte l'application"
+msgstr "Завершить работу с приложением"
 
 #: src/RatioFrame.cpp:380
 msgid "&File"
-msgstr "&Fichier"
+msgstr "&Файл"
 
 #: src/RatioFrame.cpp:383
 msgid "&Undo"
-msgstr "&Annuler"
+msgstr "&Отменить"
 
 #: src/RatioFrame.cpp:383
 msgid "Undo previous image operation."
-msgstr "Annule la dernière opération"
+msgstr "Отменить предыдущее действие на изображением."
 
 #: src/RatioFrame.cpp:384
 msgid "&Redo"
-msgstr "&Rétablir"
+msgstr "&Повторить"
 
 #: src/RatioFrame.cpp:384
 msgid "Redo last undoed operation."
-msgstr "Rétablit la dernière opération annulée"
+msgstr "Повторить последнее отменённое действие."
 
 #: src/RatioFrame.cpp:386
 msgid "Crop Mode"
-msgstr "Mode Recadrage"
+msgstr "Режим кадрирования"
 
 #: src/RatioFrame.cpp:386
 msgid "Use this mode to crop images."
-msgstr "Utiliser ce mode pour recadrer les images."
+msgstr "Используйте этот режим для кадрирования изображений."
 
 #: src/RatioFrame.cpp:387
 msgid "Inclinaison Mode"
-msgstr "Mode Redressement d'images"
+msgstr "Режим наклона"
 
 #: src/RatioFrame.cpp:387
 msgid "Use this mode to correct inclinaison of images."
-msgstr "Utiliser ce mode pour redresser l'image"
+msgstr "Используйте этот режим для исправления наклона изображений."
 
-# Menu Image ######################################### #
 #: src/RatioFrame.cpp:390
 msgid "&Crop"
-msgstr "Re&cadrer"
+msgstr "&Кадрировать"
 
 #: src/RatioFrame.cpp:390
 msgid "Crop image to selection."
-msgstr "Recadre l'image sur la zone sélectionnée."
+msgstr "Кадрировать изображение по выделению."
 
 #: src/RatioFrame.cpp:391
 msgid "Rotate &Left"
-msgstr "Tourner à &gauche"
+msgstr "П&ротив часовой стрелки"
 
 #: src/RatioFrame.cpp:391
 msgid "Rotate the image 90 degrees to the left."
-msgstr "Tourne l'image de 90 degrés sur la gauche"
+msgstr "Повернуть изображение на 90º влево."
 
 #: src/RatioFrame.cpp:392
 msgid "Rotate &Right"
-msgstr "Tourner à &droite"
+msgstr "По &часовой стрелке"
 
 #: src/RatioFrame.cpp:392
 msgid "Rotate the image 90 degrees to the right."
-msgstr "Tourne l'image de 90 degrés sur la droite"
+msgstr "Повернуть изображение на 90º вправо."
 
 #: src/RatioFrame.cpp:393
 msgid "Correct &Inclinaison"
-msgstr "Redresser l'&image"
+msgstr "Исправить &наклон"
 
 #: src/RatioFrame.cpp:393
 msgid "Mode Rotation : use the mouse to set horizontal / vertical lines."
 msgstr ""
-"Mode Redressement : utiliser la souris pour fixer les lignes horizontales / "
-"verticales."
+"Режим поворота: используйте мышь, чтобы установить горизонтальные/"
+"вертикальные линии."
 
 #: src/RatioFrame.cpp:394
 msgid "Flip &Horizontal"
-msgstr "Miroir &horizontal"
+msgstr "Повернуть &по горизонтали"
 
 #: src/RatioFrame.cpp:394
 msgid "Flip the image horizontally."
-msgstr "Inverse l'image comme avec un miroir horizontal."
+msgstr "Повернуть &расположив по горизонтали"
 
 #: src/RatioFrame.cpp:395
 msgid "Flip &Vertical"
-msgstr "Miroir &vertical"
+msgstr "Повернуть &по вертикали"
 
 #: src/RatioFrame.cpp:395
 msgid "Flip the image vertically."
-msgstr "Inverse l'image comme avec un miroir vertical."
+msgstr "Повернуть &расположив по вертикали"
 
 #: src/RatioFrame.cpp:396
 msgid "Commen&t"
-msgstr "Commen&taire"
+msgstr "Прим&ечание"
 
 #: src/RatioFrame.cpp:396
 msgid "Modify comment."
-msgstr "Modifier le commentaire"
+msgstr "Изменить примечание."
 
 #: src/RatioFrame.cpp:397
 msgid "Resi&ze"
-msgstr "Re&dimensionne"
+msgstr "Изменить ра&змер"
 
 #: src/RatioFrame.cpp:397
 msgid "Resize image."
-msgstr "Redimensionne l'image"
+msgstr "Изменить размер изображения."
 
 #: src/RatioFrame.cpp:400
 msgid "Lossless Operations"
-msgstr "Opérations sans pertes"
+msgstr "Действия без потери качества"
 
 #: src/RatioFrame.cpp:400
 msgid "Activate lossless operations whenever it is possible."
-msgstr "Utilise les opérations JPEG sans pertes tant que possible."
+msgstr "Задействуйте операции без потери качества там где это возможно."
 
 #: src/RatioFrame.cpp:402
 msgid "JPEG &Optimize"
-msgstr "JPEG - &Optimisation"
+msgstr "&Оптимизировать JPEG"
 
 #: src/RatioFrame.cpp:402
 msgid "Optimize Huffman JPEG table."
-msgstr "Optimise la compression des tables Huffman du fichier JPEG."
+msgstr "Оптимизировать таблицу Huffman JPEG."
 
 #: src/RatioFrame.cpp:403
 msgid "JPEG &Progressive"
-msgstr "JPEG - &Progressif"
+msgstr "&Прогрессивный JPEG"
 
 #: src/RatioFrame.cpp:403
 msgid "Save the file as progressive."
-msgstr "Sauvegarde le fichier JPEG avec un chargement progressif."
+msgstr ""
 
 #: src/RatioFrame.cpp:404
 msgid "&Detect Quality"
-msgstr "&Détecte la qualité"
+msgstr "&Определить качество"
 
 #: src/RatioFrame.cpp:404
 msgid ""
 "Detect the quality of the current file, and store it as default in the "
 "preferences."
 msgstr ""
-"Détecte la qualité du fichier en cours, et enregistre le résultat dans les "
-"préférences."
+"Определить и использовать качество текущего файла в настройках по умолчанию."
 
 #: src/RatioFrame.cpp:405
 msgid "&JPEG"
@@ -414,335 +404,331 @@ msgstr "&JPEG"
 
 #: src/RatioFrame.cpp:405
 msgid "JPEG Specific Options"
-msgstr "Options Spécifiques JPEG"
+msgstr "Особые параметры JPEG"
 
 #: src/RatioFrame.cpp:406
 msgid "&Image"
-msgstr "&Image"
+msgstr "&Изображение"
 
-# Menu Ratio ######################################### #
 #: src/RatioFrame.cpp:410
 msgid "&Automatic Orientation"
-msgstr "Orientation &Automatique"
+msgstr "&Автоматическая ориентация"
 
 #: src/RatioFrame.cpp:410
 msgid "Automatic Orientation choice between Portrait or Landscape."
-msgstr "Choix automatique de l'orientation, entre portrait et paysage."
+msgstr ""
+"Автоматическое ориентирование производит выбор между книжной и альбомной "
+"ориентацией."
 
 #: src/RatioFrame.cpp:411
 msgid "&Landscape"
-msgstr "Pa&ysage"
+msgstr "&Альбомная"
 
 #: src/RatioFrame.cpp:411
 msgid "Force Landscape Orientation"
-msgstr "Force l'orientation en mode paysage."
+msgstr "Использовать альбомную ориентацию"
 
 #: src/RatioFrame.cpp:412
 msgid "&Portrait"
-msgstr "P&ortrait"
+msgstr "&Книжная"
 
 #: src/RatioFrame.cpp:412
 msgid "Force Portrait Orientation"
-msgstr "Force l'orientation en mode portrait."
+msgstr "Использовать книжную ориентацию"
 
 #: src/RatioFrame.cpp:414
 msgid "&No Ratio"
-msgstr "&Pas de Ratio imposé"
+msgstr "&Не использовать соотношение"
 
 #: src/RatioFrame.cpp:414
 msgid "Ratio checking is not used."
-msgstr "Le maintien du ratio n'est pas utilisé."
+msgstr "Проверка соотношения не используется."
 
 #: src/RatioFrame.cpp:415
 msgid "&Ratio 4:3 - Numeric"
-msgstr "Ratio 4:3 - &Numérique"
+msgstr "&Соотношение 4:3 - числовое"
 
 #: src/RatioFrame.cpp:415
 msgid "Common ratio used in numeric photo."
-msgstr "Ratio fréquent en photo numérique."
+msgstr ""
 
 #: src/RatioFrame.cpp:416
 msgid "&Ratio 3:2 - Classic"
-msgstr "Ratio 3:2 - &Argentique"
+msgstr "&Соотношение 3:2 - классическое"
 
 #: src/RatioFrame.cpp:416
 msgid "Common ratio used in classical photo."
-msgstr "Ratio courant en photo argentique."
+msgstr "Соотношение используемое в классической фотографии."
 
 #: src/RatioFrame.cpp:417
 msgid "&Ratio 16:9 - TV"
-msgstr "Ratio 16:9 - &TV"
+msgstr "&Соотношение 16:9 - телевизионное"
 
 #: src/RatioFrame.cpp:417
 msgid "Common ratio used in numeric TV photo."
-msgstr "Ratio courant en photo numérique"
+msgstr ""
 
 #: src/RatioFrame.cpp:418
 msgid "&Ratio 1:1 - Square"
-msgstr "Ratio 1:1 - &Carré"
+msgstr "&Соотношение 1:1 - квадрат"
 
 #: src/RatioFrame.cpp:418
 msgid "Square ratio."
-msgstr "Ratio carré."
+msgstr "Квадратное соотношение."
 
 #: src/RatioFrame.cpp:419
 msgid "&Custom Ratio"
-msgstr "Ratio personnalisé"
+msgstr "&Настраиваемое соотношение"
 
 #: src/RatioFrame.cpp:419
 msgid "To enter a custom ratio, please go in the combo box."
 msgstr ""
-"Pour entrer un ratio personnalisé, entrer le ratio dans la boîte de "
-"sélection de la barre d'outil."
+"Чтобы ввести предпочитаемое соотношение, перейдите к раскрывающемуся списку."
 
 #: src/RatioFrame.cpp:421
 msgid "&Ratio"
-msgstr "&Ratio"
+msgstr "&Соотношение"
 
-# Menu View ######################################### #
 #: src/RatioFrame.cpp:424
 msgid "Show &Explorer"
-msgstr "&Explorateur"
+msgstr "Показать &обозреватель"
 
 #: src/RatioFrame.cpp:424
 msgid "Show left explorer tab."
-msgstr "Montre l'explorateur sur la gauche."
+msgstr "Показать вкладку обозревателя."
 
 #: src/RatioFrame.cpp:427
 msgid "&Fit on Page"
-msgstr "&Ajuste à la page."
+msgstr "&Уместить на странице"
 
 #: src/RatioFrame.cpp:427
 msgid "View the whole image in the window."
-msgstr "Affiche l'image entière dans la fenêtre."
+msgstr "Просмотр цельного изображения в окне."
 
 #: src/RatioFrame.cpp:429
 msgid "&View"
-msgstr "&Affichage"
+msgstr "&Вид"
 
 #: src/RatioFrame.cpp:432
 msgid "User &manual"
-msgstr "&Guide utilisateur"
+msgstr "Руководство &пользователя"
 
 #: src/RatioFrame.cpp:432
 msgid "Help file."
-msgstr "Fichier d'aide"
+msgstr "Справка."
 
-# Menu Help ######################################### #
 #: src/RatioFrame.cpp:434
 msgid "&About..."
-msgstr "&A propos de..."
+msgstr "&Сведения о программе..."
 
 #: src/RatioFrame.cpp:434
 msgid "About this application."
-msgstr "A propos de cette application."
+msgstr "Сведения о программе."
 
 #: src/RatioFrame.cpp:435
 msgid "&Help"
-msgstr "&Aide"
+msgstr "&Справка"
 
-# ToolBar ############################################## #
 #: src/RatioFrame.cpp:443
 msgid "Open"
-msgstr "Ouvrir"
+msgstr "Открыть"
 
 #: src/RatioFrame.cpp:443 src/RatioFrame.cpp:1357
 msgid "Open a file"
-msgstr "Ouvrir un fichier"
+msgstr "Открыть файл"
 
 #: src/RatioFrame.cpp:444
 msgid "Save"
-msgstr "Enregistrer"
+msgstr "Сохранить"
 
 #: src/RatioFrame.cpp:444
 msgid "Save the current file"
-msgstr "Enregistre le fichier en cours"
+msgstr "Сохранить текущий файл"
 
 #: src/RatioFrame.cpp:445
 msgid "Reload"
-msgstr "Ré-ouvrir"
+msgstr "Перезагрузить"
 
 #: src/RatioFrame.cpp:445
 msgid "Reload original file"
-msgstr "Ré-ouvre le fichier original"
+msgstr "Перезагрузить исходный файл"
 
 #: src/RatioFrame.cpp:446
 msgid "Previous"
-msgstr "Précédent"
+msgstr "Предыдущий"
 
 #: src/RatioFrame.cpp:446
 msgid "Previous file"
-msgstr "Fichier précédent"
+msgstr "Предыдущий файл"
 
 #: src/RatioFrame.cpp:447
 msgid "Next"
-msgstr "Suivant"
+msgstr "Следующий"
 
 #: src/RatioFrame.cpp:447
 msgid "Next file"
-msgstr "Fichier suivant"
+msgstr "Следующий файл"
 
 #: src/RatioFrame.cpp:449
 msgid "Fit On Page"
-msgstr "Ajuste à la page"
+msgstr "Уместить на странице"
 
 #: src/RatioFrame.cpp:449
 msgid "Fit On Page."
-msgstr "Ajuste à la page"
+msgstr "Уместить на странице."
 
 #: src/RatioFrame.cpp:457
 msgid "JPEG Lossless"
-msgstr "JPEG Sans Pertes"
+msgstr "JPEG без потери качества"
 
 #: src/RatioFrame.cpp:457
 msgid "Performs JPEG operations lossless whenever possible."
-msgstr "Réalise les manipulations JPEG sans pertes, autant que possible."
+msgstr "По возможности выполнять операции с JPEG без потерь качества."
 
 #: src/RatioFrame.cpp:460 src/RatioFrame.cpp:465
 msgid "Crop"
-msgstr "Recadre"
+msgstr "Кадрировать"
 
 #: src/RatioFrame.cpp:460 src/RatioFrame.cpp:465
 msgid "Crop the image"
-msgstr "Recadre l'image"
+msgstr "Кадрировать изображение"
 
 #: src/RatioFrame.cpp:461 src/RatioFrame.cpp:468
 msgid "Inclinaison"
-msgstr "Inclinaison"
+msgstr "Наклон"
 
 #: src/RatioFrame.cpp:461 src/RatioFrame.cpp:468
 msgid "Correct inclinaison"
-msgstr "Redresse l'image"
+msgstr "Исправить наклон"
 
 #: src/RatioFrame.cpp:464
 msgid "Undo"
-msgstr "Annuler"
+msgstr "Отменить"
 
 #: src/RatioFrame.cpp:464
 msgid "Undo previous operation"
-msgstr "Annule la dernière opération"
+msgstr "Отменить предыдущее действие"
 
 #: src/RatioFrame.cpp:466
 msgid "Rotate Left"
-msgstr "Tourne à gauche"
+msgstr "Повернуть против часовой стрелки"
 
 #: src/RatioFrame.cpp:466
 msgid "Rotate the image to the left"
-msgstr "Tourne l'image sur la gauche"
+msgstr "Повернуть изображение влево"
 
 #: src/RatioFrame.cpp:467
 msgid "Rotate Right"
-msgstr "Tourne à droite"
+msgstr "Повернуть по часовой стрелке"
 
 #: src/RatioFrame.cpp:467
 msgid "Rotate the image to the right"
-msgstr "Tourne l'image sur la droite"
+msgstr "Повернуть изображение вправо"
 
 #: src/RatioFrame.cpp:470
 msgid "Free Rotation"
-msgstr "Orientation automatique"
+msgstr "Свободное вращение"
 
 #: src/RatioFrame.cpp:470
 msgid "Automatic Selection of Orientation"
-msgstr "Séléction automatique de l'orientation"
+msgstr "Автоматический выбор ориентации"
 
 #: src/RatioFrame.cpp:471
 msgid "Landscape Orientation"
-msgstr "Orientation Paysage"
+msgstr "Альбомная ориентация"
 
 #: src/RatioFrame.cpp:472
 msgid "Portrait Orientation"
-msgstr "Orientation Portrait"
+msgstr "Книжная ориентация"
 
 #: src/RatioFrame.cpp:473 src/RatioFrame.cpp:479 src/RatioFrame.cpp:485
 msgid "test"
-msgstr "test"
+msgstr ""
 
 #: src/RatioFrame.cpp:474
 msgid "0:0 (Free)                     "
-msgstr "0:0 (Aucun)"
+msgstr ""
 
 #: src/RatioFrame.cpp:477
 msgid "Ratio : "
-msgstr "Ratio :"
+msgstr "Соотношение : "
 
 #: src/RatioFrame.cpp:480
 msgid "Resize                 "
-msgstr "Redimensionne"
+msgstr "Изменить размер                 "
 
 #: src/RatioFrame.cpp:483
 msgid "   Resize : "
-msgstr "   Redimensionne : "
+msgstr "   Изменить размер : "
 
 #: src/RatioFrame.cpp:486
 msgid "Guide lines             "
-msgstr "Lignes Guides"
+msgstr "Направляющие             "
 
 #: src/RatioFrame.cpp:489
 msgid "   Guide Lines : "
-msgstr "   Lignes Guides : "
+msgstr "   Направляющие : "
 
 #: src/RatioFrame.cpp:560
 msgid "Browse"
-msgstr "Parcourir"
+msgstr "Обзор"
 
 #: src/RatioFrame.cpp:583
 msgid "Move Here"
-msgstr "Déplace Ici"
+msgstr "Переместить сюда"
 
 #: src/RatioFrame.cpp:584
 msgid "Save Here"
-msgstr "Enregistre Ici"
+msgstr "Сохранить здесь"
 
 #: src/RatioFrame.cpp:585
 msgid "Move To"
-msgstr "Déplacer"
+msgstr "Переместить в"
 
 #: src/RatioFrame.cpp:596 src/RatioFrame.cpp:602
 msgid "Tag"
-msgstr "Code"
+msgstr "Метка"
 
 #: src/RatioFrame.cpp:597 src/RatioFrame.cpp:603
 msgid "Value"
-msgstr "Valeur"
+msgstr "Значение"
 
 #: src/RatioFrame.cpp:598
 msgid "Fav. Exif"
-msgstr "Sélection"
+msgstr "Избр. Exif"
 
 #: src/RatioFrame.cpp:604
 msgid "All Exif"
-msgstr "Tous Exif"
+msgstr "Все Exif"
 
 #: src/RatioFrame.cpp:610
 msgid "Apply"
-msgstr "Appliquer"
+msgstr "Применить"
 
 #: src/RatioFrame.cpp:612
 msgid "Comment"
-msgstr "Commentaire"
+msgstr "Примечание"
 
 #: src/RatioFrame.cpp:753
 #, c-format
 msgid "%s - RPhoto"
-msgstr "%s - RPhoto"
+msgstr "%s — RPhoto"
 
-# Messages ############################################## #
 #: src/RatioFrame.cpp:850 src/RatioFrame.cpp:1009
 msgid "Executing : "
-msgstr "Execute : "
+msgstr "Выполнение : "
 
 #: src/RatioFrame.cpp:872
 msgid ""
 "JPEGTran has returned an error : \n"
 "\n"
 msgstr ""
-"JPEGTran a retourné une erreur : \n"
+"JPEGTran возвратил ошибку : \n"
 "\n"
 
 #: src/RatioFrame.cpp:872 src/RatioFrame.cpp:881
 msgid "JPEGTran Error"
-msgstr "Erreur JPEGTran"
+msgstr "Ошибка JPEGTran"
 
 #: src/RatioFrame.cpp:880
 msgid ""
@@ -750,33 +736,31 @@ msgid ""
 "\n"
 "Please check that jpegtran executable is in the path."
 msgstr ""
-"Impossible de lancer l'éxecutable JPEGTran : \n"
+"Невозможно запустить JPEGTran : \n"
 "\n"
-"Merci de vérifier que jpegtran est dans le path."
+"Пожалуйста, убедитесь, что задан адрес файла программы jpegtran."
 
 #: src/RatioFrame.cpp:932
 msgid ""
 "WARNING : This operation is not possible lossless. Non-transformable edge "
 "blocks have been dropped."
 msgstr ""
-"ATTENTION : Cette opération n'est pas possible sans perte : les blocs "
-"fautifs sur les cotés de l'image ont été supprimés."
 
 #: src/RatioFrame.cpp:941
 msgid "JPEGTran warning"
-msgstr "Alerte JPEGTran"
+msgstr "Предупреждение JPEGTran"
 
 #: src/RatioFrame.cpp:1030
 msgid ""
 "JHead has returned an error : \n"
 "\n"
 msgstr ""
-"JHead a retourné une erreur : \n"
+"JHead возвратил ошибку : \n"
 "\n"
 
 #: src/RatioFrame.cpp:1030 src/RatioFrame.cpp:1039
 msgid "JHead Error"
-msgstr "Erreur JHead"
+msgstr "Ошибка JHead"
 
 #: src/RatioFrame.cpp:1038
 msgid ""
@@ -784,26 +768,26 @@ msgid ""
 "\n"
 "Please check that jpegtran executable is in the path."
 msgstr ""
-"Impossible de lancer l'éxecutable JHead : \n"
+"Невозможно запустить JHead : \n"
 "\n"
-"Merci de vérifier que jpegtran est dans le path."
+"Пожалуйста, убедитесь, что задан адрес файла программы jpegtran."
 
 #: src/RatioFrame.cpp:1064
 #, c-format
 msgid "Loading %s..."
-msgstr "Chargement de %s ..."
+msgstr "Загрузка %s..."
 
 #: src/RatioFrame.cpp:1152
 msgid ""
 "The current image has unsaved changes. \n"
 "Do you want to save it ?"
 msgstr ""
-"Les modifications récentes n'ont pas été sauvegardées. \n"
-"Souhaitez-vous sauvergarder maintenant ?"
+"Изменения внесённые в текущее изображение не сохранены. \n"
+"Вы действительно хотите сохранить их?"
 
 #: src/RatioFrame.cpp:1152
 msgid "Save file?"
-msgstr "Enregistrer le fichier ?"
+msgstr "Сохранить файл?"
 
 #: src/RatioFrame.cpp:1278
 #, c-format
@@ -817,71 +801,71 @@ msgstr ""
 
 #: src/RatioFrame.cpp:1283
 msgid "help_en.html"
-msgstr "help_fr.html"
+msgstr ""
 
 #: src/RatioFrame.cpp:1377
 msgid "Applying modification of the comment."
-msgstr "Applique à l'image les modifications du commentaire."
+msgstr "Применение изменения в примечании."
 
 #: src/RatioFrame.cpp:1382
 msgid ""
 "You have modified the comment but not saved it. Would you like to save this "
 "comment ?"
 msgstr ""
-"Vous avez modifié le commentaire mais pas encore appliqué à l'image. Désirez-"
-"vous enregistrer ce commentaire maintenant ?"
+"Вы внесли изменения в примечание, но не сохранили его. Вы действительно "
+"хотите сохранить это примечание?"
 
 #: src/RatioFrame.cpp:1382
 msgid "Comment modification"
-msgstr "Modifier le commentaire"
+msgstr "Изменение примечания"
 
 #: src/RatioFrame.cpp:1437
 msgid "Save a file"
-msgstr "Enregistrer le fichier"
+msgstr "Сохранить файл"
 
 #: src/RatioFrame.cpp:1452
 msgid "Are you sure to delete the file "
-msgstr "Etes-vous sûr de vouloir effacer le fichier "
+msgstr "Вы действительно хотите удалить этот файл "
 
 #: src/RatioFrame.cpp:1452
 msgid "Delete confirmation"
-msgstr "Confirmation de suppression"
+msgstr "Подтверждение удаления"
 
 #: src/RatioFrame.cpp:1473 src/RatioFrame.cpp:1508
 msgid "No destination path selected."
-msgstr "Aucun répertoire de destination n'est sélectionné."
+msgstr "Адрес назначение не выбран."
 
 #: src/RatioFrame.cpp:1478
 #, c-format
 msgid "Move to %s"
-msgstr "Déplace en %s"
+msgstr "Переместить в %s"
 
 #: src/RatioFrame.cpp:1514
 #, c-format
 msgid "Save to %s"
-msgstr "Sauvegarde en %s"
+msgstr "Сохранить в %s"
 
 #: src/RatioFrame.cpp:1710
 msgid "No cropping zone defined."
-msgstr "Aucune zone de recadrage définie"
+msgstr "Область кадрирования не задана."
 
 #: src/RatioFrame.cpp:1764
 msgid "No angle defined."
-msgstr "Aucun angle défini."
+msgstr "Угол не задан."
 
 #: src/RatioFrame.cpp:1778
 #, c-format
 msgid "Rotating of %f degree. Please wait..."
-msgstr "Rotation de %f degrés. Merci de patentier..."
+msgstr "Поворот на %fº. Пожалуйста, подождите..."
 
 #: src/RatioFrame.cpp:1818 src/RatioFrame.cpp:2206
 msgid "Done."
-msgstr "Fin."
+msgstr "Готово."
 
 #: src/RatioFrame.cpp:1906
 #, c-format
 msgid "Detected the quality %d."
-msgstr "Qualité détectée : %d."
+msgstr "Определено качество %d."
 
 #: src/RatioFrame.cpp:1915
 #, c-format
@@ -894,23 +878,23 @@ msgid ""
 "'42kb' to resize at a size that should be near 42kb when saving the file\n"
 "\n"
 msgstr ""
-"Veuillez entrer la taille souhaitée, en respectant un des formats ci-"
-"dessous :\n"
-"'50%s' pour diminuer de 50 pourcents\n"
-"'640x480' pour avoir une largeur de 640 et une hauteur de 480 (0 = respect "
-"du ratio)\n"
-"'42kb' pour redimensionner de sorte à ce que le fichier fasse 42 kilo-"
-"octets\n"
+"Пожалуйста, введите предпочитаемый размер.\n"
+"\n"
+"Пример допустимых форматов : \n"
+"'50%s' для изменения размера на 50 процентов\n"
+"'640x480' для изменения размера по ширине = 640 и высоте = 480 (0 = "
+"применить соотношение)\n"
+"'42kb' для изменения размера до 42 КБ во время сохранения файла\n"
 "\n"
 
 #: src/RatioFrame.cpp:1916
 msgid "Resize Image"
-msgstr "Redimensionne l'image"
+msgstr "Изменить размер изображения"
 
 #: src/RatioFrame.cpp:1956
 #, c-format
 msgid "Error writing comment : error %d."
-msgstr "Erreur à l'écriture du commentaire (erreur %d)"
+msgstr "Ошибка записи примечания: ошибка %d."
 
 #: src/RatioFrame.cpp:2022
 #, c-format
@@ -918,8 +902,8 @@ msgid ""
 "Invalid fraction : %ld / %ld\n"
 "This should have the following format : 'x:y description'"
 msgstr ""
-"Fraction invalide : %ld / %ld\n"
-"Le format doit être : 'x:y description'"
+"Неверная дробь: %ld / %ld\n"
+"Формат должен быть: 'x:y описание'"
 
 #: src/RatioFrame.cpp:2049 src/RatioFrame.cpp:2111
 #, c-format
@@ -927,8 +911,8 @@ msgid ""
 "Invalid fixed size : %ld x %ld\n"
 "This should have the following format : '111x222 description'"
 msgstr ""
-"Fraction invalide : %ld x %ld\n"
-"Le format doit être : '111x222 description'"
+"Неверный фиксированный размер: %ld x %ld\n"
+"Формат должен быть: '111x222 описание'"
 
 #: src/RatioFrame.cpp:2082
 #, c-format
@@ -936,19 +920,15 @@ msgid ""
 "Invalid percent : %ld\n"
 "This should have the following format : 'x% description'"
 msgstr ""
-"Pourcentage invalide : %ld\n"
-"Le format doit être : 'x% description'"
 
 #: src/RatioFrame.cpp:2131
 msgid "kb"
-msgstr "kb"
+msgstr "кб"
 
 #: src/RatioFrame.cpp:2148
 #, c-format
 msgid "Detecting optimal size to obtain a size below %d bytes."
-msgstr ""
-"Détection de la taille optimale pour obtenir une taille de fichier de %d "
-"octets."
+msgstr "Определение оптимального размера для получения файла меньше %d байт."
 
 #: src/RatioFrame.cpp:2155
 #, c-format
@@ -962,16 +942,16 @@ msgstr ""
 
 #: src/RatioFrame.cpp:2182
 msgid "Detected the size ok !"
-msgstr "Détection de la taille réussie !"
+msgstr ""
 
 #: src/RatioFrame.cpp:2192
 msgid "Invalid size : please see provided examples"
-msgstr "Taille incorrecte : veuillez regarder les exemples proposés."
+msgstr "Неверный размер: смотрите предоставленные примеры"
 
 #: src/RatioFrame.cpp:2203
 #, c-format
 msgid "Resizing to %ld x %ld. Please wait..."
-msgstr "Redimensionnement par %ld x %ld. Merci de patienter..."
+msgstr "Изменение размера %ld x %ld. Пожалуйста, подождите..."
 
 #: src/RatioFrame.cpp:2225
 #, c-format
@@ -979,7 +959,7 @@ msgid ""
 "Guide lines ratio set to %f (\"%s\")\n"
 "."
 msgstr ""
-"Ratio des lignes guides réglé sur %f(\"%s\")\n"
+"Выбрано соотношение направляющих %f (\"%s\")\n"
 "."
 
 #: src/RatioFrame.cpp:2231
@@ -989,9 +969,9 @@ msgid ""
 "This should have the following format : 'x.y description' (the numeric "
 "separator depends on your local parameters)"
 msgstr ""
-"Format numérique non valide : %s.\n"
-"Le format doit être : 'x,y description' (le séparateur décimal dépend de vos "
-"paramètres locaux)"
+"Неверный числовой формат: %s.\n"
+"Формат должен быть: 'x.y описание' (десятичный разделитель зависит от ваших "
+"региональных настроек)"
 
 #: src/RatioFrame.cpp:2419
 msgid "."
@@ -1003,52 +983,46 @@ msgstr ".."
 
 #: src/RatioFrame.cpp:2423
 msgid "Illegal directory name."
-msgstr "Nom de fichier illégal."
+msgstr "Недопустимое название папки."
 
 #: src/RatioFrame.cpp:2423 src/RatioFrame.cpp:2434
 msgid "Error"
-msgstr "Erreur"
+msgstr "Ошибка"
 
 #: src/RatioFrame.cpp:2434
 msgid "File name exists already."
-msgstr "Un autre fichier portant le nom choisi existe déjà."
+msgstr "Имя файла уже существует."
 
 #: src/RPhoto.cpp:55
 #, c-format
 msgid "%s %s (c) 2004 - Remi Peyronnet - http://www.via.ecp.fr/~remi"
-msgstr ""
-"%s %s\n"
-"\n"
-"(c) 2004 - Rémi Peyronnet\n"
-"http://www.via.ecp.fr/~remi"
+msgstr "%s %s © 2004 — Remi Peyronnet — http://www.via.ecp.fr/~remi"
 
 #: src/RPhoto.cpp:56
 msgid "File to open"
-msgstr "Fichier à ouvrir"
+msgstr "Открыть файл"
 
 #: src/RPhoto.h:45
 msgid ""
 "0:0 (Free)|4:3 (Digital Photo)|3:2 (Paper Photo)|16:9 (Digital Photo - TV|"
 "1:1  (Square)"
 msgstr ""
-"0:0 (Aucun)|4:3 (Photo numérique)|3:2 (Photo classique)|16:9 (Photo format - "
-"TV)|1:1  (Carré)"
+"0:0 (свободное)|4:3 (цифровое фото)|3:2 (бумажное фото)|16:9 (Цифровое фото "
+"- TV|1:1  (квадрат)"
 
 #: src/RPhoto.h:46
 msgid ""
 "13:9 (Paper Photo - German 1)|18:13 (Paper Photo - German 2)|176x240 (Fixed "
 "Size)"
 msgstr ""
-"13:9 (Photo Papier - Format Allemand 1)|18:13 (Photo Papier - Format "
-"Allemand 2)|176x240 (Taille Fixe)"
 
 #: src/RPhoto.h:47
 msgid ""
 "Select new size|50% (Percentage)|640x480 (Width x Height)|800x0 (With ratio)|"
 "42kb (File size)"
 msgstr ""
-"Entrez la taille|50% (Pourcentage)|640x480 (Largeur x Hauteur)|42kb (Taille "
-"du fichier en ko)"
+"Выбрать новый размер|50% (проценты)|640x480 (ширина x высота)|800x0 "
+"(соотношение ширины)|42kb (размер файла)"
 
 #: src/RPhoto.h:48
 msgid "800x600|1280x1024|100kb|300kb"
@@ -1056,11 +1030,11 @@ msgstr "800x600|1280x1024|100kb|300kb"
 
 #: src/RPhoto.h:49
 msgid "0 (Free)|0.33 (Third)|1.618 (Golden Rule)"
-msgstr "0 (Pas de guide)|0,33 (Au tiers)|1,618 (Règle d'Or)"
+msgstr "0 (свободные)|0.33 (правило третей)|1.618 (золотое сечение)"
 
 #: src/RPhoto.h:50
 msgid "0.5 (Middle)"
-msgstr "0,5 (Milieu)"
+msgstr "0.5 (центр)"
 
 #: src/RPhoto.h:52
 msgid "iso8859-15"
@@ -1071,12 +1045,12 @@ msgid ""
 "This function is not yet implemented, \n"
 "or is being developped.\n"
 msgstr ""
-"Cette fonction n'est pas encore implémentée,\n"
-"ou est en cours d'élaboration.\n"
+"Эта функция ещё не внедрена \n"
+"или находится в стадии разработки.\n"
 
 #: src/RPhoto.h:59 src/RPhoto.h:62
 msgid "Function not implemented."
-msgstr "Fonction non implémentée"
+msgstr "Функция не внедрена."
 
 #~ msgid ""
 #~ "%s %s\n"
@@ -1086,23 +1060,5 @@ msgstr "Fonction non implémentée"
 #~ msgstr ""
 #~ "%s %s\n"
 #~ "\n"
-#~ "(c) %s\n"
+#~ "© %s\n"
 #~ "http://people.via.ecp.fr/~remi"
-
-#~ msgid "WrJpgCom's path"
-#~ msgstr "Chemin de l'exécutable WxJpgCom"
-
-#~ msgid "0:0 (None)"
-#~ msgstr "0:0 (Aucun)"
-
-#~ msgid "4:3 (Numeric Photo)"
-#~ msgstr "4:3 (Photo Numérique)"
-
-#~ msgid "3:2 (Classical Photo)"
-#~ msgstr "3:2 (Photo Argentique)"
-
-#~ msgid "1:1 (Square)"
-#~ msgstr "1:1 (Carré)"
-
-#~ msgid "176x240 (Fixed Size)"
-#~ msgstr "176x240 (Taille Fixe)"

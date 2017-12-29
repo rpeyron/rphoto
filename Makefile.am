@@ -52,6 +52,9 @@ EXTRA_DIST = config.rpath  config.rpath m4/ChangeLog  config.rpath m4/ChangeLog 
         build/debian/postrm \
         build/debian/rphoto.xpm \
         po/fr.po \
+        po/de.po \
+        po/cs.po \
+        po/ru.po \
         po/po_build.bat \
         po/po_update.bat
 

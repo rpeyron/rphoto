@@ -11,7 +11,7 @@ RPhoto_SOURCES= \
 	RatioImageBox.cpp \
 	RatioImageBox.h
 	
-INCLUDES=-I../lib/
+AM_CPPFLAGS=-I../lib/
 
 # Pre-compiled headers
 # g++ $(wx-config --cppflags) -o RatioPrecomp.h.gch -c RatioPrecomp.cpp

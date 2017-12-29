@@ -48,7 +48,7 @@ dnl --------------
 dnl GetTest stuff
 dnl ALL_LINGUAS="fr"
 AM_GNU_GETTEXT([external])
-AM_GNU_GETTEXT_VERSION([0.19.3])
+AM_GNU_GETTEXT_VERSION([0.19.7])
 
 dnl wxVillaLib compatibility
 GNOMEUI2_CFLAGS=
@@ -66,10 +66,11 @@ AC_CONFIG_FILES([
     lib/wxmisc/Makefile \
     lib/wxRectTracker/Makefile \
     lib/wxJPEGExifHandler/Makefile \
-    po/Makefile.in\
+	po/Makefile.in \
     doc/Makefile \
     doc/use/Makefile \
     resources/Makefile \
     resources/xpm/Makefile \
     ])
+dnl AC_CONFIG_FILES([po/Makefile], [AM_POSTPROCESS_PO_MAKEFILE])
 AC_OUTPUT

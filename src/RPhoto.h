@@ -22,7 +22,7 @@
  * ************************************************************************** */
 
 #define RPHOTO_NAME wxT("RPhoto")
-#define RPHOTO_VERSION wxT("v0.4.4")
+#define RPHOTO_VERSION wxT("v0.4.4-2")
 #define RPHOTO_BUILD wxT(__DATE__)
 #define RPHOTO_COPYRIGHT wxT("2004-2017 - Remi Peyronnet")
 #define RPHOTO_URL wxT("http://www.lprp.fr/")
@@ -75,3 +75,14 @@ DECLARE_APP(RPhotoApp)
 
 // Visual Leak Detector (in project definition)
 // #include <vld.h>
+
+
+/*
+Memory Leaks with VS :
+
+#define _CRTDBG_MAP_ALLOC 
+#include <stdlib.h> 
+#include <crtdbg.h> 
+
+_CrtDumpMemoryLeaks(); // must be after all clean up... where in wxWidgets ?!
+*/

@@ -493,7 +493,7 @@ bool LoadImageFile(wxImage& img, wxInputStream& stream, long type, int index)
         return false;
     }
 
-    handler = wxImage::FindHandler(type);
+    handler = wxImage::FindHandler(wxBitmapType(type));
     if (handler == 0)
     {
         wxLogWarning( _("No image handler for type %d defined."), type );

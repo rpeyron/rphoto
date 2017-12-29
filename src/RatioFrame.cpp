@@ -101,7 +101,7 @@ RatioFrame::RatioFrame(wxWindow* parent,
 	*c = 0;
 	exeFolder = wxString(szthis);
 	// SetCurrentDirectory(szthis);
-    m_locale.AddCatalogLookupPathPrefix(exeFolder);
+    m_locale.AddCatalogLookupPathPrefix(exeFolder+ "\\lang");
 #else
 #ifdef BINDIR
 // Preprocessor Guru by http://www.decompile.com/cpp/faq/file_and_line_error_string.htm
@@ -120,7 +120,7 @@ RatioFrame::RatioFrame(wxWindow* parent,
     
 	// Locale Stuff
     m_locale.Init();
-    m_locale.AddCatalog(wxT("RPhoto"));
+    m_locale.AddCatalog(wxT("rphoto"));
 
     // Variables
 	m_bTemp = FALSE;

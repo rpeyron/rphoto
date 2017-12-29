@@ -1,5 +1,5 @@
 noinst_LIBRARIES=libwxjpegexifhandler.a
-INCLUDES=-I..
+AM_CPPFLAGS=-I..
 libwxjpegexifhandler_a_SOURCES= \
 	imagejpg.cpp \
 	imagejpg.h \

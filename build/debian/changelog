@@ -1,3 +1,9 @@
+rphoto (0.4.4-2ppa6) xenial; urgency=low
+
+  * Added ru and cs translations
+
+ -- Remi Peyronnet <remi+debian@via.ecp.fr>  Sat, 4 Jun 2016 19:45:07 +0200
+
 rphoto (0.4.4-2ppa4) xenial; urgency=low
 
   * Update PPA for Xenial

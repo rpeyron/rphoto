@@ -7,7 +7,7 @@
 // Author:      Robert Roebling, Harm van der Heijden, Julian Smart et al
 // Modified by:
 // Created:     21/3/2000
-// RCS-ID:      $Id: dirctrlg.h 9 2004-01-01 23:14:27Z remi $
+// RCS-ID:      $Id: dirctrlg.h 670 2017-12-29 11:01:00Z remi $
 // Copyright:   (c) Robert Roebling, Harm van der Heijden, Julian Smart
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
@@ -30,7 +30,7 @@
 // classes
 //-----------------------------------------------------------------------------
 
-class WXDLLEXPORT wxTextCtrl;
+//class WXDLLEXPORT wxTextCtrl;
 
 //-----------------------------------------------------------------------------
 // Extra styles for wxFixedDirCtrl

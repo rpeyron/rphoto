@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: rphoto 0.4.4\n"
 "Report-Msgid-Bugs-To: remi+rphoto@via.ecp.fr\n"
-"POT-Creation-Date: 2016-06-04 19:51+0200\n"
+"POT-Creation-Date: 2017-12-28 19:28+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -525,7 +525,7 @@ msgstr ""
 msgid "Open"
 msgstr ""
 
-#: src/RatioFrame.cpp:443 src/RatioFrame.cpp:1355
+#: src/RatioFrame.cpp:443 src/RatioFrame.cpp:1357
 msgid "Open a file"
 msgstr ""
 
@@ -769,82 +769,83 @@ msgstr ""
 msgid "Save file?"
 msgstr ""
 
-#: src/RatioFrame.cpp:1276
+#: src/RatioFrame.cpp:1278
 #, c-format
 msgid ""
 "%s %s\n"
+"Build: %s\n"
 "\n"
 "(c) %s\n"
-"http://people.via.ecp.fr/~remi"
+"%s"
 msgstr ""
 
-#: src/RatioFrame.cpp:1281
+#: src/RatioFrame.cpp:1283
 msgid "help_en.html"
 msgstr ""
 
-#: src/RatioFrame.cpp:1375
+#: src/RatioFrame.cpp:1377
 msgid "Applying modification of the comment."
 msgstr ""
 
-#: src/RatioFrame.cpp:1380
+#: src/RatioFrame.cpp:1382
 msgid ""
 "You have modified the comment but not saved it. Would you like to save this "
 "comment ?"
 msgstr ""
 
-#: src/RatioFrame.cpp:1380
+#: src/RatioFrame.cpp:1382
 msgid "Comment modification"
 msgstr ""
 
-#: src/RatioFrame.cpp:1435
+#: src/RatioFrame.cpp:1437
 msgid "Save a file"
 msgstr ""
 
-#: src/RatioFrame.cpp:1450
+#: src/RatioFrame.cpp:1452
 msgid "Are you sure to delete the file "
 msgstr ""
 
-#: src/RatioFrame.cpp:1450
+#: src/RatioFrame.cpp:1452
 msgid "Delete confirmation"
 msgstr ""
 
-#: src/RatioFrame.cpp:1471 src/RatioFrame.cpp:1506
+#: src/RatioFrame.cpp:1473 src/RatioFrame.cpp:1508
 msgid "No destination path selected."
 msgstr ""
 
-#: src/RatioFrame.cpp:1476
+#: src/RatioFrame.cpp:1478
 #, c-format
 msgid "Move to %s"
 msgstr ""
 
-#: src/RatioFrame.cpp:1512
+#: src/RatioFrame.cpp:1514
 #, c-format
 msgid "Save to %s"
 msgstr ""
 
-#: src/RatioFrame.cpp:1708
+#: src/RatioFrame.cpp:1710
 msgid "No cropping zone defined."
 msgstr ""
 
-#: src/RatioFrame.cpp:1762
+#: src/RatioFrame.cpp:1764
 msgid "No angle defined."
 msgstr ""
 
-#: src/RatioFrame.cpp:1776
+#: src/RatioFrame.cpp:1778
 #, c-format
 msgid "Rotating of %f degree. Please wait..."
 msgstr ""
 
-#: src/RatioFrame.cpp:1816 src/RatioFrame.cpp:2204
+#: src/RatioFrame.cpp:1818 src/RatioFrame.cpp:2206
 msgid "Done."
 msgstr ""
 
-#: src/RatioFrame.cpp:1904
+#: src/RatioFrame.cpp:1906
 #, c-format
 msgid "Detected the quality %d."
 msgstr ""
 
-#: src/RatioFrame.cpp:1913
+#: src/RatioFrame.cpp:1915
 #, c-format
 msgid ""
 "Please input the size you want.\n"
@@ -856,76 +857,76 @@ msgid ""
 "\n"
 msgstr ""
 
-#: src/RatioFrame.cpp:1914
+#: src/RatioFrame.cpp:1916
 msgid "Resize Image"
 msgstr ""
 
-#: src/RatioFrame.cpp:1954
+#: src/RatioFrame.cpp:1956
 #, c-format
 msgid "Error writing comment : error %d."
 msgstr ""
 
-#: src/RatioFrame.cpp:2020
+#: src/RatioFrame.cpp:2022
 #, c-format
 msgid ""
 "Invalid fraction : %ld / %ld\n"
 "This should have the following format : 'x:y description'"
 msgstr ""
 
-#: src/RatioFrame.cpp:2047 src/RatioFrame.cpp:2109
+#: src/RatioFrame.cpp:2049 src/RatioFrame.cpp:2111
 #, c-format
 msgid ""
 "Invalid fixed size : %ld x %ld\n"
 "This should have the following format : '111x222 description'"
 msgstr ""
 
-#: src/RatioFrame.cpp:2080
+#: src/RatioFrame.cpp:2082
 #, c-format
 msgid ""
 "Invalid percent : %ld\n"
 "This should have the following format : 'x% description'"
 msgstr ""
 
-#: src/RatioFrame.cpp:2129
+#: src/RatioFrame.cpp:2131
 msgid "kb"
 msgstr ""
 
-#: src/RatioFrame.cpp:2146
+#: src/RatioFrame.cpp:2148
 #, c-format
 msgid "Detecting optimal size to obtain a size below %d bytes."
 msgstr ""
 
-#: src/RatioFrame.cpp:2153
+#: src/RatioFrame.cpp:2155
 #, c-format
 msgid "Current size is already below %d bytes !"
 msgstr ""
 
-#: src/RatioFrame.cpp:2160
+#: src/RatioFrame.cpp:2162
 #, c-format
 msgid "Empty image size is above %d bytes !"
 msgstr ""
 
-#: src/RatioFrame.cpp:2180
+#: src/RatioFrame.cpp:2182
 msgid "Detected the size ok !"
 msgstr ""
 
-#: src/RatioFrame.cpp:2190
+#: src/RatioFrame.cpp:2192
 msgid "Invalid size : please see provided examples"
 msgstr ""
 
-#: src/RatioFrame.cpp:2201
+#: src/RatioFrame.cpp:2203
 #, c-format
 msgid "Resizing to %ld x %ld. Please wait..."
 msgstr ""
 
-#: src/RatioFrame.cpp:2223
+#: src/RatioFrame.cpp:2225
 #, c-format
 msgid ""
 "Guide lines ratio set to %f (\"%s\")\n"
 "."
 msgstr ""
 
-#: src/RatioFrame.cpp:2229
+#: src/RatioFrame.cpp:2231
 #, c-format
 msgid ""
 "Invalid numeric format : %s.\n"
@@ -933,23 +934,23 @@ msgid ""
 "separator depends on your local parameters)"
 msgstr ""
 
-#: src/RatioFrame.cpp:2417
+#: src/RatioFrame.cpp:2419
 msgid "."
 msgstr ""
 
-#: src/RatioFrame.cpp:2418
+#: src/RatioFrame.cpp:2420
 msgid ".."
 msgstr ""
 
-#: src/RatioFrame.cpp:2421
+#: src/RatioFrame.cpp:2423
 msgid "Illegal directory name."
 msgstr ""
 
-#: src/RatioFrame.cpp:2421 src/RatioFrame.cpp:2432
+#: src/RatioFrame.cpp:2423 src/RatioFrame.cpp:2434
 msgid "Error"
 msgstr ""
 
-#: src/RatioFrame.cpp:2432
+#: src/RatioFrame.cpp:2434
 msgid "File name exists already."
 msgstr ""
 
@@ -962,46 +963,46 @@ msgstr ""
 msgid "File to open"
 msgstr ""
 
-#: src/RPhoto.h:43
+#: src/RPhoto.h:45
 msgid ""
 "0:0 (Free)|4:3 (Digital Photo)|3:2 (Paper Photo)|16:9 (Digital Photo - TV|"
 "1:1  (Square)"
 msgstr ""
 
-#: src/RPhoto.h:44
+#: src/RPhoto.h:46
 msgid ""
 "13:9 (Paper Photo - German 1)|18:13 (Paper Photo - German 2)|176x240 (Fixed "
 "Size)"
 msgstr ""
 
-#: src/RPhoto.h:45
+#: src/RPhoto.h:47
 msgid ""
 "Select new size|50% (Percentage)|640x480 (Width x Height)|800x0 (With ratio)|"
 "42kb (File size)"
 msgstr ""
 
-#: src/RPhoto.h:46
+#: src/RPhoto.h:48
 msgid "800x600|1280x1024|100kb|300kb"
 msgstr ""
 
-#: src/RPhoto.h:47
+#: src/RPhoto.h:49
 msgid "0 (Free)|0.33 (Third)|1.618 (Golden Rule)"
 msgstr ""
 
-#: src/RPhoto.h:48
+#: src/RPhoto.h:50
 msgid "0.5 (Middle)"
 msgstr ""
 
-#: src/RPhoto.h:50
+#: src/RPhoto.h:52
 msgid "iso8859-15"
 msgstr ""
 
-#: src/RPhoto.h:57 src/RPhoto.h:60
+#: src/RPhoto.h:59 src/RPhoto.h:62
 msgid ""
 "This function is not yet implemented, \n"
 "or is being developped.\n"
 msgstr ""
 
-#: src/RPhoto.h:57 src/RPhoto.h:60
+#: src/RPhoto.h:59 src/RPhoto.h:62
 msgid "Function not implemented."
 msgstr ""
