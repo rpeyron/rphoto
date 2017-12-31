@@ -51,9 +51,9 @@ make
 You may install dependancies on debian systems by :
 ```
 # Build dependancies
-sudo apt-get install pkg-config libexif-dev libwxgtk2.8-dev libjpeg8-dev zip libtool autoconf automake autopoint 
+sudo apt-get install pkg-config libexif-dev libwxgtk3.0-dev libjpeg8-dev zip libtool autoconf automake autopoint 
 # Run dependancies
-sudo apt-get install libwxgtk2.8-0 libexif12 libjpeg-progs jhead
+sudo apt-get install libwxgtk3.0-0v5 libexif12 libjpeg-progs jhead
 ```
 
 
