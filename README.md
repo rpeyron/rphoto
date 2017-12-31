@@ -18,6 +18,15 @@ See prebuilt binary packages in release tab for Windows and Debian.
 
 PPA repository for Ubuntu : [ppa:rpeyron/ppa](https://launchpad.net/~rpeyron/+archive/ubuntu/ppa)
 
+Debian repository :
+```
+# Add repository
+sudo echo "deb [arch=amd64]  http://www.lprp.fr/debian stable main" > /etc/apt/sources.list.d/lprp.list
+# Add apt key (remi+debian@via.ecp.fr)
+sudo apt-key adv --keyserver keys.gnupg.net --recv-keys 090B93891134CECB
+```
+
+
 Other OSes should build the package (see below).
 
 # Build instructions
