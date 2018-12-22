@@ -17,6 +17,15 @@
 
 #include <wx/wx.h>
 
+#ifdef __WXGTK3__
+#define __TRACKER_OVERLAY__
+#endif
+
+#ifdef __TRACKER_OVERLAY__
+#include <wx/overlay.h>
+#endif
+
+
 /// Handler position enum.
 enum RT_HANDLER
 {
@@ -188,6 +197,10 @@ protected:
 	int m_iHandlerMask;  /// Mask describing which handlers will be drawn
 	int m_state;         /// Current state of the control (See RT_STATE)
 	wxColour m_cGreyOut; /// Colour to grey out the region outside selection
+
+#ifdef __TRACKER_OVERLAY__
+	wxOverlay trackerOverlay;  // Overlay
+#endif
 
 	wxPoint m_leftClick; /// Coordinates of the last left clic
 	wxPoint m_prevMove;  /// Coordinates of the previous move

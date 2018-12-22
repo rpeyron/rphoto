@@ -140,12 +140,17 @@ void wxRectTracker::DrawTracker(wxDC & dc, int x, int y, int w, int h)
 	{
 		wxDynamicCast(m_wnd,wxScrolledWindow)->CalcScrolledPosition(x, y, &x, &y);
 	}
+// Replaced invert stuff with overlay as it seems not to be compatible with GTK3
+#ifndef __TRACKER_OVERLAY__
 	// Inverted Rect
 	dc.SetLogicalFunction(wxINVERT);
+#endif
 	dc.SetBrush(*wxTRANSPARENT_BRUSH);
 	dc.SetPen(*wxGREY_PEN);
 	dc.DrawRectangle(x,y,w,h);
+#ifndef __TRACKER_OVERLAY__
 	dc.SetLogicalFunction(wxCOPY);
+#endif
 }
 
 void wxRectTracker::DrawTracker(wxDC & dc, const wxRect& rect)
@@ -275,10 +280,15 @@ void wxRectTracker::OnMouseMotion(wxMouseEvent & event)
 		{
 			wxDynamicCast(m_wnd,wxScrolledWindow)->DoPrepareDC(dc);
 		} 
+		//	m_wnd->PrepareDC(dc);
 
 		dx = 0; dy = 0;
 		dc.SetDeviceOrigin(dx, dy);
-
+		
+#ifdef __TRACKER_OVERLAY__
+		wxDCOverlay odc(trackerOverlay, &dc);
+#endif
+		
 
 		if ((m_state & RT_STATE_FIRSTDRAG) == 0)
 		{
@@ -287,7 +297,11 @@ void wxRectTracker::OnMouseMotion(wxMouseEvent & event)
 		else
 		{
 			// Erase previous Tracker
+#ifdef __TRACKER_OVERLAY__
+			odc.Clear();
+#else
 			DrawTracker(dc, m_prevRect);
+#endif
 		}
 
 		// Update the new position
