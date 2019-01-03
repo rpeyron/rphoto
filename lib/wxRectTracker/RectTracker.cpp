@@ -421,6 +421,10 @@ void wxRectTracker::OnMouseLeftDown(wxMouseEvent & event)
 		m_state |= RT_STATE_MOUSE_CAPTURED;
 	}
 
+#ifdef __TRACKER_OVERLAY__
+		trackerOverlay.Reset();
+#endif
+
     event.Skip();
 }
 
