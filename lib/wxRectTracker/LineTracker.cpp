@@ -37,9 +37,10 @@ wxLineTracker::~wxLineTracker()
 
 void wxLineTracker::OnPaint(wxPaintEvent & event)
 {
+	this->GetNextHandler()->ProcessEvent(event);
+
 	if ((m_state & RT_STATE_DISABLED) != 0) return;
 	if ((m_state & RT_STATE_DRAGGING) != 0) return;
-	this->GetNextHandler()->ProcessEvent(event);
 	wxClientDC dc(m_wnd);
 	if (wxDynamicCast(m_wnd,wxScrolledWindow))
 	{
@@ -85,11 +86,16 @@ void wxLineTracker::DrawTracker(wxDC & dc, wxPoint begin, wxPoint end)
 	}
 
 	// Inverted Line
+#ifndef __TRACKER_OVERLAY__
+	// Inverted Rect
 	dc.SetLogicalFunction(wxINVERT);
+#endif
 	dc.SetBrush(*wxTRANSPARENT_BRUSH);
 	dc.SetPen(*wxGREY_PEN);
 	dc.DrawLine(begin.x,begin.y,end.x,end.y);
+#ifndef __TRACKER_OVERLAY__
 	dc.SetLogicalFunction(wxCOPY);
+#endif
 }
 
 
@@ -155,10 +161,17 @@ void wxLineTracker::OnMouseMotion(wxMouseEvent & event)
 
     if ((m_state & RT_STATE_DISABLED) != 0) return;
 
+	wxMouseEvent mouse(event);
+
+	if (wxDynamicCast(m_wnd, wxScrolledWindow))
+	{
+		wxDynamicCast(m_wnd, wxScrolledWindow)->CalcUnscrolledPosition(mouse.m_x, mouse.m_y, &mouse.m_x, &mouse.m_y);
+	}
+
 	// Just moving ?
 	if (!event.Dragging())
 	{
-		hit = HitTest(event.m_x, event.m_y);
+		hit = HitTest(mouse.m_x, mouse.m_y);
 		switch (hit)
 		{
 		case RT_LINE_HANDLER_END:
@@ -179,6 +192,15 @@ void wxLineTracker::OnMouseMotion(wxMouseEvent & event)
 
 		// Drawing Tracker Rect
 		wxClientDC dc(m_wnd);
+		if (wxDynamicCast(m_wnd, wxScrolledWindow))
+		{
+			wxDynamicCast(m_wnd, wxScrolledWindow)->DoPrepareDC(dc);
+		}
+
+		
+#ifdef __TRACKER_OVERLAY__
+		wxDCOverlay odc(trackerOverlay, &dc);
+#endif
 
 		if ((m_state & RT_STATE_DRAGGING) == 0)
 		{
@@ -189,7 +211,11 @@ void wxLineTracker::OnMouseMotion(wxMouseEvent & event)
 		else
 		{
 			// Erase previous Tracker
+#ifdef __TRACKER_OVERLAY__
+			odc.Clear();
+#else
 			DrawTracker(dc, m_pCurBegin, m_pCurEnd);
+#endif
 		}
 
 		// Update the new position
@@ -197,8 +223,8 @@ void wxLineTracker::OnMouseMotion(wxMouseEvent & event)
 		hit = HitTest(m_leftClick.x, m_leftClick.y);
 		// - Default Rect values
 		
-		dx = (event.m_x - m_leftClick.x);
-		dy = (event.m_y - m_leftClick.y);
+		dx = (mouse.m_x - m_leftClick.x);
+		dy = (mouse.m_y - m_leftClick.y);
 
 		if ( (hit & RT_LINE_HANDLER_BEGIN) != 0)
 		{
@@ -232,18 +258,23 @@ void wxLineTracker::OnMouseMotion(wxMouseEvent & event)
 	}
 
 	// Update prev_move
-    m_prevMove = event.GetPosition();
+    m_prevMove = mouse.GetPosition();
 }
 
 void wxLineTracker::OnMouseLeftDown(wxMouseEvent & event)
 {
-	if (HitTest(event.m_x, event.m_y) == RT_LINE_HANDLER_NONE)
+	wxRectTracker::OnMouseLeftDown(event);
+	if (HitTest(m_leftClick.x, m_leftClick.y) == RT_LINE_HANDLER_NONE)
 	{
-		m_pCurBegin = wxPoint(event.m_x, event.m_y);
+		m_pCurBegin = wxPoint(m_leftClick.x, m_leftClick.y);
 		m_pCurEnd = m_pCurBegin;
 		SetTrackerPosition(m_pCurBegin, m_pCurEnd);
 	}
-	wxRectTracker::OnMouseLeftDown(event);
+
+#ifdef __TRACKER_OVERLAY__
+		trackerOverlay.Reset();
+#endif
+	
 }
 
 void wxLineTracker::OnMouseLeftUp(wxMouseEvent & event)

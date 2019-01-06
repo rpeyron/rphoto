@@ -1,4 +1,4 @@
-AC_INIT([RPhoto],[0.4.4])
+AC_INIT([RPhoto],[0.4.5])
 AC_CONFIG_SRCDIR([configure.ac])
 AM_INIT_AUTOMAKE
 AC_PROG_CC

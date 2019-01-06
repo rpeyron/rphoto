@@ -114,7 +114,7 @@ RatioFrame::RatioFrame(wxWindow* parent,
     {
       exeFolder = exeFolder.Mid(exeFolder.Find(wxT("debian/rphoto")) + ::wxStrlen(wxT("debian/rphoto")));
     }
-    wxLogDebug(wxT("exeFolder : ") + exeFolder); 
+    //wxLogDebug(wxT("exeFolder : ") + exeFolder); 
 #endif    
 #endif
     
@@ -362,35 +362,35 @@ void RatioFrame::InitMenu()
 	// - File Menu
 	curMenu = new wxMenu();
 	curMenu->Append(MENU_FILE_OPEN, _("&Open..."), _("Open a file."));
-	curMenu->Append(MENU_FILE_SAVE, _("&Save") + wxString(wxT("\t s")), _("Save the current file."));
+	curMenu->Append(MENU_FILE_SAVE, _("&Save") + wxString(wxT("\ts")), _("Save the current file."));
 	curMenu->Append(MENU_FILE_SAVEAS, _("&Save as..."), _("Save the current file under another name."));
 	curMenu->Append(MENU_FILE_RELOAD, _("&Reload"), _("Reload original file."));
-	curMenu->Append(MENU_FILE_DELETE, _("&Delete") + wxString(wxT("\t Del")), _("Suppress the file."));
-	curMenu->Append(MENU_FILE_MOVE, _("&Move") + wxString(wxT("\t m")), _("Move the file to the selected folder."));
-	curMenu->Append(MENU_FILE_MOVENEXT, _("Mo&ve Next") + wxString(wxT("\t *")), _("Move the file to the selected folder and go to the next file."));
-	curMenu->Append(MENU_FILE_SAVEPATH, _("Save to &Path") + wxString(wxT("\t p")), _("Save the file to the selected folder."));
-	curMenu->Append(MENU_FILE_SAVEPATHN, _("Save to Path &and Next") + wxString(wxT("\t a")), _("Save the file to the selected folder and go to the next file."));
+	curMenu->Append(MENU_FILE_DELETE, _("&Delete") + wxString(wxT("\tDel")), _("Suppress the file."));
+	curMenu->Append(MENU_FILE_MOVE, _("&Move") + wxString(wxT("\tm")), _("Move the file to the selected folder."));
+	curMenu->Append(MENU_FILE_MOVENEXT, _("Mo&ve Next") + wxString(wxT("\t*")), _("Move the file to the selected folder and go to the next file."));
+	curMenu->Append(MENU_FILE_SAVEPATH, _("Save to &Path") + wxString(wxT("\tp")), _("Save the file to the selected folder."));
+	curMenu->Append(MENU_FILE_SAVEPATHN, _("Save to Path &and Next") + wxString(wxT("\ta")), _("Save the file to the selected folder and go to the next file."));
 	curMenu->AppendSeparator();
-	curMenu->Append(MENU_FILE_PREV, _("&Previous File")+wxString(wxT("\t PageUp")), _("Open the previous file in the explorer."));
-	curMenu->Append(MENU_FILE_NEXT, _("&Next File")+wxString(wxT("\t PageDown")), _("Open the next file in the explorer."));
+	curMenu->Append(MENU_FILE_PREV, _("&Previous File")+wxString(wxT("\tPageUp")), _("Open the previous file in the explorer."));
+	curMenu->Append(MENU_FILE_NEXT, _("&Next File")+wxString(wxT("\tPageDown")), _("Open the next file in the explorer."));
 	curMenu->AppendSeparator();
 	curMenu->Append(MENU_FILE_PREFS, _("&Preferences"), _("Define application's settings."));
 	curMenu->AppendSeparator();
-	curMenu->Append(MENU_FILE_QUIT, _("&Quit")+wxString(wxT("\t Q")), _("Quit the application."));
+	curMenu->Append(MENU_FILE_QUIT, _("&Quit")+wxString(wxT("\tQ")), _("Quit the application."));
 	m_pMenuBar->Append(curMenu, _("&File"));
 	// - Image Menu
 	curMenu = new wxMenu();
-	curMenu->Append(MENU_IMAGE_UNDO, _("&Undo")+wxString(wxT("\t Ctrl- Z")), _("Undo previous image operation."));
-	curMenu->Append(MENU_IMAGE_REDO, _("&Redo")+wxString(wxT("\t Ctrl- R")), _("Redo last undoed operation."));
+	curMenu->Append(MENU_IMAGE_UNDO, _("&Undo")+wxString(wxT("\tCtrl-Z")), _("Undo previous image operation."));
+	curMenu->Append(MENU_IMAGE_REDO, _("&Redo")+wxString(wxT("\tCtrl-R")), _("Redo last undoed operation."));
 	curMenu->AppendSeparator();
-	curMenu->AppendRadioItem(MENU_IMAGE_MODE_CROP, _("Crop Mode")+wxString(wxT("\t c")), _("Use this mode to crop images."));
-	curMenu->AppendRadioItem(MENU_IMAGE_MODE_INCLIN, _("Inclinaison Mode")+wxString(wxT("\t i")), _("Use this mode to correct inclinaison of images."));
+	curMenu->AppendRadioItem(MENU_IMAGE_MODE_CROP, _("Crop Mode")+wxString(wxT("\tc")), _("Use this mode to crop images."));
+	curMenu->AppendRadioItem(MENU_IMAGE_MODE_INCLIN, _("Inclinaison Mode")+wxString(wxT("\ti")), _("Use this mode to correct inclinaison of images."));
 	//curMenu->AppendRadioItem(MENU_IMAGE_MODE_REDEYE, _("Red Eye Mode"), _("Use this mode to correct redeye"));
 	curMenu->AppendSeparator();
-	curMenu->Append(MENU_IMAGE_CROP, _("&Crop")+wxString(wxT("\t c")), _("Crop image to selection."));
-	curMenu->Append(MENU_IMAGE_ROTATE_LEFT, _("Rotate &Left")+wxString(wxT("\t l")), _("Rotate the image 90 degrees to the left."));
-	curMenu->Append(MENU_IMAGE_ROTATE_RIGHT, _("Rotate &Right")+wxString(wxT("\t r")), _("Rotate the image 90 degrees to the right."));
-	curMenu->Append(MENU_IMAGE_INCLIN, _("Correct &Inclinaison")+wxString(wxT("\t i")), _("Mode Rotation : use the mouse to set horizontal / vertical lines."));
+	curMenu->Append(MENU_IMAGE_CROP, _("&Crop")+wxString(wxT("\tc")), _("Crop image to selection."));
+	curMenu->Append(MENU_IMAGE_ROTATE_LEFT, _("Rotate &Left")+wxString(wxT("\tl")), _("Rotate the image 90 degrees to the left."));
+	curMenu->Append(MENU_IMAGE_ROTATE_RIGHT, _("Rotate &Right")+wxString(wxT("\tr")), _("Rotate the image 90 degrees to the right."));
+	curMenu->Append(MENU_IMAGE_INCLIN, _("Correct &Inclinaison")+wxString(wxT("\ti")), _("Mode Rotation : use the mouse to set horizontal / vertical lines."));
 	curMenu->Append(MENU_IMAGE_FLIP_HORIZONTAL, _("Flip &Horizontal"), _("Flip the image horizontally."));
 	curMenu->Append(MENU_IMAGE_FLIP_VERTICAL, _("Flip &Vertical"), _("Flip the image vertically."));
 	curMenu->Append(MENU_IMAGE_COMMENT, _("Commen&t"), _("Modify comment."));
@@ -1035,7 +1035,7 @@ bool RatioFrame::CallJHead(const wxString & command)
 		// Error
         // -1 : the process cannot be launched, probably because of jpegtran path
         if ((rc == -1)) 
-            wxMessageBox(_("Unable to launch JHead : \n\nPlease check that jpegtran executable is in the path.")  + wxString(wxT("\n\n")) + wxString(cmd), 
+            wxMessageBox(_("Unable to launch JHead : \n\nPlease check that jhead executable is in the path.")  + wxString(wxT("\n\n")) + wxString(cmd), 
             _("JHead Error"), wxOK | wxICON_ERROR, this);
         // Other error
 	}

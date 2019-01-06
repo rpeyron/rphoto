@@ -2,7 +2,7 @@
 // Name:        src/common/imagjpeg.cpp
 // Purpose:     wxImage JPEG handler
 // Author:      Rémi Peyronnet, based on imagjpeg by Vaclav Slavik
-// RCS-ID:      $Id: imagejpg.cpp 526 2013-05-23 14:48:47Z remi $
+// RCS-ID:      $Id: imagejpg.cpp 689 2019-01-06 17:48:02Z remi $
 // Copyright:   (c)  Vaclav Slavik, modified by Rémi Peyronnet
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
@@ -362,7 +362,7 @@ bool wxEJPGHandler::LoadFile( wxImage *image, wxInputStream& stream, bool verbos
 		{
 			image->SetOption(markerName, markerValue);
 		}
-		wxLogDebug(wxT("Tag '") + markerName + wxT("' = '") + markerValue + wxT("' / '") + image->GetOption(markerName) + wxT("'"));
+		// wxLogDebug(wxT("Tag '") + markerName + wxT("' = '") + markerValue + wxT("' / '") + image->GetOption(markerName) + wxT("'"));
 		// wxLogDebug(wxT("markerValue '%d' '%s'"), curMarker->data_length, curMarker->data);
 		curMarker = curMarker->next;
 	}

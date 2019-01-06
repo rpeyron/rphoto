@@ -6,713 +6,717 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: rphoto\n"
-"Report-Msgid-Bugs-To: remi+rphoto@via.ecp.fr\n"
-"POT-Creation-Date: 2017-12-28 19:28+0100\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-01-06 22:04+0100\n"
 "PO-Revision-Date: 2017-12-05 18:35+0000\n"
 "Last-Translator: Pavel Borecki <Unknown>\n"
 "Language-Team: Czech <cs@li.org>\n"
-"Language: cs\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Language: cs\n"
 "X-Launchpad-Export-Date: 2017-12-28 15:24+0000\n"
 "X-Generator: Launchpad (build 18521)\n"
 
-#: src/RatioFrame.cpp:175
+#: ../src/RatioFrame.cpp:175
 msgid "Preferences"
 msgstr "Předvolby"
 
-#: src/RatioFrame.cpp:179 src/RatioFrame.cpp:180 src/RatioFrame.cpp:181
-#: src/RatioFrame.cpp:182 src/RatioFrame.cpp:183 src/RatioFrame.cpp:184
-#: src/RatioFrame.cpp:185 src/RatioFrame.cpp:186
+#: ../src/RatioFrame.cpp:179 ../src/RatioFrame.cpp:180
+#: ../src/RatioFrame.cpp:181 ../src/RatioFrame.cpp:182
+#: ../src/RatioFrame.cpp:183 ../src/RatioFrame.cpp:184
+#: ../src/RatioFrame.cpp:185 ../src/RatioFrame.cpp:186
 msgid "Main"
 msgstr "Hlavní"
 
-#: src/RatioFrame.cpp:179
+#: ../src/RatioFrame.cpp:179
 msgid "Auto Save"
 msgstr "Automatické ukládání"
 
-#: src/RatioFrame.cpp:180
+#: ../src/RatioFrame.cpp:180
 msgid "Crop before saving"
 msgstr ""
 
-#: src/RatioFrame.cpp:181
+#: ../src/RatioFrame.cpp:181
 msgid "Auto Save Folder"
 msgstr "Složka pro automatické ukládání"
 
-#: src/RatioFrame.cpp:182
+#: ../src/RatioFrame.cpp:182
 msgid "Auto Save Suffix"
 msgstr "Přípona pro automatické ukládání"
 
-#: src/RatioFrame.cpp:183
+#: ../src/RatioFrame.cpp:183
 msgid "Auto Crop after Rotation"
 msgstr "Po otočení automaticky oříznout"
 
-#: src/RatioFrame.cpp:184
+#: ../src/RatioFrame.cpp:184
 msgid "Undo History"
 msgstr "Historie zpětných kroků"
 
-#: src/RatioFrame.cpp:185
+#: ../src/RatioFrame.cpp:185
 msgid "Auto Select Max"
 msgstr "Automaticky vybrat nejvíce"
 
-#: src/RatioFrame.cpp:186
+#: ../src/RatioFrame.cpp:186
 msgid "Width of the handles (pixels)"
 msgstr "Šířka úchopů (pixely)"
 
-#: src/RatioFrame.cpp:189 src/RatioFrame.cpp:190 src/RatioFrame.cpp:191
-#: src/RatioFrame.cpp:193 src/RatioFrame.cpp:194 src/RatioFrame.cpp:195
-#: src/RatioFrame.cpp:196
+#: ../src/RatioFrame.cpp:189 ../src/RatioFrame.cpp:190
+#: ../src/RatioFrame.cpp:191 ../src/RatioFrame.cpp:193
+#: ../src/RatioFrame.cpp:194 ../src/RatioFrame.cpp:195
+#: ../src/RatioFrame.cpp:196
 msgid "JPEG"
 msgstr "JPEG"
 
-#: src/RatioFrame.cpp:189
+#: ../src/RatioFrame.cpp:189
 msgid "JPEGTran's path"
 msgstr "Popis umístění nástroje JPEGTran"
 
-#: src/RatioFrame.cpp:190
+#: ../src/RatioFrame.cpp:190
 msgid "JHead's path"
 msgstr "Popis umístění nástroje JHead"
 
-#: src/RatioFrame.cpp:191
+#: ../src/RatioFrame.cpp:191
 msgid "AutoRot on Load"
 msgstr "Automatické otočení při načtení"
 
-#: src/RatioFrame.cpp:193
+#: ../src/RatioFrame.cpp:193
 msgid "Display Lossless warnings"
 msgstr "Zobrazovat bezztrátová varování"
 
-#: src/RatioFrame.cpp:194
+#: ../src/RatioFrame.cpp:194
 msgid "JPEG Quality (0-100)"
 msgstr "Kvalita JPEG (0-100)"
 
-#: src/RatioFrame.cpp:195
+#: ../src/RatioFrame.cpp:195
 msgid "Favorite Exif Tags"
 msgstr "Oblíbené Exif značky"
 
-#: src/RatioFrame.cpp:196
+#: ../src/RatioFrame.cpp:196
 msgid "Comments Encoding"
 msgstr "Kódování znaků textů komentářů"
 
-#: src/RatioFrame.cpp:199 src/RatioFrame.cpp:200 src/RatioFrame.cpp:208
-#: src/RatioFrame.cpp:209 src/RatioFrame.cpp:217 src/RatioFrame.cpp:218
-#: src/RatioFrame.cpp:219 src/RatioFrame.cpp:226
+#: ../src/RatioFrame.cpp:199 ../src/RatioFrame.cpp:200
+#: ../src/RatioFrame.cpp:208 ../src/RatioFrame.cpp:209
+#: ../src/RatioFrame.cpp:217 ../src/RatioFrame.cpp:218
+#: ../src/RatioFrame.cpp:219 ../src/RatioFrame.cpp:226
 msgid "Defaults"
 msgstr "Výchozí"
 
-#: src/RatioFrame.cpp:199
+#: ../src/RatioFrame.cpp:199
 msgid "Default Path"
 msgstr "Popis výchozího umístění"
 
-#: src/RatioFrame.cpp:200
+#: ../src/RatioFrame.cpp:200
 msgid "Remember Last Opened Path"
 msgstr "Pamatovat si minule otevřené umístění"
 
-#: src/RatioFrame.cpp:208
+#: ../src/RatioFrame.cpp:208
 msgid "Ratio"
 msgstr "Poměr stran"
 
-#: src/RatioFrame.cpp:209
+#: ../src/RatioFrame.cpp:209
 msgid "Ratio's List"
 msgstr "Seznam poměrů stran"
 
-#: src/RatioFrame.cpp:217
+#: ../src/RatioFrame.cpp:217
 msgid "Guide Ratio"
 msgstr ""
 
-#: src/RatioFrame.cpp:218
+#: ../src/RatioFrame.cpp:218
 msgid "Guide Lines Ratio's List"
 msgstr ""
 
-#: src/RatioFrame.cpp:219
+#: ../src/RatioFrame.cpp:219
 msgid "Resize's List"
 msgstr "Seznam rozlišení, do kterých přepočítávat"
 
-#: src/RatioFrame.cpp:223
+#: ../src/RatioFrame.cpp:223
 msgid "Automatic"
 msgstr "Automaticky"
 
-#: src/RatioFrame.cpp:224 src/RatioFrame.cpp:471
+#: ../src/RatioFrame.cpp:224 ../src/RatioFrame.cpp:471
 msgid "Landscape"
 msgstr "Na šířku"
 
-#: src/RatioFrame.cpp:225 src/RatioFrame.cpp:472
+#: ../src/RatioFrame.cpp:225 ../src/RatioFrame.cpp:472
 msgid "Portrait"
 msgstr "Na výšku"
 
-#: src/RatioFrame.cpp:226
+#: ../src/RatioFrame.cpp:226
 msgid "Orientation"
 msgstr "Orientace"
 
-#: src/RatioFrame.cpp:229 src/RatioFrame.cpp:231
+#: ../src/RatioFrame.cpp:229 ../src/RatioFrame.cpp:231
 msgid "Appearance"
 msgstr "Vzhled"
 
-#: src/RatioFrame.cpp:229
+#: ../src/RatioFrame.cpp:229
 msgid "Fit the image inside the window"
 msgstr "Přizpůsobit přiblížení obrázku oknu"
 
-#: src/RatioFrame.cpp:231
+#: ../src/RatioFrame.cpp:231
 msgid "Grey Out cutted off area (percent)"
 msgstr ""
 
-#: src/RatioFrame.cpp:364
+#: ../src/RatioFrame.cpp:364
 msgid "&Open..."
 msgstr "&Otevřít…"
 
-#: src/RatioFrame.cpp:364
+#: ../src/RatioFrame.cpp:364
 msgid "Open a file."
 msgstr "Otevřít soubor."
 
-#: src/RatioFrame.cpp:365
+#: ../src/RatioFrame.cpp:365
 msgid "&Save"
 msgstr "&Uložit"
 
-#: src/RatioFrame.cpp:365
+#: ../src/RatioFrame.cpp:365
 msgid "Save the current file."
 msgstr "Uložit stávající soubor."
 
-#: src/RatioFrame.cpp:366
+#: ../src/RatioFrame.cpp:366
 msgid "&Save as..."
 msgstr "&Uložit jako…"
 
-#: src/RatioFrame.cpp:366
+#: ../src/RatioFrame.cpp:366
 msgid "Save the current file under another name."
 msgstr "Uložit stávající soubor pod jiným názvem."
 
-#: src/RatioFrame.cpp:367
+#: ../src/RatioFrame.cpp:367
 msgid "&Reload"
 msgstr "Načíst &znovu"
 
-#: src/RatioFrame.cpp:367
+#: ../src/RatioFrame.cpp:367
 msgid "Reload original file."
 msgstr "Znovu načíst původní soubor."
 
-#: src/RatioFrame.cpp:368
+#: ../src/RatioFrame.cpp:368
 msgid "&Delete"
 msgstr "&Smazat"
 
-#: src/RatioFrame.cpp:368
+#: ../src/RatioFrame.cpp:368
 msgid "Suppress the file."
 msgstr "Potlačit soubor."
 
-#: src/RatioFrame.cpp:369
+#: ../src/RatioFrame.cpp:369
 msgid "&Move"
 msgstr "&Přesunout"
 
-#: src/RatioFrame.cpp:369
+#: ../src/RatioFrame.cpp:369
 msgid "Move the file to the selected folder."
 msgstr "Přesunout soubor do vybrané složky."
 
-#: src/RatioFrame.cpp:370
+#: ../src/RatioFrame.cpp:370
 msgid "Mo&ve Next"
 msgstr "&Přesunout další"
 
-#: src/RatioFrame.cpp:370
+#: ../src/RatioFrame.cpp:370
 msgid "Move the file to the selected folder and go to the next file."
 msgstr "Přesunout soubor do vybrané složky a přejít na další soubor."
 
-#: src/RatioFrame.cpp:371
+#: ../src/RatioFrame.cpp:371
 msgid "Save to &Path"
 msgstr "&Uložit do umístění"
 
-#: src/RatioFrame.cpp:371
+#: ../src/RatioFrame.cpp:371
 msgid "Save the file to the selected folder."
 msgstr "Uložit soubor do vybrané složky."
 
-#: src/RatioFrame.cpp:372
+#: ../src/RatioFrame.cpp:372
 msgid "Save to Path &and Next"
 msgstr "Uložit do umístění &a další"
 
-#: src/RatioFrame.cpp:372
+#: ../src/RatioFrame.cpp:372
 msgid "Save the file to the selected folder and go to the next file."
 msgstr "Uložit soubor do vybrané složky a pokračovat na další soubor."
 
-#: src/RatioFrame.cpp:374
+#: ../src/RatioFrame.cpp:374
 msgid "&Previous File"
 msgstr "&Předchozí soubor"
 
-#: src/RatioFrame.cpp:374
+#: ../src/RatioFrame.cpp:374
 msgid "Open the previous file in the explorer."
 msgstr "Otevřít předchozí soubor ve správci souborů."
 
-#: src/RatioFrame.cpp:375
+#: ../src/RatioFrame.cpp:375
 msgid "&Next File"
 msgstr "&Následující soubor"
 
-#: src/RatioFrame.cpp:375
+#: ../src/RatioFrame.cpp:375
 msgid "Open the next file in the explorer."
 msgstr "Otevřít následující soubor ve správci souborů."
 
-#: src/RatioFrame.cpp:377
+#: ../src/RatioFrame.cpp:377
 msgid "&Preferences"
 msgstr "&Předvolby"
 
-#: src/RatioFrame.cpp:377
+#: ../src/RatioFrame.cpp:377
 msgid "Define application's settings."
 msgstr "Určit nastavení aplikace."
 
-#: src/RatioFrame.cpp:379
+#: ../src/RatioFrame.cpp:379
 msgid "&Quit"
 msgstr "U&končit"
 
-#: src/RatioFrame.cpp:379
+#: ../src/RatioFrame.cpp:379
 msgid "Quit the application."
 msgstr "Ukončit aplikaci."
 
-#: src/RatioFrame.cpp:380
+#: ../src/RatioFrame.cpp:380
 msgid "&File"
 msgstr "&Soubor"
 
-#: src/RatioFrame.cpp:383
+#: ../src/RatioFrame.cpp:383
 msgid "&Undo"
 msgstr "&Zpět"
 
-#: src/RatioFrame.cpp:383
+#: ../src/RatioFrame.cpp:383
 msgid "Undo previous image operation."
 msgstr "Vzít zpět předchozí operace s obrázkem."
 
-#: src/RatioFrame.cpp:384
+#: ../src/RatioFrame.cpp:384
 msgid "&Redo"
 msgstr "&Znovu"
 
-#: src/RatioFrame.cpp:384
+#: ../src/RatioFrame.cpp:384
 msgid "Redo last undoed operation."
 msgstr "Zopakovat předtím zpět vzatou operaci."
 
-#: src/RatioFrame.cpp:386
+#: ../src/RatioFrame.cpp:386
 msgid "Crop Mode"
 msgstr "Režim ořezávání"
 
-#: src/RatioFrame.cpp:386
+#: ../src/RatioFrame.cpp:386
 msgid "Use this mode to crop images."
 msgstr "Použít tento režim pro ořezávání obrázků."
 
-#: src/RatioFrame.cpp:387
+#: ../src/RatioFrame.cpp:387
 msgid "Inclinaison Mode"
 msgstr "Režim sklonu"
 
-#: src/RatioFrame.cpp:387
+#: ../src/RatioFrame.cpp:387
 msgid "Use this mode to correct inclinaison of images."
 msgstr "Tento režim použijte pro opravení kácení linií obrázku"
 
-#: src/RatioFrame.cpp:390
+#: ../src/RatioFrame.cpp:390
 msgid "&Crop"
 msgstr "Oř&ez"
 
-#: src/RatioFrame.cpp:390
+#: ../src/RatioFrame.cpp:390
 msgid "Crop image to selection."
 msgstr "Oříznout obrázek podle výběru."
 
-#: src/RatioFrame.cpp:391
+#: ../src/RatioFrame.cpp:391
 msgid "Rotate &Left"
 msgstr "Otočit do&leva"
 
-#: src/RatioFrame.cpp:391
+#: ../src/RatioFrame.cpp:391
 msgid "Rotate the image 90 degrees to the left."
 msgstr "Otočit obrázek o 90° doleva."
 
-#: src/RatioFrame.cpp:392
+#: ../src/RatioFrame.cpp:392
 msgid "Rotate &Right"
 msgstr "Rotovat vp&ravo"
 
-#: src/RatioFrame.cpp:392
+#: ../src/RatioFrame.cpp:392
 msgid "Rotate the image 90 degrees to the right."
 msgstr "Otočit obrázek o 90° doprava."
 
-#: src/RatioFrame.cpp:393
+#: ../src/RatioFrame.cpp:393
 msgid "Correct &Inclinaison"
 msgstr "Opravit kácení linií"
 
-#: src/RatioFrame.cpp:393
+#: ../src/RatioFrame.cpp:393
 msgid "Mode Rotation : use the mouse to set horizontal / vertical lines."
 msgstr "Režim otáčení: pomocí myši nastavte vodorovné/svislé linie."
 
-#: src/RatioFrame.cpp:394
+#: ../src/RatioFrame.cpp:394
 msgid "Flip &Horizontal"
 msgstr "Převrátit &vodorovně"
 
-#: src/RatioFrame.cpp:394
+#: ../src/RatioFrame.cpp:394
 msgid "Flip the image horizontally."
 msgstr "Převrátit obrázek vodorovně."
 
-#: src/RatioFrame.cpp:395
+#: ../src/RatioFrame.cpp:395
 msgid "Flip &Vertical"
 msgstr "Převrátit &svisle"
 
-#: src/RatioFrame.cpp:395
+#: ../src/RatioFrame.cpp:395
 msgid "Flip the image vertically."
 msgstr "Převrátit obrázek svisle."
 
-#: src/RatioFrame.cpp:396
+#: ../src/RatioFrame.cpp:396
 msgid "Commen&t"
 msgstr "Komen&tář"
 
-#: src/RatioFrame.cpp:396
+#: ../src/RatioFrame.cpp:396
 msgid "Modify comment."
 msgstr "Upravit komentář."
 
-#: src/RatioFrame.cpp:397
+#: ../src/RatioFrame.cpp:397
 msgid "Resi&ze"
 msgstr "Změ&nit velikost"
 
-#: src/RatioFrame.cpp:397
+#: ../src/RatioFrame.cpp:397
 msgid "Resize image."
 msgstr "Změnit rozlišení obrázku."
 
-#: src/RatioFrame.cpp:400
+#: ../src/RatioFrame.cpp:400
 msgid "Lossless Operations"
 msgstr "Bezztrátové operace"
 
-#: src/RatioFrame.cpp:400
+#: ../src/RatioFrame.cpp:400
 msgid "Activate lossless operations whenever it is possible."
 msgstr "Použít bezztrátové operace kdykoli je to možné."
 
-#: src/RatioFrame.cpp:402
+#: ../src/RatioFrame.cpp:402
 msgid "JPEG &Optimize"
 msgstr "Optimalizace JPEG"
 
-#: src/RatioFrame.cpp:402
+#: ../src/RatioFrame.cpp:402
 msgid "Optimize Huffman JPEG table."
 msgstr "Optimalizovat Huffmanovu tabulku JPEG."
 
-#: src/RatioFrame.cpp:403
+#: ../src/RatioFrame.cpp:403
 msgid "JPEG &Progressive"
 msgstr "&Progresivní JPEG"
 
-#: src/RatioFrame.cpp:403
+#: ../src/RatioFrame.cpp:403
 msgid "Save the file as progressive."
 msgstr "Uložit soubor jako progresivní."
 
-#: src/RatioFrame.cpp:404
+#: ../src/RatioFrame.cpp:404
 msgid "&Detect Quality"
 msgstr "&Zjistit kvalitu"
 
-#: src/RatioFrame.cpp:404
+#: ../src/RatioFrame.cpp:404
 msgid ""
 "Detect the quality of the current file, and store it as default in the "
 "preferences."
 msgstr ""
 "Zjistit kvalitu stávajícího souboru a uložit ji jako výchozí v předvolbách."
 
-#: src/RatioFrame.cpp:405
+#: ../src/RatioFrame.cpp:405
 msgid "&JPEG"
 msgstr "&JPEG"
 
-#: src/RatioFrame.cpp:405
+#: ../src/RatioFrame.cpp:405
 msgid "JPEG Specific Options"
 msgstr "Volby pro JPEG"
 
-#: src/RatioFrame.cpp:406
+#: ../src/RatioFrame.cpp:406
 msgid "&Image"
 msgstr "&Obrázek"
 
-#: src/RatioFrame.cpp:410
+#: ../src/RatioFrame.cpp:410
 msgid "&Automatic Orientation"
 msgstr "&Automatická orientace"
 
-#: src/RatioFrame.cpp:410
+#: ../src/RatioFrame.cpp:410
 msgid "Automatic Orientation choice between Portrait or Landscape."
 msgstr "Automatická volba orientace mezi na výšku a na šířku"
 
-#: src/RatioFrame.cpp:411
+#: ../src/RatioFrame.cpp:411
 msgid "&Landscape"
 msgstr "Na šíř&ku"
 
-#: src/RatioFrame.cpp:411
+#: ../src/RatioFrame.cpp:411
 msgid "Force Landscape Orientation"
 msgstr "Vynutit orientaci na šířku"
 
-#: src/RatioFrame.cpp:412
+#: ../src/RatioFrame.cpp:412
 msgid "&Portrait"
 msgstr "Na &výšku"
 
-#: src/RatioFrame.cpp:412
+#: ../src/RatioFrame.cpp:412
 msgid "Force Portrait Orientation"
 msgstr "Vynutit orientaci na výšku"
 
-#: src/RatioFrame.cpp:414
+#: ../src/RatioFrame.cpp:414
 msgid "&No Ratio"
 msgstr "Vol&ný poměr stran"
 
-#: src/RatioFrame.cpp:414
+#: ../src/RatioFrame.cpp:414
 msgid "Ratio checking is not used."
 msgstr "Kontrola poměru stran není použita."
 
-#: src/RatioFrame.cpp:415
+#: ../src/RatioFrame.cpp:415
 msgid "&Ratio 4:3 - Numeric"
 msgstr "Pomě&r stran 4:3 – digitální"
 
-#: src/RatioFrame.cpp:415
+#: ../src/RatioFrame.cpp:415
 msgid "Common ratio used in numeric photo."
 msgstr "Běžný poměr stran používaný v digitální fotografii."
 
-#: src/RatioFrame.cpp:416
+#: ../src/RatioFrame.cpp:416
 msgid "&Ratio 3:2 - Classic"
 msgstr "Pomě&r 3:2 – film"
 
-#: src/RatioFrame.cpp:416
+#: ../src/RatioFrame.cpp:416
 msgid "Common ratio used in classical photo."
 msgstr "Běžný poměr stran používaný v klasické fotografii."
 
-#: src/RatioFrame.cpp:417
+#: ../src/RatioFrame.cpp:417
 msgid "&Ratio 16:9 - TV"
 msgstr "Pomě&r 16:9 – TV"
 
-#: src/RatioFrame.cpp:417
+#: ../src/RatioFrame.cpp:417
 msgid "Common ratio used in numeric TV photo."
 msgstr "Běžný poměr stran používaný v digitální televizi."
 
-#: src/RatioFrame.cpp:418
+#: ../src/RatioFrame.cpp:418
 msgid "&Ratio 1:1 - Square"
 msgstr "Pomě&r 1:1 – čtvercový"
 
-#: src/RatioFrame.cpp:418
+#: ../src/RatioFrame.cpp:418
 msgid "Square ratio."
 msgstr "Čtvercový poměr."
 
-#: src/RatioFrame.cpp:419
+#: ../src/RatioFrame.cpp:419
 msgid "&Custom Ratio"
 msgstr "Vlastní &poměr stran"
 
-#: src/RatioFrame.cpp:419
+#: ../src/RatioFrame.cpp:419
 msgid "To enter a custom ratio, please go in the combo box."
 msgstr "Pro zadání vlastního poměru stran přejděte do kombinovaného pole"
 
-#: src/RatioFrame.cpp:421
+#: ../src/RatioFrame.cpp:421
 msgid "&Ratio"
 msgstr "Pomě&r"
 
-#: src/RatioFrame.cpp:424
+#: ../src/RatioFrame.cpp:424
 msgid "Show &Explorer"
 msgstr "Zobrazit &Průzkumníka"
 
-#: src/RatioFrame.cpp:424
+#: ../src/RatioFrame.cpp:424
 msgid "Show left explorer tab."
 msgstr "Zobrazit levou kartu průzkumníka"
 
-#: src/RatioFrame.cpp:427
+#: ../src/RatioFrame.cpp:427
 msgid "&Fit on Page"
 msgstr "&Přizpůsobit na stránce"
 
-#: src/RatioFrame.cpp:427
+#: ../src/RatioFrame.cpp:427
 msgid "View the whole image in the window."
 msgstr "Zobrazit celý obrázek v okně"
 
-#: src/RatioFrame.cpp:429
+#: ../src/RatioFrame.cpp:429
 msgid "&View"
 msgstr "&Zobrazit"
 
-#: src/RatioFrame.cpp:432
+#: ../src/RatioFrame.cpp:432
 msgid "User &manual"
 msgstr "Uživatelská &příručka"
 
-#: src/RatioFrame.cpp:432
+#: ../src/RatioFrame.cpp:432
 msgid "Help file."
 msgstr "Soubor s nápovědou."
 
-#: src/RatioFrame.cpp:434
+#: ../src/RatioFrame.cpp:434
 msgid "&About..."
 msgstr "O &aplikaci…"
 
-#: src/RatioFrame.cpp:434
+#: ../src/RatioFrame.cpp:434
 msgid "About this application."
 msgstr "O této aplikaci."
 
-#: src/RatioFrame.cpp:435
+#: ../src/RatioFrame.cpp:435
 msgid "&Help"
 msgstr "&Nápověda"
 
-#: src/RatioFrame.cpp:443
+#: ../src/RatioFrame.cpp:443
 msgid "Open"
 msgstr "Otevřít"
 
-#: src/RatioFrame.cpp:443 src/RatioFrame.cpp:1357
+#: ../src/RatioFrame.cpp:443 ../src/RatioFrame.cpp:1357
 msgid "Open a file"
 msgstr "Otevřít soubor"
 
-#: src/RatioFrame.cpp:444
+#: ../src/RatioFrame.cpp:444
 msgid "Save"
 msgstr "Uložit"
 
-#: src/RatioFrame.cpp:444
+#: ../src/RatioFrame.cpp:444
 msgid "Save the current file"
 msgstr "Uložit stávající soubor"
 
-#: src/RatioFrame.cpp:445
+#: ../src/RatioFrame.cpp:445
 msgid "Reload"
 msgstr "Načíst znovu"
 
-#: src/RatioFrame.cpp:445
+#: ../src/RatioFrame.cpp:445
 msgid "Reload original file"
 msgstr "Znovu načíst původní soubor"
 
-#: src/RatioFrame.cpp:446
+#: ../src/RatioFrame.cpp:446
 msgid "Previous"
 msgstr "Předchozi"
 
-#: src/RatioFrame.cpp:446
+#: ../src/RatioFrame.cpp:446
 msgid "Previous file"
 msgstr "Předchozí soubor"
 
-#: src/RatioFrame.cpp:447
+#: ../src/RatioFrame.cpp:447
 msgid "Next"
 msgstr "Následující"
 
-#: src/RatioFrame.cpp:447
+#: ../src/RatioFrame.cpp:447
 msgid "Next file"
 msgstr "Další soubor"
 
-#: src/RatioFrame.cpp:449
+#: ../src/RatioFrame.cpp:449
 msgid "Fit On Page"
 msgstr "Přizpůsobit na stránku"
 
-#: src/RatioFrame.cpp:449
+#: ../src/RatioFrame.cpp:449
 msgid "Fit On Page."
 msgstr "Přizpůsobit na stránku."
 
-#: src/RatioFrame.cpp:457
+#: ../src/RatioFrame.cpp:457
 msgid "JPEG Lossless"
 msgstr "JPEG bezztrátové"
 
-#: src/RatioFrame.cpp:457
+#: ../src/RatioFrame.cpp:457
 msgid "Performs JPEG operations lossless whenever possible."
 msgstr "Kdykoli je to možné, provádí operace s JPEG bezztrátově."
 
-#: src/RatioFrame.cpp:460 src/RatioFrame.cpp:465
+#: ../src/RatioFrame.cpp:460 ../src/RatioFrame.cpp:465
 msgid "Crop"
 msgstr "Oříznout"
 
-#: src/RatioFrame.cpp:460 src/RatioFrame.cpp:465
+#: ../src/RatioFrame.cpp:460 ../src/RatioFrame.cpp:465
 msgid "Crop the image"
 msgstr "Oříznout obrázek"
 
-#: src/RatioFrame.cpp:461 src/RatioFrame.cpp:468
+#: ../src/RatioFrame.cpp:461 ../src/RatioFrame.cpp:468
 msgid "Inclinaison"
 msgstr "Kácení linií"
 
-#: src/RatioFrame.cpp:461 src/RatioFrame.cpp:468
+#: ../src/RatioFrame.cpp:461 ../src/RatioFrame.cpp:468
 msgid "Correct inclinaison"
 msgstr "Napravit kácející se linie"
 
-#: src/RatioFrame.cpp:464
+#: ../src/RatioFrame.cpp:464
 msgid "Undo"
 msgstr "Zpět"
 
-#: src/RatioFrame.cpp:464
+#: ../src/RatioFrame.cpp:464
 msgid "Undo previous operation"
 msgstr "Vzít zpět předchozí operaci"
 
-#: src/RatioFrame.cpp:466
+#: ../src/RatioFrame.cpp:466
 msgid "Rotate Left"
 msgstr "Otočit vlevo"
 
-#: src/RatioFrame.cpp:466
+#: ../src/RatioFrame.cpp:466
 msgid "Rotate the image to the left"
 msgstr "Otočit obrázek vlevo"
 
-#: src/RatioFrame.cpp:467
+#: ../src/RatioFrame.cpp:467
 msgid "Rotate Right"
 msgstr "Otočit vpravo"
 
-#: src/RatioFrame.cpp:467
+#: ../src/RatioFrame.cpp:467
 msgid "Rotate the image to the right"
 msgstr "Otočit obrázek doprava"
 
-#: src/RatioFrame.cpp:470
+#: ../src/RatioFrame.cpp:470
 msgid "Free Rotation"
 msgstr "Volné otáčení"
 
-#: src/RatioFrame.cpp:470
+#: ../src/RatioFrame.cpp:470
 msgid "Automatic Selection of Orientation"
 msgstr "Automatický výběr orientace"
 
-#: src/RatioFrame.cpp:471
+#: ../src/RatioFrame.cpp:471
 msgid "Landscape Orientation"
 msgstr "Vodorovná orientace"
 
-#: src/RatioFrame.cpp:472
+#: ../src/RatioFrame.cpp:472
 msgid "Portrait Orientation"
 msgstr "Svislá orientace"
 
-#: src/RatioFrame.cpp:473 src/RatioFrame.cpp:479 src/RatioFrame.cpp:485
+#: ../src/RatioFrame.cpp:473 ../src/RatioFrame.cpp:479
+#: ../src/RatioFrame.cpp:485
 msgid "test"
 msgstr "zkouška"
 
-#: src/RatioFrame.cpp:474
+#: ../src/RatioFrame.cpp:474
 msgid "0:0 (Free)                     "
 msgstr "0:0 (volný)                     "
 
-#: src/RatioFrame.cpp:477
+#: ../src/RatioFrame.cpp:477
 msgid "Ratio : "
 msgstr "Poměr stran: "
 
-#: src/RatioFrame.cpp:480
+#: ../src/RatioFrame.cpp:480
 msgid "Resize                 "
 msgstr "Změnit rozlišení                 "
 
-#: src/RatioFrame.cpp:483
+#: ../src/RatioFrame.cpp:483
 msgid "   Resize : "
 msgstr "   Změnit rozlišení : "
 
-#: src/RatioFrame.cpp:486
+#: ../src/RatioFrame.cpp:486
 msgid "Guide lines             "
 msgstr "Vodící linky             "
 
-#: src/RatioFrame.cpp:489
+#: ../src/RatioFrame.cpp:489
 msgid "   Guide Lines : "
 msgstr "   Vodící linky : "
 
-#: src/RatioFrame.cpp:560
+#: ../src/RatioFrame.cpp:560
 msgid "Browse"
 msgstr "Procházet"
 
-#: src/RatioFrame.cpp:583
+#: ../src/RatioFrame.cpp:583
 msgid "Move Here"
 msgstr "Přesunout sem"
 
-#: src/RatioFrame.cpp:584
+#: ../src/RatioFrame.cpp:584
 msgid "Save Here"
 msgstr "Uložit sem"
 
-#: src/RatioFrame.cpp:585
+#: ../src/RatioFrame.cpp:585
 msgid "Move To"
 msgstr "Přesunout do"
 
-#: src/RatioFrame.cpp:596 src/RatioFrame.cpp:602
+#: ../src/RatioFrame.cpp:596 ../src/RatioFrame.cpp:602
 msgid "Tag"
 msgstr "Štítek"
 
-#: src/RatioFrame.cpp:597 src/RatioFrame.cpp:603
+#: ../src/RatioFrame.cpp:597 ../src/RatioFrame.cpp:603
 msgid "Value"
 msgstr "Hodnota"
 
-#: src/RatioFrame.cpp:598
+#: ../src/RatioFrame.cpp:598
 msgid "Fav. Exif"
 msgstr "Oblíb. exif"
 
-#: src/RatioFrame.cpp:604
+#: ../src/RatioFrame.cpp:604
 msgid "All Exif"
 msgstr "Všechny exif"
 
-#: src/RatioFrame.cpp:610
+#: ../src/RatioFrame.cpp:610
 msgid "Apply"
 msgstr "Použít"
 
-#: src/RatioFrame.cpp:612
+#: ../src/RatioFrame.cpp:612
 msgid "Comment"
 msgstr "Komentář"
 
-#: src/RatioFrame.cpp:753
+#: ../src/RatioFrame.cpp:753
 #, c-format
 msgid "%s - RPhoto"
 msgstr "%s – RPhoto"
 
-#: src/RatioFrame.cpp:850 src/RatioFrame.cpp:1009
+#: ../src/RatioFrame.cpp:850 ../src/RatioFrame.cpp:1009
 msgid "Executing : "
 msgstr "Spouštění: "
 
-#: src/RatioFrame.cpp:872
+#: ../src/RatioFrame.cpp:872
 msgid ""
 "JPEGTran has returned an error : \n"
 "\n"
@@ -720,18 +724,18 @@ msgstr ""
 "JPEGTran ohlásilo chybu: \n"
 "\n"
 
-#: src/RatioFrame.cpp:872 src/RatioFrame.cpp:881
+#: ../src/RatioFrame.cpp:872 ../src/RatioFrame.cpp:881
 msgid "JPEGTran Error"
 msgstr "Chyba JPEGTran"
 
-#: src/RatioFrame.cpp:880
+#: ../src/RatioFrame.cpp:880
 msgid ""
 "Unable to launch JPEGTran : \n"
 "\n"
 "Please check that jpegtran executable is in the path."
 msgstr "Nedaří se spustit JPEGTran:"
 
-#: src/RatioFrame.cpp:932
+#: ../src/RatioFrame.cpp:932
 msgid ""
 "WARNING : This operation is not possible lossless. Non-transformable edge "
 "blocks have been dropped."
@@ -739,11 +743,11 @@ msgstr ""
 "VAROVÁNÍ: Tuto operaci nelze udělat bezztrátově. Netransformovatelné bloky "
 "na okraji budou zahozeny."
 
-#: src/RatioFrame.cpp:941
+#: ../src/RatioFrame.cpp:941
 msgid "JPEGTran warning"
 msgstr "Varování z JPEGTran"
 
-#: src/RatioFrame.cpp:1030
+#: ../src/RatioFrame.cpp:1030
 msgid ""
 "JHead has returned an error : \n"
 "\n"
@@ -751,23 +755,24 @@ msgstr ""
 "Chyba z JHead: \n"
 "\n"
 
-#: src/RatioFrame.cpp:1030 src/RatioFrame.cpp:1039
+#: ../src/RatioFrame.cpp:1030 ../src/RatioFrame.cpp:1039
 msgid "JHead Error"
 msgstr "Chyba JHead"
 
-#: src/RatioFrame.cpp:1038
+#: ../src/RatioFrame.cpp:1038
+#, fuzzy
 msgid ""
 "Unable to launch JHead : \n"
 "\n"
-"Please check that jpegtran executable is in the path."
+"Please check that jhead executable is in the path."
 msgstr "Nedaří se spustit JHead:"
 
-#: src/RatioFrame.cpp:1064
+#: ../src/RatioFrame.cpp:1064
 #, c-format
 msgid "Loading %s..."
 msgstr "Načítání %s…"
 
-#: src/RatioFrame.cpp:1152
+#: ../src/RatioFrame.cpp:1152
 msgid ""
 "The current image has unsaved changes. \n"
 "Do you want to save it ?"
@@ -775,11 +780,11 @@ msgstr ""
 "Ve stávajícím obrázku jsou neuložené změny. \n"
 "Přejete si je uložit?"
 
-#: src/RatioFrame.cpp:1152
+#: ../src/RatioFrame.cpp:1152
 msgid "Save file?"
 msgstr "Uložit soubor?"
 
-#: src/RatioFrame.cpp:1278
+#: ../src/RatioFrame.cpp:1278
 #, c-format
 msgid ""
 "%s %s\n"
@@ -789,73 +794,73 @@ msgid ""
 "%s"
 msgstr ""
 
-#: src/RatioFrame.cpp:1283
+#: ../src/RatioFrame.cpp:1283
 msgid "help_en.html"
 msgstr "help_en.html"
 
-#: src/RatioFrame.cpp:1377
+#: ../src/RatioFrame.cpp:1377
 msgid "Applying modification of the comment."
 msgstr "Aplikuje se úprava komentáře."
 
-#: src/RatioFrame.cpp:1382
+#: ../src/RatioFrame.cpp:1382
 msgid ""
 "You have modified the comment but not saved it. Would you like to save this "
 "comment ?"
 msgstr "Upravili jste komentář ale neuložili. Přejete si komentář uložit?"
 
-#: src/RatioFrame.cpp:1382
+#: ../src/RatioFrame.cpp:1382
 msgid "Comment modification"
 msgstr "Vlastní úprava"
 
-#: src/RatioFrame.cpp:1437
+#: ../src/RatioFrame.cpp:1437
 msgid "Save a file"
 msgstr "Uložit soubor"
 
-#: src/RatioFrame.cpp:1452
+#: ../src/RatioFrame.cpp:1452
 msgid "Are you sure to delete the file "
 msgstr "Opravdu chcete smazat soubor "
 
-#: src/RatioFrame.cpp:1452
+#: ../src/RatioFrame.cpp:1452
 msgid "Delete confirmation"
 msgstr "Potvrzení smazání"
 
-#: src/RatioFrame.cpp:1473 src/RatioFrame.cpp:1508
+#: ../src/RatioFrame.cpp:1473 ../src/RatioFrame.cpp:1508
 msgid "No destination path selected."
 msgstr "Nevybrán žádný popis cílového umístění."
 
-#: src/RatioFrame.cpp:1478
+#: ../src/RatioFrame.cpp:1478
 #, c-format
 msgid "Move to %s"
 msgstr "Přesunout do %s"
 
-#: src/RatioFrame.cpp:1514
+#: ../src/RatioFrame.cpp:1514
 #, c-format
 msgid "Save to %s"
 msgstr "Uložit do %s"
 
-#: src/RatioFrame.cpp:1710
+#: ../src/RatioFrame.cpp:1710
 msgid "No cropping zone defined."
 msgstr "Neurčena žádná oblast pro oříznutí"
 
-#: src/RatioFrame.cpp:1764
+#: ../src/RatioFrame.cpp:1764
 msgid "No angle defined."
 msgstr "Neurčen žádný úhel."
 
-#: src/RatioFrame.cpp:1778
+#: ../src/RatioFrame.cpp:1778
 #, c-format
 msgid "Rotating of %f degree. Please wait..."
 msgstr "Otáčí se o %f stupňů. Vyčkejte…"
 
-#: src/RatioFrame.cpp:1818 src/RatioFrame.cpp:2206
+#: ../src/RatioFrame.cpp:1818 ../src/RatioFrame.cpp:2206
 msgid "Done."
 msgstr "Hotovo."
 
-#: src/RatioFrame.cpp:1906
+#: ../src/RatioFrame.cpp:1906
 #, c-format
 msgid "Detected the quality %d."
 msgstr "Zjištěna kvalita %d."
 
-#: src/RatioFrame.cpp:1915
+#: ../src/RatioFrame.cpp:1915
 #, c-format
 msgid ""
 "Please input the size you want.\n"
@@ -867,77 +872,77 @@ msgid ""
 "\n"
 msgstr ""
 
-#: src/RatioFrame.cpp:1916
+#: ../src/RatioFrame.cpp:1916
 msgid "Resize Image"
 msgstr "Změnit velikost obrázku"
 
-#: src/RatioFrame.cpp:1956
+#: ../src/RatioFrame.cpp:1956
 #, c-format
 msgid "Error writing comment : error %d."
 msgstr "Chyba při zápisu komentáře: chyba %d."
 
-#: src/RatioFrame.cpp:2022
+#: ../src/RatioFrame.cpp:2022
 #, c-format
 msgid ""
 "Invalid fraction : %ld / %ld\n"
 "This should have the following format : 'x:y description'"
 msgstr ""
 
-#: src/RatioFrame.cpp:2049 src/RatioFrame.cpp:2111
+#: ../src/RatioFrame.cpp:2049 ../src/RatioFrame.cpp:2111
 #, c-format
 msgid ""
 "Invalid fixed size : %ld x %ld\n"
 "This should have the following format : '111x222 description'"
 msgstr ""
 
-#: src/RatioFrame.cpp:2082
+#: ../src/RatioFrame.cpp:2082
 #, c-format
 msgid ""
 "Invalid percent : %ld\n"
 "This should have the following format : 'x% description'"
 msgstr ""
 
-#: src/RatioFrame.cpp:2131
+#: ../src/RatioFrame.cpp:2131
 msgid "kb"
 msgstr "kb"
 
-#: src/RatioFrame.cpp:2148
+#: ../src/RatioFrame.cpp:2148
 #, c-format
 msgid "Detecting optimal size to obtain a size below %d bytes."
 msgstr ""
 "Zjišťování optimální velikosti aby výsledná velikost byla pod %d bajtů."
 
-#: src/RatioFrame.cpp:2155
+#: ../src/RatioFrame.cpp:2155
 #, c-format
 msgid "Current size is already below %d bytes !"
 msgstr ""
 
-#: src/RatioFrame.cpp:2162
+#: ../src/RatioFrame.cpp:2162
 #, c-format
 msgid "Empty image size is above %d bytes !"
 msgstr ""
 
-#: src/RatioFrame.cpp:2182
+#: ../src/RatioFrame.cpp:2182
 msgid "Detected the size ok !"
 msgstr "Zjištěná veliksot v pořádku!"
 
-#: src/RatioFrame.cpp:2192
+#: ../src/RatioFrame.cpp:2192
 msgid "Invalid size : please see provided examples"
 msgstr "Neplatná velikost: podívejte se na poskytnuté příklady"
 
-#: src/RatioFrame.cpp:2203
+#: ../src/RatioFrame.cpp:2203
 #, c-format
 msgid "Resizing to %ld x %ld. Please wait..."
 msgstr ""
 
-#: src/RatioFrame.cpp:2225
+#: ../src/RatioFrame.cpp:2225
 #, c-format
 msgid ""
 "Guide lines ratio set to %f (\"%s\")\n"
 "."
 msgstr ""
 
-#: src/RatioFrame.cpp:2231
+#: ../src/RatioFrame.cpp:2231
 #, c-format
 msgid ""
 "Invalid numeric format : %s.\n"
@@ -945,76 +950,76 @@ msgid ""
 "separator depends on your local parameters)"
 msgstr ""
 
-#: src/RatioFrame.cpp:2419
+#: ../src/RatioFrame.cpp:2419
 msgid "."
 msgstr "."
 
-#: src/RatioFrame.cpp:2420
+#: ../src/RatioFrame.cpp:2420
 msgid ".."
 msgstr ".."
 
-#: src/RatioFrame.cpp:2423
+#: ../src/RatioFrame.cpp:2423
 msgid "Illegal directory name."
 msgstr "Neplatný název složky"
 
-#: src/RatioFrame.cpp:2423 src/RatioFrame.cpp:2434
+#: ../src/RatioFrame.cpp:2423 ../src/RatioFrame.cpp:2434
 msgid "Error"
 msgstr "Chyba"
 
-#: src/RatioFrame.cpp:2434
+#: ../src/RatioFrame.cpp:2434
 msgid "File name exists already."
 msgstr "Soubor s takovým názvem už v daném umístění existuje."
 
-#: src/RPhoto.cpp:55
+#: ../src/RPhoto.cpp:55
 #, c-format
 msgid "%s %s (c) 2004 - Remi Peyronnet - http://www.via.ecp.fr/~remi"
 msgstr ""
 
-#: src/RPhoto.cpp:56
+#: ../src/RPhoto.cpp:56
 msgid "File to open"
 msgstr "Soubor k otevření"
 
-#: src/RPhoto.h:45
+#: ../src/RPhoto.h:45
 msgid ""
 "0:0 (Free)|4:3 (Digital Photo)|3:2 (Paper Photo)|16:9 (Digital Photo - TV|"
 "1:1  (Square)"
 msgstr ""
 
-#: src/RPhoto.h:46
+#: ../src/RPhoto.h:46
 msgid ""
 "13:9 (Paper Photo - German 1)|18:13 (Paper Photo - German 2)|176x240 (Fixed "
 "Size)"
 msgstr ""
 
-#: src/RPhoto.h:47
+#: ../src/RPhoto.h:47
 msgid ""
 "Select new size|50% (Percentage)|640x480 (Width x Height)|800x0 (With ratio)|"
 "42kb (File size)"
 msgstr ""
 
-#: src/RPhoto.h:48
+#: ../src/RPhoto.h:48
 msgid "800x600|1280x1024|100kb|300kb"
 msgstr "800x600|1280x1024|100kb|300kb"
 
-#: src/RPhoto.h:49
+#: ../src/RPhoto.h:49
 msgid "0 (Free)|0.33 (Third)|1.618 (Golden Rule)"
 msgstr ""
 
-#: src/RPhoto.h:50
+#: ../src/RPhoto.h:50
 msgid "0.5 (Middle)"
 msgstr ""
 
-#: src/RPhoto.h:52
+#: ../src/RPhoto.h:52
 msgid "iso8859-15"
 msgstr ""
 
-#: src/RPhoto.h:59 src/RPhoto.h:62
+#: ../src/RPhoto.h:59 ../src/RPhoto.h:62
 msgid ""
 "This function is not yet implemented, \n"
 "or is being developped.\n"
 msgstr ""
 
-#: src/RPhoto.h:59 src/RPhoto.h:62
+#: ../src/RPhoto.h:59 ../src/RPhoto.h:62
 msgid "Function not implemented."
 msgstr ""
 

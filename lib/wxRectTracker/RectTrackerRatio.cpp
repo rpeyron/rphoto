@@ -199,22 +199,26 @@ void wxRectTrackerRatio::DrawTracker(wxDC & dc, int x, int y, int w, int h)
 	wxRectTracker::DrawTracker(dc, x, y, w, h);
 	if (this->guideRatio != 0)
 	{
-		/* useless with wxEvtHandler
 		// Convert coordinates if scrolled
-		if (wxDynamicCast(GetParent(),wxScrolledWindow) != NULL)
+		if (wxDynamicCast(m_wnd,wxScrolledWindow) != NULL)
 		{
-			wxDynamicCast(GetParent(),wxScrolledWindow)->CalcScrolledPosition(x, y, &x, &y);
+			wxDynamicCast(m_wnd,wxScrolledWindow)->CalcScrolledPosition(x, y, &x, &y);
 		}
-		*/
+		
+		// Inverted Rect
+#ifndef __TRACKER_OVERLAY__
 		// Inverted Rect
 		dc.SetLogicalFunction(wxINVERT);
+#endif
 		dc.SetBrush(*wxTRANSPARENT_BRUSH);
 		dc.SetPen(*wxGREY_PEN);
 		dc.DrawLine(x  ,y + h*this->guideRatio  ,x+w,y + h*this->guideRatio   );
 		if (this->guideRatio != 0.5) dc.DrawLine(x  ,y + h*(1-this->guideRatio)  ,x+w,y + h*(1-this->guideRatio));
 		dc.DrawLine(x+w*this->guideRatio  ,y  ,x+w*this->guideRatio  ,y+h);
 		if (this->guideRatio != 0.5) dc.DrawLine(x+w*(1-this->guideRatio)  ,y  ,x+w*(1-this->guideRatio)  ,y+h);
+#ifndef __TRACKER_OVERLAY__
 		dc.SetLogicalFunction(wxCOPY);
+#endif
 	}
 }
 

@@ -54,7 +54,6 @@ void wxRectTracker::OnPaint(wxPaintEvent& event)
 	this->GetNextHandler()->ProcessEvent(event);
 
 	wxClientDC dc(m_wnd);
-	m_wnd->PrepareDC(dc);
 	if (wxDynamicCast(m_wnd,wxScrolledWindow))
 	{
 		wxDynamicCast(m_wnd,wxScrolledWindow)->DoPrepareDC(dc);
@@ -73,32 +72,6 @@ void wxRectTracker::OnDraw(wxDC* dc)
 // DrawRect operates with a wxPaintDC => Window coordinates
 void wxRectTracker::DrawRect(wxDC & dc, int x, int y, int w, int h)
 {
-
-	// Grey out cutted off area
-	// Use wxGraphicsContext for transparency support
-#ifdef wxUSE_GRAPHICS_CONTEXT
-	if ((w != 0) && (h != 0) && (m_cGreyOut.Alpha() != 0))
-	{
-		if (wxDynamicCast(&dc,wxWindowDC))  // If needed more casting are available to create wxGraphicsContext
-		{
-			int cw, ch;
-			dc.GetSize(&cw,&ch);
-			if (cw > GetMaxRect().GetWidth()) cw = GetMaxRect().GetWidth();
-			if (ch > GetMaxRect().GetHeight()) ch = GetMaxRect().GetHeight();
-			wxGraphicsContext * gc;
-			gc = wxGraphicsContext::Create(*wxDynamicCast(&dc,wxWindowDC));
-			gc->SetBrush(wxBrush(m_cGreyOut));
-			gc->SetPen(wxPen(m_cGreyOut));
-			wxGraphicsPath gp = gc->CreatePath();
-			gp.AddRectangle(0  ,0  ,cw ,y );
-			gp.AddRectangle(0  ,y  ,x  ,h  );
-			gp.AddRectangle(x+w,y  ,cw-x-w,h  );
-			gp.AddRectangle(0  ,y+h,cw ,ch-y-h );
-			gc->FillPath(gp);
-			delete gc;
-		}  
-	}
-#endif
 	
 	// Rect
 	dc.SetBrush(*wxTRANSPARENT_BRUSH);
@@ -125,6 +98,35 @@ void wxRectTracker::DrawRect(wxDC & dc, int x, int y, int w, int h)
     	if (m_iHandlerMask & RT_MASK_MID_RIGHT) dc.DrawRectangle(x+w-z-1, y+(h-z)/2, z, z);
     }
 
+
+	// Grey out cutted off area
+	// Use wxGraphicsContext for transparency support
+#ifdef wxUSE_GRAPHICS_CONTEXT
+	if ((w != 0) && (h != 0) && (m_cGreyOut.Alpha() != 0))
+	{
+		if (wxDynamicCast(&dc,wxWindowDC))  // If needed more casting are available to create wxGraphicsContext
+		{
+			int cw, ch;
+			dc.GetSize(&cw,&ch);
+			cw = dc.DeviceToLogicalX(cw);
+			ch = dc.DeviceToLogicalY(ch);
+			if (cw > GetMaxRect().GetWidth()) cw = GetMaxRect().GetWidth();
+			if (ch > GetMaxRect().GetHeight()) ch = GetMaxRect().GetHeight();
+			wxGraphicsContext * gc;
+			gc = wxGraphicsContext::Create(*wxDynamicCast(&dc,wxWindowDC));
+			gc->SetBrush(wxBrush(m_cGreyOut));
+			gc->SetPen(wxPen(m_cGreyOut));
+			wxGraphicsPath gp = gc->CreatePath();
+			gp.AddRectangle(0  ,0  ,cw ,y );			
+			gp.AddRectangle(0  ,y  ,x  ,h  );
+			gp.AddRectangle(x+w,y  ,cw-x-w,h  );
+			gp.AddRectangle(0  ,y+h,cw ,ch-y-h );
+			gc->FillPath(gp);
+			delete gc;
+		}  
+	}
+#endif
+
 }
 
 void wxRectTracker::DrawRect(wxDC & dc, wxRect rect)
@@ -135,11 +137,13 @@ void wxRectTracker::DrawRect(wxDC & dc, wxRect rect)
 // DrawTracker operates with the parent's wxWindowDC => Parent coordinates
 void wxRectTracker::DrawTracker(wxDC & dc, int x, int y, int w, int h)
 {
+	
 	// Convert coordinates if scrolled
 	if (wxDynamicCast(m_wnd,wxScrolledWindow) != NULL)
 	{
 		wxDynamicCast(m_wnd,wxScrolledWindow)->CalcScrolledPosition(x, y, &x, &y);
 	}
+	
 // Replaced invert stuff with overlay as it seems not to be compatible with GTK3
 #ifndef __TRACKER_OVERLAY__
 	// Inverted Rect
@@ -280,7 +284,7 @@ void wxRectTracker::OnMouseMotion(wxMouseEvent & event)
 		{
 			wxDynamicCast(m_wnd,wxScrolledWindow)->DoPrepareDC(dc);
 		} 
-		//	m_wnd->PrepareDC(dc);
+		//m_wnd->PrepareDC(dc);
 
 		dx = 0; dy = 0;
 		dc.SetDeviceOrigin(dx, dy);
