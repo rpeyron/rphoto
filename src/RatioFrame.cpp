@@ -1182,7 +1182,7 @@ void RatioFrame::imageUpdateExif()
 	{
 		strExif = m_pImageBox->GetImage().GetOption(wxT("COM"));
 		favExif = strExif.DecodeBase64(conv);
-		wxLogDebug(wxT("COM='") + strExif + wxT("' : '") + favExif + wxT("'\n"));
+		//wxLogDebug(wxT("COM='") + strExif + wxT("' : '") + favExif + wxT("'\n"));
 		m_pTextComment->ChangeValue(favExif);
 		m_pTextComment->DiscardEdits(); // Should not be necessary with ChangeValue instead of SetValue (2016/06/05)
 	}
