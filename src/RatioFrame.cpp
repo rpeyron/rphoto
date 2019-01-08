@@ -1815,6 +1815,7 @@ void RatioFrame::OnImageInclin(wxCommandEvent &event)
 				(int)((double) cw * m_pImageBox->GetScaleValue() - 0.5),
 				(int)((double) ch * m_pImageBox->GetScaleValue() - 0.5)
 			));
+		m_pImageBox->GetRectTracker().Update();
        	SetStatusText(_("Done."),0);            
 		END_IMAGE_MANIP(m_pImageBox->GetImage());
 		wxEndBusyCursor();
