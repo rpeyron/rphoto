@@ -71,5 +71,5 @@ Contributions are welcome. You may use GitHub issues tracker for issues, or GitH
 
 # Screenshot 
 
-![Screenshot](http://www.lprp.fr/soft/rphoto/rphoto_scr.jpg)
+![Screenshot](https://www.lprp.fr/files/2017/10/rphoto_scr.jpg)
 
