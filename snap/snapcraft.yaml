@@ -1,0 +1,18 @@
+
+  # After registering a name on build.snapcraft.io, commit an uncommented line:
+  name: rpeyron/rphoto
+  version: '0.4.4-2' 
+  summary: RPhoto is a small software aiming at the easy handling of digital camera's photos.
+  description: |
+    RPhoto is a small software aiming at the easy handling of digital camera's photos. (RPhoto 
+    is the next generation of IMPhoto). Its origin resides in the lack of a simple software 
+    capable of cropping photos with a constant ratio, to avoid white borders when printing.
+
+  grade: stable # must be 'stable' to release into candidate/stable channels
+  confinement: classic # use 'strict' once you have the right plugs and slots
+
+  parts:
+    my-part:
+      # See 'snapcraft plugins'
+      plugin: autotools
+  
