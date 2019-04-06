@@ -12,7 +12,23 @@
   confinement: classic # use 'strict' once you have the right plugs and slots
 
   parts:
-    my-part:
+    rphoto:
       # See 'snapcraft plugins'
       plugin: autotools
+      stage-packages:
+      - libwxgtk3.0-0v5
+      - libexif12
+      - libjpeg-progs
+      - jhead
+      build-packages:
+      - libexif-dev
+      - libwxgtk3.0-dev
+      - libjpeg8-dev
+      - zip
+      - libtool
+      - pkg-config
+      - autoconf
+      - automake
+      - autopoint
+      
   
