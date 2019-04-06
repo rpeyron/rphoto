@@ -1,6 +1,6 @@
 
   # After registering a name on build.snapcraft.io, commit an uncommented line:
-  name: rpeyron/rphoto
+  name: rphoto
   version: '0.4.4-2' 
   summary: RPhoto is a small software aiming at the easy handling of digital camera's photos.
   description: |
