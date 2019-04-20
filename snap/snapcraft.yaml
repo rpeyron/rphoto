@@ -8,8 +8,18 @@
     is the next generation of IMPhoto). Its origin resides in the lack of a simple software 
     capable of cropping photos with a constant ratio, to avoid white borders when printing.
 
+  icon: resources/FilesPhoto.ico
+  license: GPL
+  
   grade: stable # must be 'stable' to release into candidate/stable channels
-  confinement: classic # use 'strict' once you have the right plugs and slots
+#  confinement: classic # use 'strict' once you have the right plugs and slots
+  confinement: strict
+
+apps:
+  rphoto:
+    desktop: usr/share/applications/RPhoto.desktop
+    command: desktop-launch $SNAP/bin/RPhoto
+    plugs: [home, desktop, desktop-legacy]
 
   parts:
     rphoto:
