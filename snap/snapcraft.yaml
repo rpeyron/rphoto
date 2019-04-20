@@ -9,7 +9,7 @@
     capable of cropping photos with a constant ratio, to avoid white borders when printing.
 
 #  icon: resources/FilesPhoto.ico
-  license: GPL
+#  license: GPL
   
   grade: stable # must be 'stable' to release into candidate/stable channels
 #  confinement: classic # use 'strict' once you have the right plugs and slots
