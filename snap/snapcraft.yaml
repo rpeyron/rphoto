@@ -18,13 +18,14 @@
   apps:
     rphoto:
 #      desktop: usr/share/applications/rphoto.desktop
-#      command: bin/desktop-launch $SNAP/bin/RPhoto
-      command: bin/RPhoto
-      plugs: [home, desktop, desktop-legacy, unity7, x11, wayland]
+      command: desktop-launch $SNAP/bin/RPhoto
+#      command: bin/RPhoto
+      plugs: [home, desktop, desktop-legacy, unity7, x11, wayland, gsettings]
 
   parts:
     rphoto:
       # See 'snapcraft plugins'
+      after: [desktop-gtk3]      
       plugin: autotools
       stage-packages:
       - libwxgtk3.0-0v5
