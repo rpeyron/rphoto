@@ -1,1 +1,45 @@
-build/snap/snapcraft.yaml
+
+  # After registering a name on build.snapcraft.io, commit an uncommented line:
+  name: rphoto
+  version: '0.4.4-2' 
+  summary: easy handling of digital camera's photos.
+  description: |
+    RPhoto is a small software aiming at the easy handling of digital camera's photos. (RPhoto 
+    is the next generation of IMPhoto). Its origin resides in the lack of a simple software 
+    capable of cropping photos with a constant ratio, to avoid white borders when printing.
+
+  icon: resources/FilesPhoto.png
+#  license: GPL
+  
+  grade: stable # must be 'stable' to release into candidate/stable channels
+#  confinement: classic # use 'strict' once you have the right plugs and slots
+  confinement: strict
+
+  apps:
+    rphoto:
+      desktop: usr/share/applications/RPhoto.desktop
+      command: desktop-launch $SNAP/bin/RPhoto
+      plugs: [home, desktop, desktop-legacy, unity7, x11, wayland, gsettings]
+
+  parts:
+    rphoto:
+      # See 'snapcraft plugins'
+      after: [desktop-gtk3]      
+      plugin: autotools
+      stage-packages:
+      - libwxgtk3.0-0v5
+      - libexif12
+      - libjpeg-progs
+      - jhead
+      build-packages:
+      - libexif-dev
+      - libwxgtk3.0-dev
+      - libjpeg8-dev
+      - zip
+      - libtool
+      - pkg-config
+      - autoconf
+      - automake
+      - autopoint
+      
+  
