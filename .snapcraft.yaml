@@ -31,6 +31,8 @@
       - libexif12
       - libjpeg-progs
       - jhead
+      - libatk-adaptor
+      - libgail-common
       build-packages:
       - libexif-dev
       - libwxgtk3.0-dev
