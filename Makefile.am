@@ -1,4 +1,4 @@
-SUBDIRS= po lib src resources doc
+SUBDIRS= po lib src resources doc build
 EXTRA_DIST = config.rpath  config.rpath m4/ChangeLog  config.rpath m4/ChangeLog  \
         README \
         COPYING \
@@ -6,6 +6,7 @@ EXTRA_DIST = config.rpath  config.rpath m4/ChangeLog  config.rpath m4/ChangeLog 
         ChangeLog \
         INSTALL \
         NEWS \
+        TODO \
         TODO \
 	build/win32/upx_compress.bat \
 	build/win32/RPhoto.iss \
@@ -40,6 +41,7 @@ EXTRA_DIST = config.rpath  config.rpath m4/ChangeLog  config.rpath m4/ChangeLog 
 	build/vc2017/RPhoto.vcxproj.filters \
 	build/vc2017/wxWidgets.props \
 	build/vc2017/wxWidgets30.props \
+	    build/snap/snapcraft.xml \
 	    build/debian/rules \
         build/debian/RPhoto.1 \
         build/debian/conffiles \
@@ -97,6 +99,10 @@ ppa:
 	scite debian/changelog
 	debuild -S -sa
 	dput ppa:rpeyron/ppa ../*.changes
+
+snap:
+	echo sudo snap install --classic snapcraft
+	snap run snapcraft
 
 
 ACLOCAL_AMFLAGS = -I m4

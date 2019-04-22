@@ -7241,7 +7241,7 @@ GNOMEUI2_CFLAGS=
 
 CPPFLAGS="$CPPFLAGS -DBINDIR=\"$bindir\""
 
-ac_config_files="$ac_config_files Makefile src/Makefile lib/Makefile lib/wxFix/Makefile lib/wxVillaLib/Makefile lib/wxmisc/Makefile lib/wxRectTracker/Makefile lib/wxJPEGExifHandler/Makefile po/Makefile.in doc/Makefile doc/use/Makefile resources/Makefile resources/xpm/Makefile"
+ac_config_files="$ac_config_files Makefile src/Makefile lib/Makefile lib/wxFix/Makefile lib/wxVillaLib/Makefile lib/wxmisc/Makefile lib/wxRectTracker/Makefile lib/wxJPEGExifHandler/Makefile po/Makefile.in doc/Makefile doc/use/Makefile resources/Makefile resources/xpm/Makefile build/Makefile build/linux/Makefile"
 
 cat >confcache <<\_ACEOF
 # This file is a shell script that caches the results of configure
@@ -8010,6 +8010,8 @@ do
     "doc/use/Makefile") CONFIG_FILES="$CONFIG_FILES doc/use/Makefile" ;;
     "resources/Makefile") CONFIG_FILES="$CONFIG_FILES resources/Makefile" ;;
     "resources/xpm/Makefile") CONFIG_FILES="$CONFIG_FILES resources/xpm/Makefile" ;;
+    "build/Makefile") CONFIG_FILES="$CONFIG_FILES build/Makefile" ;;
+    "build/linux/Makefile") CONFIG_FILES="$CONFIG_FILES build/linux/Makefile" ;;
 
   *) as_fn_error $? "invalid argument: \`$ac_config_target'" "$LINENO" 5;;
   esac

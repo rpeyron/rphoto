@@ -71,6 +71,8 @@ AC_CONFIG_FILES([
     doc/use/Makefile \
     resources/Makefile \
     resources/xpm/Makefile \
+    build/Makefile \
+    build/linux/Makefile \
     ])
 dnl AC_CONFIG_FILES([po/Makefile], [AM_POSTPROCESS_PO_MAKEFILE])
 AC_OUTPUT

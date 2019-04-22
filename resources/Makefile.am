@@ -3,4 +3,5 @@ EXTRA_DIST = \
 	resource.h \
 	resource.inc \
 	resources.rc \
-	FilesPhoto.ico
+	FilesPhoto.ico \
+	FilesPhoto.png
