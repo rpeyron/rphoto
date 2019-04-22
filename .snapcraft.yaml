@@ -17,7 +17,7 @@
 
   apps:
     rphoto:
-      desktop: usr/local/share/applications/rphoto.desktop
+      desktop: share/applications/rphoto.desktop
       command: desktop-launch $SNAP/bin/RPhoto
       plugs: [home, desktop, desktop-legacy, unity7, x11, wayland, gsettings]
 
