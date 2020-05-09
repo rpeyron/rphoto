@@ -21,6 +21,15 @@ PPA repository for Ubuntu : [ppa:rpeyron/ppa](https://launchpad.net/~rpeyron/+ar
 sudo apt-add-repository ppa:rpeyron/ppa
 ```
 
+Debian repository :
+```
+# Add repository
+sudo echo "deb [arch=amd64]  http://www.lprp.fr/debian stable main" > /etc/apt/sources.list.d/lprp.list
+# Add apt key (remi+debian@via.ecp.fr)
+sudo apt-key adv --keyserver keys.gnupg.net --recv-keys 090B93891134CECB
+# Install
+sudo apt-get install rphoto
+
 Other OSes should build the package (see below).
 
 # Build instructions
