@@ -29,6 +29,7 @@ sudo echo "deb [arch=amd64]  http://www.lprp.fr/debian stable main" > /etc/apt/s
 sudo apt-key adv --keyserver keys.gnupg.net --recv-keys 090B93891134CECB
 # Install
 sudo apt-get install rphoto
+```
 
 Other OSes should build the package (see below).
 
