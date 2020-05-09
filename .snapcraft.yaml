@@ -2,6 +2,7 @@
   # After registering a name on build.snapcraft.io, commit an uncommented line:
   name: rphoto
   version: '0.4.5' 
+  base: core18
   summary: easy handling of digital camera's photos.
   description: |
     RPhoto is a small software aiming at the easy handling of digital camera's photos. (RPhoto 
