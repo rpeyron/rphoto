@@ -17,7 +17,7 @@
 
   apps:
     rphoto:
-      desktop: usr/share/applications/RPhoto.desktop
+      desktop: share/applications/rphoto.desktop
       command: desktop-launch $SNAP/bin/RPhoto
       plugs: [home, desktop, desktop-legacy, unity7, x11, wayland, gsettings]
 
@@ -31,6 +31,8 @@
       - libexif12
       - libjpeg-progs
       - jhead
+      - libatk-adaptor
+      - libgail-common
       build-packages:
       - libexif-dev
       - libwxgtk3.0-dev
