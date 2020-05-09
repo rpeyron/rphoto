@@ -2,7 +2,7 @@
 // Name:        src/common/imagjpeg.cpp
 // Purpose:     wxImage JPEG handler
 // Author:      Rémi Peyronnet, based on imagjpeg by Vaclav Slavik
-// RCS-ID:      $Id: imagejpg.cpp 689 2019-01-06 17:48:02Z remi $
+// RCS-ID:      $Id: imagejpg.cpp 724 2020-05-08 17:16:19Z remi $
 // Copyright:   (c)  Vaclav Slavik, modified by Rémi Peyronnet
 // Licence:     wxWindows licence
 /////////////////////////////////////////////////////////////////////////////
@@ -48,7 +48,8 @@ extern "C"
     #endif
 	// EJPG - Begin
     #if defined(__WXMSW__)
-    #include "wxjpeg-headers/jpeglib.h"
+    //#include "wxjpeg-headers/jpeglib.h"
+    #include <jpeglib.h>
     #else
     #include <jpeglib.h>
     #endif

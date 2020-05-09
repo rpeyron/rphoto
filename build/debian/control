@@ -2,16 +2,17 @@ Source: rphoto
 # Ubuntu
 #Section: universe/graphics
 # Debian
-Section: contrib/graphics
+#Section: contrib/graphics
+Section: main/graphics
 Priority: optional
-Build-Depends: pkg-config, libexif-dev, libwxgtk3.0-dev, libjpeg8-dev, zip, libtool, autoconf, automake, autopoint
+Build-Depends: pkg-config, libexif-dev, libwxgtk3.0-gtk3-dev, libjpeg8-dev, zip, libtool, autoconf, automake, autopoint
 Maintainer: Remi Peyronnet <remi+rphoto@via.ecp.fr>
 Standards-Version: 2.4.1.2
 
 # Pour Stretch et derives : libwxgtk3.0-0v5 / Jessie : libwxgtk3.0
 Package: rphoto
 Architecture: any
-Depends: libwxgtk3.0-0v5, libexif12, libjpeg-progs, jhead
+Depends: libwxgtk3.0-gtk3-0v5, libexif12, libjpeg-progs, jhead
 # Depends: libwxgtk3.0, libexif12, libjpeg-progs, jhead
 Suggests: 
 Description: RPhoto is is small software aiming at the easy handling of digital camera's photos. Its origin resides in the lack of a simple software capable of cropping photos with a constant ratio, to avoid white borders when printing. Main features are :

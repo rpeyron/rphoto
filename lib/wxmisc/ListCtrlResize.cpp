@@ -36,9 +36,8 @@ void wxListCtrlResize::OnSize(wxSizeEvent & event)
 		ltot += this->GetColumnWidth(i);
 	}
 	// To play with round up...
-	lcib = event.GetSize().GetWidth() - this->GetColumnCount() - 2;
-	// TODO : Get the proper size of a scrollbar ...
-	if (this->GetCountPerPage() < this->GetItemCount()) lcib -= 19; 
+	lcib = event.GetSize().GetWidth() /* - this->GetColumnCount()- 2*/;
+	if (this->GetCountPerPage() < this->GetItemCount()) lcib -= wxSystemSettings::GetMetric(wxSYS_VSCROLL_X);
 	for (i = 0; i < this->GetColumnCount(); i++)
 	{
 		this->SetColumnWidth(i, this->GetColumnWidth(i) * lcib / ltot);
@@ -64,9 +63,12 @@ void wxListCtrlResize::OnListBeginResize(wxListEvent & event)
 
 void wxListCtrlResize::OnListEndResize(wxListEvent & event)
 {
-	this->SetColumnWidth(event.GetColumn() + 1, 
-		this->GetColumnWidth(event.GetColumn() + 1) -
-		(this->GetColumnWidth(event.GetColumn()) - lastWidth) );
+	if (event.GetColumn() < this->GetColumnCount() - 1)
+	{
+		this->SetColumnWidth(event.GetColumn() + 1,
+			this->GetColumnWidth(event.GetColumn() + 1) -
+			(this->GetColumnWidth(event.GetColumn()) - lastWidth));
+	}
 }
 
 void wxListCtrlResize::OnMotion(wxMouseEvent & event)

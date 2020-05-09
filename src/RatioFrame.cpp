@@ -34,7 +34,6 @@
 #include <wx/process.h>
 #include <wx/file.h>
 #include <wx/txtstrm.h>
-#include <wxmisc/ListCtrlResize.h>
 #include <wx/process.h>
 #include "../lib/wxmisc/str64.h"
 #include <wx/arrstr.h>
@@ -49,7 +48,14 @@
 
 #include <math.h>
 
-
+// Widget ListCtrlResize
+#define USE_LISTCTRLRESIZE
+#ifdef USE_LISTCTRLRESIZE
+#include <wxmisc/ListCtrlResize.h>
+#else
+#include <wx/listctrl.h>
+#define wxListCtrlResize wxListCtrl
+#endif
 
 #include <wx/listimpl.cpp>
 WX_DEFINE_LIST(ListOfUndo);
@@ -132,6 +138,7 @@ RatioFrame::RatioFrame(wxWindow* parent,
 	m_iOrientation = 1;
 	m_HistoryUndo.DeleteContents(true);
 	m_HistoryRedo.DeleteContents(true);
+	m_iToolbarWidth = 0;
 
 	// Icon
 	SetIcon(wxIcon(xpm_FilesPhoto));
@@ -470,23 +477,30 @@ void RatioFrame::InitToolBar()
 	GetToolBar()->AddTool(TOOL_OR_P_OR_L, _("Free Rotation"), wxBitmap(xpm_landorpo), wxNullBitmap, wxITEM_RADIO ,_("Automatic Selection of Orientation"), _("Automatic Selection of Orientation"));
 	GetToolBar()->AddTool(TOOL_OR_LANDSCAPE, _("Landscape"), wxBitmap(xpm_landscap), wxNullBitmap, wxITEM_RADIO ,_("Landscape Orientation"), _("Landscape Orientation"));
 	GetToolBar()->AddTool(TOOL_OR_PORTRAIT, _("Portrait"), wxBitmap(xpm_portrait), wxNullBitmap, wxITEM_RADIO ,_("Portrait Orientation"), _("Portrait Orientation"));
+	// Note : static texts are not added here but in OnWindowResize if there is enough space
 	m_pRatioCombo = new wxComboBox(GetToolBar(), WIDGET_RATIOCOMBO, _("test"));
 	m_pRatioCombo->Append(_("0:0 (Free)                     "));
 	m_pRatioCombo->SetSelection(0);
 	m_pRatioCombo->SetWindowStyle(wxCB_DROPDOWN);
-	GetToolBar()->AddControl(new wxStaticText(GetToolBar(), -1, _("Ratio : ")));
+	m_pRatioCombo->SetToolTip(_("Ratio"));
+	//m_pTextRatioCombo = new wxStaticText(GetToolBar(), TEXT_RATIOCOMBO, _("Ratio") + wxT(" : "));
+	//GetToolBar()->AddControl(m_pTextRatioCombo);
 	GetToolBar()->AddControl(m_pRatioCombo);
 	m_pResizeCombo = new wxComboBox(GetToolBar(), WIDGET_RESIZECOMBO, _("test"));
-	m_pResizeCombo->Append(_("Resize                 "));
+	m_pResizeCombo->Append(_("Resize") + wxT("                 "));
 	m_pResizeCombo->SetSelection(0);
 	m_pResizeCombo->SetWindowStyle(wxCB_DROPDOWN);
-	GetToolBar()->AddControl(new wxStaticText(GetToolBar(), -1, _("   Resize : ")));
+	m_pResizeCombo->SetToolTip(_("Resize"));
+	//m_pTextResizeCombo = new wxStaticText(GetToolBar(), TEXT_RESIZECOMBO, wxT("   ") + _("Resize") + wxT(" : "));
+	//GetToolBar()->AddControl(m_pTextResizeCombo);
 	GetToolBar()->AddControl(m_pResizeCombo);
 	m_pGuideCombo = new wxComboBox(GetToolBar(), WIDGET_GUIDECOMBO, _("test"));
-	m_pGuideCombo->Append(_("Guide lines             "));
+	m_pGuideCombo->Append(_("Guide Lines")+wxT("             "));
 	m_pGuideCombo->SetSelection(0);
 	m_pGuideCombo->SetWindowStyle(wxCB_DROPDOWN);
-	GetToolBar()->AddControl(new wxStaticText(GetToolBar(), -1, _("   Guide Lines : ")));
+	m_pGuideCombo->SetToolTip(_("Guide Lines"));
+	//m_pTextGuideCombo = new wxStaticText(GetToolBar(), TEXT_GUIDECOMBO, ("   ") + _("Guide Lines") + wxT(" : "));
+	//GetToolBar()->AddControl(m_pTextGuideCombo);
 	GetToolBar()->AddControl(m_pGuideCombo);
     GetToolBar()->Realize();
 }
@@ -593,8 +607,9 @@ void RatioFrame::InitControls()
 
 	m_pAttrFavCtrl = new wxListCtrlResize(m_pNbTools, -1, wxDefaultPosition, wxDefaultSize, 
 		wxLC_REPORT | wxLC_HRULES | wxLC_VRULES);
-	m_pAttrFavCtrl->InsertColumn(0, _("Tag"), wxLIST_FORMAT_LEFT, 20);
-	m_pAttrFavCtrl->InsertColumn(1, _("Value"), wxLIST_FORMAT_RIGHT, 20);
+	m_pAttrFavCtrl->DeleteAllColumns();
+	m_pAttrFavCtrl->InsertColumn(0, _("Tag"), wxLIST_FORMAT_LEFT /*, 20*/);
+	m_pAttrFavCtrl->InsertColumn(1, _("Value"), wxLIST_FORMAT_RIGHT /*, 20*/);
 	m_pNbTools->AddPage(m_pAttrFavCtrl, _("Fav. Exif"), true);
 
 	m_pAttrCtrl = new wxListCtrlResize(m_pNbTools, -1, wxDefaultPosition, wxDefaultSize, 
@@ -837,6 +852,7 @@ BEGIN_EVENT_TABLE(RatioFrame, wxFrame)
    EVT_MENU(MENU_ACCEL_APPLY_COMMENT, RatioFrame::OnImageWriteComment)
    EVT_TEXT(WIDGET_EDIT_COM, RatioFrame::UpdateControlsStateEvt)
    EVT_CLOSE(RatioFrame::OnClose)
+   EVT_SIZE(RatioFrame::OnWindowResize)
 END_EVENT_TABLE()
 
 
@@ -1254,6 +1270,50 @@ void RatioFrame::UpdateDirCtrl(const wxString & from)
     }
 	m_pImageBox->SetFocus();
 }
+
+void RatioFrame::OnWindowResize(wxSizeEvent& event)
+{
+	int x, y;
+	wxControl * last;
+	if (isInInit) {
+		event.Skip(); 
+		return;
+	}
+	// Handle Toolbar size
+	if (GetToolBar()) {
+		// Get last item position
+		last = GetToolBar()->GetToolByPos(GetToolBar()->GetToolsCount() - 1)->GetControl();
+		last->GetPosition(&x, &y);
+		x += last->GetSize().GetWidth();
+		if (x > m_iToolbarWidth) m_iToolbarWidth = x;
+		if (m_iToolbarWidth > event.GetSize().GetWidth())
+		{
+			if (GetToolBar()->FindById(TEXT_RATIOCOMBO))  GetToolBar()->DeleteTool(TEXT_RATIOCOMBO);
+			if (GetToolBar()->FindById(TEXT_RESIZECOMBO))  GetToolBar()->DeleteTool(TEXT_RESIZECOMBO);
+			if (GetToolBar()->FindById(TEXT_GUIDECOMBO))  GetToolBar()->DeleteTool(TEXT_GUIDECOMBO);
+		}
+		else 
+		{
+			if (!GetToolBar()->FindById(TEXT_RATIOCOMBO)) {
+				m_pTextRatioCombo = new wxStaticText(GetToolBar(), TEXT_RATIOCOMBO, _("Ratio") + wxT(" : "));
+				GetToolBar()->InsertControl(GetToolBar()->GetToolPos(WIDGET_RATIOCOMBO), m_pTextRatioCombo);
+				GetToolBar()->Realize();
+			}
+			if (!GetToolBar()->FindById(TEXT_RESIZECOMBO)) {
+				m_pTextResizeCombo = new wxStaticText(GetToolBar(), TEXT_RESIZECOMBO, wxT("   ") + _("Resize") + wxT(" : "));
+				GetToolBar()->InsertControl(GetToolBar()->GetToolPos(WIDGET_RESIZECOMBO), m_pTextResizeCombo);
+				GetToolBar()->Realize();
+			}
+			if (!GetToolBar()->FindById(TEXT_GUIDECOMBO)) {
+				m_pTextGuideCombo = new wxStaticText(GetToolBar(), TEXT_GUIDECOMBO, ("   ") + _("Guide Lines") + wxT(" : "));
+				GetToolBar()->InsertControl(GetToolBar()->GetToolPos(WIDGET_GUIDECOMBO), m_pTextGuideCombo);
+				GetToolBar()->Realize();
+			}
+		}
+	}
+	event.Skip();
+}
+
 
 void RatioFrame::OnClose(wxCloseEvent& event)
 {
@@ -2207,6 +2267,7 @@ bool RatioFrame::Resize(const wxString &str)
    	SetStatusText(_("Done."),0);            
 	END_IMAGE_MANIP(m_pImageBox->GetImage());
 	wxEndBusyCursor();
+
 	return TRUE;
 }
 

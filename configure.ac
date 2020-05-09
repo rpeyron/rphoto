@@ -48,7 +48,7 @@ dnl --------------
 dnl GetTest stuff
 dnl ALL_LINGUAS="fr"
 AM_GNU_GETTEXT([external])
-AM_GNU_GETTEXT_VERSION([0.19.7])
+AM_GNU_GETTEXT_VERSION([0.19.8])
 
 dnl wxVillaLib compatibility
 GNOMEUI2_CFLAGS=

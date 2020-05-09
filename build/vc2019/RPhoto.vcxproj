@@ -1,0 +1,240 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug wx31|Win32">
+      <Configuration>Debug wx31</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release wx31|Win32">
+      <Configuration>Release wx31</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{E2B2AEBD-39B8-4DEA-A91D-AA177E357AE8}</ProjectGuid>
+    <RootNamespace>RPhoto</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+    <VcpkgTriplet Condition="'$(Platform)'=='Win32'">x86-windows-static</VcpkgTriplet>
+    <VcpkgTriplet Condition="'$(Platform)'=='x64'">x64-windows-static</VcpkgTriplet>
+    <ConfigurationType>Application</ConfigurationType>
+    <UseOfMfc>false</UseOfMfc>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v142</PlatformToolset>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <_ProjectFileVersion>10.0.40219.1</_ProjectFileVersion>
+    <OutDir>.\..\..\bin\</OutDir>
+  </PropertyGroup>
+  <ItemDefinitionGroup>
+    <Midl>
+      <TargetEnvironment>Win32</TargetEnvironment>
+      <TypeLibraryName>.\..\..\bin/RPhoto.tlb</TypeLibraryName>
+    </Midl>
+    <ClCompile>
+      <Optimization>MinSpace</Optimization>
+      <InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
+      <AdditionalIncludeDirectories>../../lib;;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;__WXMSW__;WINVER=0x0400;wxDEBUG_LEVEL=0;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <WarningLevel>Level3</WarningLevel>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+    </ClCompile>
+    <Link>
+      <OutputFile>.\..\..\bin/RPhoto.exe</OutputFile>
+      <SuppressStartupBanner>true</SuppressStartupBanner>
+      <IgnoreAllDefaultLibraries>false</IgnoreAllDefaultLibraries>
+      <SubSystem>Windows</SubSystem>
+      <TargetMachine>MachineX86</TargetMachine>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release wx31|Win32'">
+    <Midl>
+      <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </Midl>
+    <ClCompile>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ResourceCompile>
+    <Link>
+      <AdditionalDependencies>wxbase31u.lib;wxbase31u_net.lib;wxbase31u_xml.lib;wxmsw31u_richtext.lib;wxmsw31u_xrc.lib;wxmsw31u_adv.lib;wxmsw31u_aui.lib;wxmsw31u_core.lib;wxmsw31u_gl.lib;wxmsw31u_html.lib;wxmsw31u_media.lib;wxmsw31u_qa.lib;zlib.lib;expat.lib;jpeg.lib;libpng16.lib;wxregexu.lib;tiff.lib;odbc32.lib;odbccp32.lib;comctl32.lib;rpcrt4.lib;wsock32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;libexif.lib;libcmt.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <IgnoreSpecificDefaultLibraries>msvcrt.lib;%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug wx31|Win32'">
+    <Midl>
+      <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </Midl>
+    <ClCompile>
+      <Optimization>Disabled</Optimization>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
+      <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <Culture>0x040c</Culture>
+    </ResourceCompile>
+    <Link>
+      <AdditionalDependencies>wxbase31ud.lib;wxbase31ud_net.lib;wxbase31ud_xml.lib;wxmsw31ud_richtext.lib;wxmsw31ud_xrc.lib;wxmsw31ud_adv.lib;wxmsw31ud_aui.lib;wxmsw31ud_core.lib;wxmsw31ud_gl.lib;wxmsw31ud_html.lib;wxmsw31ud_media.lib;wxmsw31ud_qa.lib;zlibd.lib;expat.lib;jpegd.lib;libpng16d.lib;wxregexud.lib;tiffd.lib;odbc32.lib;odbccp32.lib;comctl32.lib;rpcrt4.lib;wsock32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;libexif.lib;libcmtd.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <OutputFile>.\..\..\bin/RPhoto.exe</OutputFile>
+      <IgnoreSpecificDefaultLibraries>msvcrt.lib;%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup Label="Sources">
+    <ClCompile Include="..\..\src\RatioFrame.cpp">
+    </ClCompile>
+    <ClCompile Include="..\..\src\RatioImageBox.cpp">
+    </ClCompile>
+    <ClCompile Include="..\..\src\RatioPrecomp.cpp">
+    </ClCompile>
+    <ClCompile Include="..\..\src\RPhoto.cpp">
+    </ClCompile>
+    <ClCompile Include="..\..\lib\wxRectTracker\LineTracker.cpp">
+    </ClCompile>
+    <ClCompile Include="..\..\lib\wxRectTracker\RectTracker.cpp">
+    </ClCompile>
+    <ClCompile Include="..\..\lib\wxRectTracker\RectTrackerRatio.cpp">
+    </ClCompile>
+    <ClCompile Include="..\..\lib\wxmisc\ConfigDialog.cpp">
+    </ClCompile>
+    <ClCompile Include="..\..\lib\wxmisc\ListCtrlResize.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug wx31|Win32'">false</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release wx31|Win32'">false</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="..\..\lib\wxmisc\str64.cpp">
+    </ClCompile>
+    <ClCompile Include="..\..\lib\wxJPEGExifHandler\imagejpg.cpp">
+    </ClCompile>
+    <ClCompile Include="..\..\lib\wxVillaLib\ImageBox.cpp">
+    </ClCompile>
+    <ClCompile Include="..\..\lib\wxVillaLib\ImageFilters.cpp">
+    </ClCompile>
+    <ClCompile Include="..\..\lib\wxVillaLib\ImageProc.cpp">
+    </ClCompile>
+    <ClCompile Include="..\..\lib\wxVillaLib\utils.cpp">
+    </ClCompile>
+    <ClCompile Include="..\..\lib\wxVillaLib\VerticalToolbar.cpp">
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup Label="Headers">
+    <ClInclude Include="..\..\src\RatioFrame.h" />
+    <ClInclude Include="..\..\src\RatioImageBox.h" />
+    <ClInclude Include="..\..\src\RatioPrecomp.h" />
+    <ClInclude Include="..\..\src\RPhoto.h" />
+    <ClInclude Include="..\..\lib\wxRectTracker\LineTracker.h" />
+    <ClInclude Include="..\..\lib\wxRectTracker\RectTracker.h" />
+    <ClInclude Include="..\..\lib\wxRectTracker\RectTrackerRatio.h" />
+    <ClInclude Include="..\..\lib\wxmisc\ConfigDialog.h" />
+    <ClInclude Include="..\..\lib\wxmisc\ListCtrlResize.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug wx31|Win32'">false</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release wx31|Win32'">false</ExcludedFromBuild>
+    </ClInclude>
+    <ClInclude Include="..\..\lib\wxmisc\str64.h" />
+    <ClInclude Include="..\..\lib\wxJPEGExifHandler\imagejpg.h" />
+    <ClInclude Include="..\..\lib\wxVillaLib\ImageBox.h" />
+    <ClInclude Include="..\..\lib\wxVillaLib\ImageFilters.h" />
+    <ClInclude Include="..\..\lib\wxVillaLib\ImageProc.h" />
+    <ClInclude Include="..\..\lib\wxVillaLib\utils.h" />
+    <ClInclude Include="..\..\lib\wxVillaLib\VerticalToolbar.h" />
+  </ItemGroup>
+  <ItemGroup Label="Other files">
+    <None Include="..\..\ChangeLog" />
+    <None Include="..\..\doc\use\help_en.html">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="..\..\doc\use\help_fr.html">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="..\..\resources\arrow_left.bmp" />
+    <None Include="..\..\resources\arrow_left.ICO" />
+    <None Include="..\..\resources\arrow_right.bmp" />
+    <None Include="..\..\resources\wx\msw\blank.cur" />
+    <None Include="..\..\src\wx\msw\blank.cur" />
+    <None Include="..\..\resources\wx\msw\bullseye.cur" />
+    <None Include="..\..\src\wx\msw\bullseye.cur" />
+    <None Include="..\..\resources\wx\msw\cdrom.ico" />
+    <None Include="..\..\src\wx\msw\cdrom.ico" />
+    <None Include="..\..\resources\colours.bmp" />
+    <None Include="..\..\resources\wx\msw\computer.ico" />
+    <None Include="..\..\src\wx\msw\computer.ico" />
+    <None Include="..\..\resources\copy.bmp" />
+    <None Include="..\..\resources\crop.bmp" />
+    <None Include="..\..\resources\wx\msw\csquery.bmp" />
+    <None Include="..\..\src\wx\msw\csquery.bmp" />
+    <None Include="..\..\resources\wx\msw\cursor1.cur" />
+    <None Include="..\..\resources\cut.bmp" />
+    <None Include="..\..\resources\wx\msw\disable.bmp" />
+    <None Include="..\..\src\wx\msw\disable.bmp" />
+    <None Include="..\..\resources\wx\msw\drive.ico" />
+    <None Include="..\..\src\wx\msw\drive.ico" />
+    <None Include="..\..\resources\explorer.BMP" />
+    <None Include="..\..\resources\explorer.ico" />
+    <None Include="..\..\resources\wx\msw\file1.ico" />
+    <None Include="..\..\src\wx\msw\file1.ico" />
+    <None Include="..\..\resources\FilesPhoto.ico" />
+    <None Include="..\..\resources\wx\msw\floppy.ico" />
+    <None Include="..\..\src\wx\msw\floppy.ico" />
+    <None Include="..\..\resources\wx\msw\folder1.ico" />
+    <None Include="..\..\src\wx\msw\folder1.ico" />
+    <None Include="..\..\resources\wx\msw\folder2.ico" />
+    <None Include="..\..\src\wx\msw\folder2.ico" />
+    <None Include="..\..\resources\fullscrn.bmp" />
+    <None Include="..\..\resources\wx\msw\hand.cur" />
+    <None Include="..\..\src\wx\msw\hand.cur" />
+    <None Include="..\..\resources\help.bmp" />
+    <None Include="..\..\resources\landorpo.bmp" />
+    <None Include="..\..\resources\landscap.bmp" />
+    <None Include="..\..\resources\wx\msw\magnif1.cur" />
+    <None Include="..\..\src\wx\msw\magnif1.cur" />
+    <None Include="..\..\resources\new.bmp" />
+    <None Include="..\..\resources\wx\msw\noentry.cur" />
+    <None Include="..\..\src\wx\msw\noentry.cur" />
+    <None Include="..\..\resources\open.bmp" />
+    <None Include="..\..\resources\page.bmp" />
+    <None Include="..\..\resources\paste.bmp" />
+    <None Include="..\..\resources\wx\msw\pbrush.cur" />
+    <None Include="..\..\src\wx\msw\pbrush.cur" />
+    <None Include="..\..\resources\wx\msw\pencil.cur" />
+    <None Include="..\..\src\wx\msw\pencil.cur" />
+    <None Include="..\..\resources\wx\msw\pntleft.cur" />
+    <None Include="..\..\src\wx\msw\pntleft.cur" />
+    <None Include="..\..\resources\wx\msw\pntright.cur" />
+    <None Include="..\..\src\wx\msw\pntright.cur" />
+    <None Include="..\..\resources\portrait.bmp" />
+    <None Include="..\..\resources\preview.bmp" />
+    <None Include="..\..\resources\print.bmp" />
+    <None Include="..\..\resources\wx\msw\query.cur" />
+    <None Include="..\..\src\wx\msw\query.cur" />
+    <None Include="..\..\resources\wx\msw\removble.ico" />
+    <None Include="..\..\src\wx\msw\removble.ico" />
+    <None Include="..\..\resources\wx\msw\rightarr.cur" />
+    <None Include="..\..\src\wx\msw\rightarr.cur" />
+    <None Include="..\..\resources\wx\msw\roller.cur" />
+    <None Include="..\..\src\wx\msw\roller.cur" />
+    <None Include="..\..\resources\rotate_left.bmp" />
+    <None Include="..\..\resources\rotate_right.bmp" />
+    <None Include="..\..\resources\save.bmp" />
+    <None Include="..\..\resources\wx\msw\size.cur" />
+    <None Include="..\..\src\wx\msw\size.cur" />
+    <None Include="..\..\resources\undo.bmp" />
+    <None Include="..\..\resources\wx\msw\watch1.cur" />
+    <None Include="..\..\src\wx\msw\watch1.cur" />
+    <None Include="..\..\resources\wxbitmap.bmp" />
+    <None Include="..\..\TODO" />
+  </ItemGroup>
+  <ItemGroup Label="Resources">
+    <ResourceCompile Include="..\..\resources\resources.rc">
+      <AdditionalIncludeDirectories>..\..\resources\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

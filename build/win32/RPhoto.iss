@@ -6,16 +6,19 @@
 [Setup]
 AppName={#AppName}
 AppVersion=0.4.5
+AppPublisher=Remi Peyronnet
 AppPublisherURL=https://www.lprp.fr/rphoto
 AppSupportURL=https://www.lprp.fr/rphoto
 AppUpdatesURL=https://www.lprp.fr/rphoto
-DefaultDirName={pf}\{#AppName}
+DefaultDirName={autopf}\{#AppName}
 DefaultGroupName={#AppName}
 AllowNoIcons=true
 DisableProgramGroupPage=yes
 OutputBaseFilename=rphoto_setup
 OutputDir=..\..\distrib\
 ShowLanguageDialog=yes
+PrivilegesRequired=lowest
+PrivilegesRequiredOverridesAllowed=dialog
 
 [Files]
 Source: ..\..\bin\RPhoto.exe; DestDir: {app}; Flags: ignoreversion
@@ -28,8 +31,8 @@ Source: ..\..\bin\lang\ru\rphoto.mo; DestDir: {app}/lang/ru; Flags: ignoreversio
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files
 
 [Icons]
-Name: {userprograms}\RPhoto; Filename: {app}\RPhoto.exe; WorkingDir: {app}
-Name: {sendto}\RPhoto; Filename: {app}\RPhoto.exe
+Name: {autoprograms}\RPhoto; Filename: {app}\RPhoto.exe; WorkingDir: {app}
+Name: {usersendto}\RPhoto; Filename: {app}\RPhoto.exe
 
 [Run]
 Filename: {app}\RPhoto.exe; Description: {cm:LaunchProgram, {#AppName}}; Flags: nowait postinstall skipifsilent

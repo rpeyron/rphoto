@@ -1,4 +1,10 @@
-2019/01/06 18h45 remi  0.4.5
+2020-05-09 15:08 remi 0.4.5
+   * Toolbar width adaptation
+   * Fix bug with ListCtrlResize
+   * Updated installer : admin privileges are no more required
+   * Moved to Visual Studio 2019 and vcpkg for Windows build  
+
+2019-01-06 18h45 remi  0.4.5-beta1
 	* Fixed GTK3 not working wxINVERT
 	* Fixed scrolling problems with wxRectTracker and wxLineTracker
 	* Fixed typo in jhead error message

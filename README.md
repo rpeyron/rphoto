@@ -64,6 +64,13 @@ sudo apt-get install libwxgtk3.0-0v5 libexif12 libjpeg-progs jhead
 Windows Build is done with Visual Studio Community Edition. 
 Please use the latest version in build/ (older vc version are not maintained)
 
+Starting with vc2019, dependancies may be managed with vcpkg : 
+```
+vcpkg integrate install
+vcpkg --triplet x86-windows-static install wxwidgets 
+vcpkg --triplet x86-windows-static install libexif
+```
+
 
 # Contributing
 

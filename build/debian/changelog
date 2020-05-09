@@ -1,8 +1,14 @@
-rphoto (0.4.4-2) stable; urgency=low
+rphoto (0.4.5-ppa1) focal; urgency=low
 
-  * Added ru and cs translations
+    * Toolbar width adaptation
+    * Moved to Visual Studio 2019 and vcpkg for Windows build  
+	* Fixed GTK3 not working wxINVERT
+	* Fixed scrolling problems with wxRectTracker and wxLineTracker
+	* Updated to wxWidgets 3.1
+    * Bundled czech translation from Pavel Borecki  (on launchpad.net)
+    * Bundled russian translation from Eugene Marshal and Aleksey Kabanov
 
- -- Remi Peyronnet <remi+debian@via.ecp.fr>  Sat, 30 Dec 2017 19:45:07 +0200
+ -- Remi Peyronnet <remi+debian@via.ecp.fr>  Sat, 9 May 2020 15:45:07 +0200
 
 rphoto (0.4.4-2ppa6) xenial; urgency=low
 

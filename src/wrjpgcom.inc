@@ -18,9 +18,10 @@
 
 #define JPEG_CJPEG_DJPEG	/* to get the command-line config symbols */
 // RPE -- Begin
-#include "../lib/wxJPEGExifHandler/wxjpeg-headers/jinclude.h"		/* get auto-config symbols, <stdio.h> */
+//#include "../lib/wxJPEGExifHandler/wxjpeg-headers/jinclude.h"		/* get auto-config symbols, <stdio.h> */
+#include "jpeglib.h"		/* get auto-config symbols, <stdio.h> */
 // RPE -- End
-// #include "jinclude.h"		/* get auto-config symbols, <stdio.h> */
+//#include "jinclude.h"		/* get auto-config symbols, <stdio.h> */
 
 #ifndef HAVE_STDLIB_H		/* <stdlib.h> should declare malloc() */
 extern void * malloc ();

@@ -127,6 +127,9 @@
 #define WIDGET_GUIDECOMBO	30003
 #define WIDGET_APPLY_COM	30011
 #define WIDGET_EDIT_COM		30012
+#define TEXT_RATIOCOMBO 	31001
+#define TEXT_RESIZECOMBO	31002
+#define TEXT_GUIDECOMBO 	31003
 
 
 class rpUndo;
@@ -207,6 +210,7 @@ protected:
 	void OnGuideChange(wxCommandEvent &event);
 	void OnGuideEnter(wxCommandEvent &event);
 	void OnClose(wxCloseEvent& event);
+	void OnWindowResize(wxSizeEvent& event);
 	// - Misc
 	void UpdateControlsState();
 	void UpdateControlsStateEvt(wxCommandEvent & event);
@@ -254,9 +258,13 @@ protected:
 	wxComboBox * m_pRatioCombo;
 	wxComboBox * m_pResizeCombo;
 	wxComboBox * m_pGuideCombo;
+	wxStaticText * m_pTextRatioCombo;
+	wxStaticText * m_pTextResizeCombo;
+	wxStaticText * m_pTextGuideCombo;
 	wxTextCtrl * m_pTextComment;
 	wxString m_sFilename;
 	wxString m_sOriginalFilename;
+	int m_iToolbarWidth;
 	bool m_bTemp;
     bool m_bJPEGlossless;
 	bool m_bSaveCurFolder;
