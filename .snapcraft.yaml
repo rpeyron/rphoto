@@ -1,7 +1,7 @@
 
   # After registering a name on build.snapcraft.io, commit an uncommented line:
   name: rphoto
-  version: '0.4.4-2' 
+  version: '0.4.5' 
   summary: easy handling of digital camera's photos.
   description: |
     RPhoto is a small software aiming at the easy handling of digital camera's photos. (RPhoto 
@@ -27,7 +27,7 @@
       after: [desktop-gtk3]      
       plugin: autotools
       stage-packages:
-      - libwxgtk3.0-0v5
+      - libwxgtk3.0-gtk3-0v5
       - libexif12
       - libjpeg-progs
       - jhead
@@ -35,7 +35,7 @@
       - libgail-common
       build-packages:
       - libexif-dev
-      - libwxgtk3.0-dev
+      - libwxgtk3.0-gtk3-dev
       - libjpeg8-dev
       - zip
       - libtool
