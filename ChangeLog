@@ -1,3 +1,7 @@
+2020-05-10  gettextize  <bug-gnu-gettext@gnu.org>
+
+	* configure.ac (AC_CONFIG_FILES): Add po/Makefile.in.
+
 2020-05-09 15:08 remi 0.4.5
    * Toolbar width adaptation
    * Fix bug with ListCtrlResize
