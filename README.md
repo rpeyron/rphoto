@@ -20,6 +20,7 @@ PPA repository for Ubuntu : [ppa:rpeyron/ppa](https://launchpad.net/~rpeyron/+ar
 ```
 sudo apt-add-repository ppa:rpeyron/ppa
 ```
+There is also an attempt of snap : https://snapcraft.io/rphoto 
 
 Debian repository :
 ```
