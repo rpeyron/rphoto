@@ -1,3 +1,5 @@
+[![gitlocalized ](https://gitlocalize.com/repo/5631/whole_project/badge.svg)](https://gitlocalize.com/repo/5631/whole_project?utm_source=badge)
+
 RPhoto is a small software aiming at the easy handling of digital camera's photos. (RPhoto is the next generation of IMPhoto). 
 Its origin resides in the lack of a simple software capable of cropping photos with a constant ratio, to avoid white borders when printing.
 
