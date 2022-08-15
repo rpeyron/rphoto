@@ -6,5 +6,7 @@
 /build/vc2019/.vs/RPhoto/v16
 /build/vc2019/Debug
 /build/vc2019/RPhoto.vcxproj.user
-/bin
+/bin/*.ilk
+/bin/*.pdb
+/bin/RPhoto.exe
 /build/vcpkg_installed/x86-windows-static
