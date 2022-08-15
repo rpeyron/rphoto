@@ -14,12 +14,12 @@ jobs:
       matrix:
         include:
         - platform: Win32
-          configuration: Release
+          configuration: Release wx31
           triplet: x86-windows-static
           vcpkgPackages: 'wxwidgets libexif'
           suffix: x86
         - platform: x64
-          configuration: Release
+          configuration: Release wx31
           triplet: x64-windows-static
           vcpkgPackages: 'wxwidgets libexif'
           suffix: x64
