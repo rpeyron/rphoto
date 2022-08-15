@@ -69,11 +69,11 @@ jobs:
     - name: Add suffix
       shell: cmd
       run: |
-        ren RPhoto_bin.zip RPhoto_bin-${{matrix.suffix}}.zip
-        ren RPhoto_setup.exe RPhoto_setup-${{matrix.suffix}}.exe
+        ren rphoto_bin.zip rphoto_bin-${{matrix.suffix}}.zip
+        ren rphoto_setup.exe rphoto_setup-${{matrix.suffix}}.exe
       working-directory: ${{env.WIN_BUILD_TOOLS}}/../../distrib
       
     - uses: actions/upload-artifact@v2
       with:
-        name: RPhoto-distrib-${{matrix.suffix}}
+        name: rphoto-distrib-${{matrix.suffix}}
         path: RPhoto/distrib
