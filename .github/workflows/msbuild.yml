@@ -18,11 +18,11 @@ jobs:
           triplet: x86-windows-static
           vcpkgPackages: 'wxwidgets libexif'
           suffix: x86
-        - platform: x64
-          configuration: Release
-          triplet: x64-windows-static
-          vcpkgPackages: 'wxwidgets libexif'
-          suffix: x64
+        # - platform: x64
+        #   configuration: Release
+        #   triplet: x64-windows-static
+        #   vcpkgPackages: 'wxwidgets libexif'
+        #   suffix: x64
     steps:
     - name: Checkout current repository
       uses: actions/checkout@v2
