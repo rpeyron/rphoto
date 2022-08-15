@@ -54,7 +54,7 @@ jobs:
       
     - name: Compile PO files
       shell: cmd
-      run: .\language_mo_build.bat
+      run: .\po_build.bat
       working-directory: ${{env.WIN_BUILD_TOOLS}}/../../po
 
     - name: Create Package
