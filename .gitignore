@@ -3,3 +3,8 @@
 ################################################################################
 
 /build/vc2019/Release
+/build/vc2019/.vs/RPhoto/v16
+/build/vc2019/Debug
+/build/vc2019/RPhoto.vcxproj.user
+/bin
+/build/vcpkg_installed/x86-windows-static
