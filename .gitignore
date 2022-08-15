@@ -1,0 +1,12 @@
+﻿################################################################################
+# Ce fichier .gitignore a été automatiquement créé par Microsoft(R) Visual Studio.
+################################################################################
+
+/build/vc2019/Release
+/build/vc2019/.vs/RPhoto/v16
+/build/vc2019/Debug
+/build/vc2019/RPhoto.vcxproj.user
+/bin/*.ilk
+/bin/*.pdb
+/bin/RPhoto.exe
+/build/vcpkg_installed/x86-windows-static

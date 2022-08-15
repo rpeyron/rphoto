@@ -1,6 +1,6 @@
-2020-05-10  gettextize  <bug-gnu-gettext@gnu.org>
-
-	* configure.ac (AC_CONFIG_FILES): Add po/Makefile.in.
+2022-08-15 20:45 remi  0.4.5-1
+	* Updated to wxWidgets 3.2
+	* Added Github Actions workflow for Windows build
 
 2020-05-09 15:08 remi 0.4.5
    * Toolbar width adaptation

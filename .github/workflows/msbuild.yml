@@ -1,0 +1,79 @@
+name: MSBuild
+
+on: [push]
+
+env:
+  SOLUTION_FILE_PATH: RPhoto/build/vc2019
+  WIN_BUILD_TOOLS: RPhoto/build/win32
+
+jobs:
+  build:
+    #runs-on: windows-latest
+    runs-on: windows-2019
+    strategy:
+      matrix:
+        include:
+        - platform: Win32
+          configuration: Release
+          triplet: x86-windows-static
+          vcpkgPackages: 'wxwidgets libexif'
+          suffix: x86
+        # - platform: x64
+        #   configuration: Release
+        #   triplet: x64-windows-static
+        #   vcpkgPackages: 'wxwidgets libexif'
+        #   suffix: x64
+    steps:
+    - name: Checkout current repository
+      uses: actions/checkout@v2
+      with:
+        path: 'RPhoto'
+      
+    - name: Add MSBuild to PATH
+      uses: microsoft/setup-msbuild@v1.0.2
+      
+    - name: Install vcpkg packages
+      uses: lukka/run-vcpkg@v7.3
+      with:
+        vcpkgTriplet: '${{ matrix.triplet }}'
+        vcpkgArguments: '${{ matrix.vcpkgPackages }}'      
+        vcpkgGitCommitId: 6a501349b7ef8666ba856d17526d93d200f48af9
+    
+    - name: Integrate vcpkg to msbuild
+      run: vcpkg.exe integrate install
+      working-directory: ${{env.GITHUB_WORKSPACE}}/vcpkg
+
+    - name: Build
+      working-directory: ${{env.GITHUB_WORKSPACE}}
+      # Add additional options to the MSBuild command line here (like platform or verbosity level).
+      # See https://docs.microsoft.com/visualstudio/msbuild/msbuild-command-line-reference
+      run: msbuild /m /p:Configuration=${{matrix.configuration}} /p:Platform=${{matrix.platform}} ${{env.SOLUTION_FILE_PATH}}
+
+    - name: Install gettex
+      run: nuget install Gettext.Tools
+      
+    - name: Compile PO files
+      shell: cmd
+      run: .\po_build.bat
+      working-directory: ${{env.WIN_BUILD_TOOLS}}/../../po
+
+    - name: Create Package
+      shell: cmd
+      run: .\make_zip.bat
+      working-directory: ${{env.WIN_BUILD_TOOLS}}      
+      
+    - name: Create Installer
+      run: iscc.exe RPhoto.iss
+      working-directory: ${{env.WIN_BUILD_TOOLS}}
+      
+    - name: Add suffix
+      shell: cmd
+      run: |
+        ren rphoto_bin.zip rphoto_bin-${{matrix.suffix}}.zip
+        ren rphoto_setup.exe rphoto_setup-${{matrix.suffix}}.exe
+      working-directory: ${{env.WIN_BUILD_TOOLS}}/../../distrib
+      
+    - uses: actions/upload-artifact@v2
+      with:
+        name: rphoto-distrib-${{matrix.suffix}}
+        path: RPhoto/distrib

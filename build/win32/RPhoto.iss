@@ -5,7 +5,7 @@
 
 [Setup]
 AppName={#AppName}
-AppVersion=0.4.5
+AppVersion=0.4.5-1
 AppPublisher=Remi Peyronnet
 AppPublisherURL=https://www.lprp.fr/rphoto
 AppSupportURL=https://www.lprp.fr/rphoto
