@@ -1,4 +1,4 @@
-rphoto (0.4.5-ppa1) focal; urgency=low
+rphoto (0.4.5ppa2) focal; urgency=low
 
     * Toolbar width adaptation
     * Moved to Visual Studio 2019 and vcpkg for Windows build  

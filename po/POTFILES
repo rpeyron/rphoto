@@ -1,0 +1,8 @@
+     ../src/RatioFrame.cpp \
+     ../src/RatioImageBox.cpp \
+     ../src/RatioPrecomp.cpp \
+     ../src/RPhoto.cpp \
+     ../src/RatioFrame.h \
+     ../src/RatioImageBox.h \
+     ../src/RatioPrecomp.h \
+     ../src/RPhoto.h

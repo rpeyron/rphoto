@@ -1273,7 +1273,8 @@ void RatioFrame::UpdateDirCtrl(const wxString & from)
 
 void RatioFrame::OnWindowResize(wxSizeEvent& event)
 {
-	int x, y;
+	int x, y, tbw;
+
 	wxControl * last;
 	if (isInInit) {
 		event.Skip(); 
@@ -1284,8 +1285,14 @@ void RatioFrame::OnWindowResize(wxSizeEvent& event)
 		// Get last item position
 		last = GetToolBar()->GetToolByPos(GetToolBar()->GetToolsCount() - 1)->GetControl();
 		last->GetPosition(&x, &y);
-		x += last->GetSize().GetWidth();
+		// Default combo width
+		int defComboWidth =  50; // 10 * last->GetSize().GetHeight(); // 100 / this->GetContentScaleFactor();
+		// Substract combo widgets width (last one is not included -> only 2)
+		x -= 2*last->GetSize().GetWidth();
+		// Add default width
+		x += 2 * defComboWidth;
 		if (x > m_iToolbarWidth) m_iToolbarWidth = x;
+		// Add or remove Toolbar Texts
 		if (m_iToolbarWidth > event.GetSize().GetWidth())
 		{
 			if (GetToolBar()->FindById(TEXT_RATIOCOMBO))  GetToolBar()->DeleteTool(TEXT_RATIOCOMBO);
@@ -1309,6 +1316,20 @@ void RatioFrame::OnWindowResize(wxSizeEvent& event)
 				GetToolBar()->InsertControl(GetToolBar()->GetToolPos(WIDGET_GUIDECOMBO), m_pTextGuideCombo);
 				GetToolBar()->Realize();
 			}
+		}
+		// Adjust width (& get new toolbar width)
+		last = GetToolBar()->GetToolByPos(GetToolBar()->GetToolsCount() - 1)->GetControl();
+		last->GetPosition(&x, &y);
+		x += last->GetSize().GetWidth();
+		tbw = event.GetSize().GetWidth() - x - 20;
+		if (abs(tbw) > 3) {
+			if (m_pGuideCombo) m_pGuideCombo->SetSize(wxSize(m_pGuideCombo->GetSize().GetWidth() + (tbw / 3), m_pGuideCombo->GetSize().GetHeight()));
+			if (m_pRatioCombo) m_pRatioCombo->SetSize(wxSize(m_pRatioCombo->GetSize().GetWidth() + (tbw / 3), m_pRatioCombo->GetSize().GetHeight()));
+			if (m_pResizeCombo) m_pResizeCombo->SetSize(wxSize(m_pResizeCombo->GetSize().GetWidth() + (tbw / 3), m_pResizeCombo->GetSize().GetHeight()));
+			// Dummy remove/add to be able to realize without errors...
+			GetToolBar()->InsertControl(GetToolBar()->GetToolPos(WIDGET_RATIOCOMBO),new wxStaticText(GetToolBar(), TEXT_DUMMY, wxT(" ")) );
+			GetToolBar()->Realize();
+			GetToolBar()->DeleteTool(TEXT_DUMMY);
 		}
 	}
 	event.Skip();

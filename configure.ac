@@ -57,7 +57,7 @@ AC_SUBST(GNOMEUI2_CFLAGS)
 dnl Binaries path
 CPPFLAGS="$CPPFLAGS -DBINDIR=\"$bindir\""
 
-AC_CONFIG_FILES([ 
+AC_CONFIG_FILES([
     Makefile \
     src/Makefile \
     lib/Makefile \

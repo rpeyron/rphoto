@@ -58,7 +58,6 @@ EXTRA_DIST = config.rpath  config.rpath m4/ChangeLog  config.rpath m4/ChangeLog 
         build/debian/postrm \
         build/debian/rphoto.xpm \
         po/fr.po \
-        po/de.po \
         po/cs.po \
         po/ru.po \
         po/po_build.bat \
@@ -102,7 +101,8 @@ ppa:
 	scite debian/control
 	scite debian/changelog
 	debuild -S -sa
-	dput ppa:rpeyron/ppa ../*.changes
+	dput ppa ../*.changes   \
+	#dput ppa:rpeyron/ppa ../*.changes
 
 snap:
 	echo sudo snap install --classic snapcraft

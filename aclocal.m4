@@ -1,6 +1,6 @@
-# generated automatically by aclocal 1.16.1 -*- Autoconf -*-
+# generated automatically by aclocal 1.16.3 -*- Autoconf -*-
 
-# Copyright (C) 1996-2018 Free Software Foundation, Inc.
+# Copyright (C) 1996-2020 Free Software Foundation, Inc.
 
 # This file is free software; the Free Software Foundation
 # gives unlimited permission to copy and/or distribute it,
@@ -20,9 +20,9 @@ You have another version of autoconf.  It may work, but is not guaranteed to.
 If you have problems, you may need to regenerate the build system entirely.
 To do so, use the procedure documented by the package, typically 'autoreconf'.])])
 
-dnl pkg.m4 - Macros to locate and utilise pkg-config.   -*- Autoconf -*-
-dnl serial 11 (pkg-config-0.29)
-dnl
+# pkg.m4 - Macros to locate and utilise pkg-config.   -*- Autoconf -*-
+# serial 12 (pkg-config-0.29.2)
+
 dnl Copyright © 2004 Scott James Remnant <scott@netsplit.com>.
 dnl Copyright © 2012-2015 Dan Nicholson <dbn.lists@gmail.com>
 dnl
@@ -63,7 +63,7 @@ dnl
 dnl See the "Since" comment for each macro you use to see what version
 dnl of the macros you require.
 m4_defun([PKG_PREREQ],
-[m4_define([PKG_MACROS_VERSION], [0.29])
+[m4_define([PKG_MACROS_VERSION], [0.29.2])
 m4_if(m4_version_compare(PKG_MACROS_VERSION, [$1]), -1,
     [m4_fatal([pkg.m4 version $1 or higher is required but ]PKG_MACROS_VERSION[ found])])
 ])dnl PKG_PREREQ
@@ -164,7 +164,7 @@ AC_ARG_VAR([$1][_CFLAGS], [C compiler flags for $1, overriding pkg-config])dnl
 AC_ARG_VAR([$1][_LIBS], [linker flags for $1, overriding pkg-config])dnl
 
 pkg_failed=no
-AC_MSG_CHECKING([for $1])
+AC_MSG_CHECKING([for $2])
 
 _PKG_CONFIG([$1][_CFLAGS], [cflags], [$2])
 _PKG_CONFIG([$1][_LIBS], [libs], [$2])
@@ -174,11 +174,11 @@ and $1[]_LIBS to avoid the need to call pkg-config.
 See the pkg-config man page for more details.])
 
 if test $pkg_failed = yes; then
-   	AC_MSG_RESULT([no])
+        AC_MSG_RESULT([no])
         _PKG_SHORT_ERRORS_SUPPORTED
         if test $_pkg_short_errors_supported = yes; then
 	        $1[]_PKG_ERRORS=`$PKG_CONFIG --short-errors --print-errors --cflags --libs "$2" 2>&1`
-        else 
+        else
 	        $1[]_PKG_ERRORS=`$PKG_CONFIG --print-errors --cflags --libs "$2" 2>&1`
         fi
 	# Put the nasty error message in config.log where it belongs
@@ -195,7 +195,7 @@ installed software in a non-standard prefix.
 _PKG_TEXT])[]dnl
         ])
 elif test $pkg_failed = untried; then
-     	AC_MSG_RESULT([no])
+        AC_MSG_RESULT([no])
 	m4_default([$4], [AC_MSG_FAILURE(
 [The pkg-config script could not be found or is too old.  Make sure it
 is in your PATH or set the PKG_CONFIG environment variable to the full
@@ -1356,7 +1356,7 @@ AC_DEFUN([AM_PATH_WXCONFIG], [
 ])
 AC_DEFUN([AM_PATH_WXRC], [WXRC_CHECK([$1],[$2])])
 
-# Copyright (C) 2002-2018 Free Software Foundation, Inc.
+# Copyright (C) 2002-2020 Free Software Foundation, Inc.
 #
 # This file is free software; the Free Software Foundation
 # gives unlimited permission to copy and/or distribute it,
@@ -1371,7 +1371,7 @@ AC_DEFUN([AM_AUTOMAKE_VERSION],
 [am__api_version='1.16'
 dnl Some users find AM_AUTOMAKE_VERSION and mistake it for a way to
 dnl require some minimum version.  Point them to the right macro.
-m4_if([$1], [1.16.1], [],
+m4_if([$1], [1.16.3], [],
       [AC_FATAL([Do not call $0, use AM_INIT_AUTOMAKE([$1]).])])dnl
 ])
 
@@ -1387,14 +1387,14 @@ m4_define([_AM_AUTOCONF_VERSION], [])
 # Call AM_AUTOMAKE_VERSION and AM_AUTOMAKE_VERSION so they can be traced.
 # This function is AC_REQUIREd by AM_INIT_AUTOMAKE.
 AC_DEFUN([AM_SET_CURRENT_AUTOMAKE_VERSION],
-[AM_AUTOMAKE_VERSION([1.16.1])dnl
+[AM_AUTOMAKE_VERSION([1.16.3])dnl
 m4_ifndef([AC_AUTOCONF_VERSION],
   [m4_copy([m4_PACKAGE_VERSION], [AC_AUTOCONF_VERSION])])dnl
 _AM_AUTOCONF_VERSION(m4_defn([AC_AUTOCONF_VERSION]))])
 
 # AM_AUX_DIR_EXPAND                                         -*- Autoconf -*-
 
-# Copyright (C) 2001-2018 Free Software Foundation, Inc.
+# Copyright (C) 2001-2020 Free Software Foundation, Inc.
 #
 # This file is free software; the Free Software Foundation
 # gives unlimited permission to copy and/or distribute it,
@@ -1446,7 +1446,7 @@ am_aux_dir=`cd "$ac_aux_dir" && pwd`
 
 # AM_CONDITIONAL                                            -*- Autoconf -*-
 
-# Copyright (C) 1997-2018 Free Software Foundation, Inc.
+# Copyright (C) 1997-2020 Free Software Foundation, Inc.
 #
 # This file is free software; the Free Software Foundation
 # gives unlimited permission to copy and/or distribute it,
@@ -1477,7 +1477,7 @@ AC_CONFIG_COMMANDS_PRE(
 Usually this means the macro was only invoked conditionally.]])
 fi])])
 
-# Copyright (C) 1999-2018 Free Software Foundation, Inc.
+# Copyright (C) 1999-2020 Free Software Foundation, Inc.
 #
 # This file is free software; the Free Software Foundation
 # gives unlimited permission to copy and/or distribute it,
@@ -1668,7 +1668,7 @@ _AM_SUBST_NOTMAKE([am__nodep])dnl
 
 # Generate code to set up dependency tracking.              -*- Autoconf -*-
 
-# Copyright (C) 1999-2018 Free Software Foundation, Inc.
+# Copyright (C) 1999-2020 Free Software Foundation, Inc.
 #
 # This file is free software; the Free Software Foundation
 # gives unlimited permission to copy and/or distribute it,
@@ -1707,7 +1707,9 @@ AC_DEFUN([_AM_OUTPUT_DEPENDENCY_COMMANDS],
   done
   if test $am_rc -ne 0; then
     AC_MSG_FAILURE([Something went wrong bootstrapping makefile fragments
-    for automatic dependency tracking.  Try re-running configure with the
+    for automatic dependency tracking.  If GNU make was not used, consider
+    re-running the configure script with MAKE="gmake" (or whatever is
+    necessary).  You can also try re-running configure with the
     '--disable-dependency-tracking' option to at least be able to build
     the package (albeit without support for automatic dependency tracking).])
   fi
@@ -1734,7 +1736,7 @@ AC_DEFUN([AM_OUTPUT_DEPENDENCY_COMMANDS],
 
 # Do all the work for Automake.                             -*- Autoconf -*-
 
-# Copyright (C) 1996-2018 Free Software Foundation, Inc.
+# Copyright (C) 1996-2020 Free Software Foundation, Inc.
 #
 # This file is free software; the Free Software Foundation
 # gives unlimited permission to copy and/or distribute it,
@@ -1931,7 +1933,7 @@ for _am_header in $config_headers :; do
 done
 echo "timestamp for $_am_arg" >`AS_DIRNAME(["$_am_arg"])`/stamp-h[]$_am_stamp_count])
 
-# Copyright (C) 2001-2018 Free Software Foundation, Inc.
+# Copyright (C) 2001-2020 Free Software Foundation, Inc.
 #
 # This file is free software; the Free Software Foundation
 # gives unlimited permission to copy and/or distribute it,
@@ -1952,7 +1954,7 @@ if test x"${install_sh+set}" != xset; then
 fi
 AC_SUBST([install_sh])])
 
-# Copyright (C) 2003-2018 Free Software Foundation, Inc.
+# Copyright (C) 2003-2020 Free Software Foundation, Inc.
 #
 # This file is free software; the Free Software Foundation
 # gives unlimited permission to copy and/or distribute it,
@@ -1973,7 +1975,7 @@ AC_SUBST([am__leading_dot])])
 
 # Check to see how 'make' treats includes.	            -*- Autoconf -*-
 
-# Copyright (C) 2001-2018 Free Software Foundation, Inc.
+# Copyright (C) 2001-2020 Free Software Foundation, Inc.
 #
 # This file is free software; the Free Software Foundation
 # gives unlimited permission to copy and/or distribute it,
@@ -2016,7 +2018,7 @@ AC_SUBST([am__quote])])
 
 # Fake the existence of programs that GNU maintainers use.  -*- Autoconf -*-
 
-# Copyright (C) 1997-2018 Free Software Foundation, Inc.
+# Copyright (C) 1997-2020 Free Software Foundation, Inc.
 #
 # This file is free software; the Free Software Foundation
 # gives unlimited permission to copy and/or distribute it,
@@ -2037,12 +2039,7 @@ AC_DEFUN([AM_MISSING_HAS_RUN],
 [AC_REQUIRE([AM_AUX_DIR_EXPAND])dnl
 AC_REQUIRE_AUX_FILE([missing])dnl
 if test x"${MISSING+set}" != xset; then
-  case $am_aux_dir in
-  *\ * | *\	*)
-    MISSING="\${SHELL} \"$am_aux_dir/missing\"" ;;
-  *)
-    MISSING="\${SHELL} $am_aux_dir/missing" ;;
-  esac
+  MISSING="\${SHELL} '$am_aux_dir/missing'"
 fi
 # Use eval to expand $SHELL
 if eval "$MISSING --is-lightweight"; then
@@ -2055,7 +2052,7 @@ fi
 
 # Helper functions for option handling.                     -*- Autoconf -*-
 
-# Copyright (C) 2001-2018 Free Software Foundation, Inc.
+# Copyright (C) 2001-2020 Free Software Foundation, Inc.
 #
 # This file is free software; the Free Software Foundation
 # gives unlimited permission to copy and/or distribute it,
@@ -2084,7 +2081,7 @@ AC_DEFUN([_AM_SET_OPTIONS],
 AC_DEFUN([_AM_IF_OPTION],
 [m4_ifset(_AM_MANGLE_OPTION([$1]), [$2], [$3])])
 
-# Copyright (C) 1999-2018 Free Software Foundation, Inc.
+# Copyright (C) 1999-2020 Free Software Foundation, Inc.
 #
 # This file is free software; the Free Software Foundation
 # gives unlimited permission to copy and/or distribute it,
@@ -2131,7 +2128,7 @@ AC_LANG_POP([C])])
 # For backward compatibility.
 AC_DEFUN_ONCE([AM_PROG_CC_C_O], [AC_REQUIRE([AC_PROG_CC])])
 
-# Copyright (C) 2001-2018 Free Software Foundation, Inc.
+# Copyright (C) 2001-2020 Free Software Foundation, Inc.
 #
 # This file is free software; the Free Software Foundation
 # gives unlimited permission to copy and/or distribute it,
@@ -2150,7 +2147,7 @@ AC_DEFUN([AM_RUN_LOG],
 
 # Check to make sure that the build environment is sane.    -*- Autoconf -*-
 
-# Copyright (C) 1996-2018 Free Software Foundation, Inc.
+# Copyright (C) 1996-2020 Free Software Foundation, Inc.
 #
 # This file is free software; the Free Software Foundation
 # gives unlimited permission to copy and/or distribute it,
@@ -2231,7 +2228,7 @@ AC_CONFIG_COMMANDS_PRE(
 rm -f conftest.file
 ])
 
-# Copyright (C) 2009-2018 Free Software Foundation, Inc.
+# Copyright (C) 2009-2020 Free Software Foundation, Inc.
 #
 # This file is free software; the Free Software Foundation
 # gives unlimited permission to copy and/or distribute it,
@@ -2291,7 +2288,7 @@ AC_SUBST([AM_BACKSLASH])dnl
 _AM_SUBST_NOTMAKE([AM_BACKSLASH])dnl
 ])
 
-# Copyright (C) 2001-2018 Free Software Foundation, Inc.
+# Copyright (C) 2001-2020 Free Software Foundation, Inc.
 #
 # This file is free software; the Free Software Foundation
 # gives unlimited permission to copy and/or distribute it,
@@ -2319,7 +2316,7 @@ fi
 INSTALL_STRIP_PROGRAM="\$(install_sh) -c -s"
 AC_SUBST([INSTALL_STRIP_PROGRAM])])
 
-# Copyright (C) 2006-2018 Free Software Foundation, Inc.
+# Copyright (C) 2006-2020 Free Software Foundation, Inc.
 #
 # This file is free software; the Free Software Foundation
 # gives unlimited permission to copy and/or distribute it,
@@ -2338,7 +2335,7 @@ AC_DEFUN([AM_SUBST_NOTMAKE], [_AM_SUBST_NOTMAKE($@)])
 
 # Check how to create a tarball.                            -*- Autoconf -*-
 
-# Copyright (C) 2004-2018 Free Software Foundation, Inc.
+# Copyright (C) 2004-2020 Free Software Foundation, Inc.
 #
 # This file is free software; the Free Software Foundation
 # gives unlimited permission to copy and/or distribute it,

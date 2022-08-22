@@ -1,0 +1,1002 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2020-05-09 15:12+0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=CHARSET\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: ../src/RatioFrame.cpp:182
+msgid "Preferences"
+msgstr ""
+
+#: ../src/RatioFrame.cpp:186 ../src/RatioFrame.cpp:187
+#: ../src/RatioFrame.cpp:188 ../src/RatioFrame.cpp:189
+#: ../src/RatioFrame.cpp:190 ../src/RatioFrame.cpp:191
+#: ../src/RatioFrame.cpp:192 ../src/RatioFrame.cpp:193
+msgid "Main"
+msgstr ""
+
+#: ../src/RatioFrame.cpp:186
+msgid "Auto Save"
+msgstr ""
+
+#: ../src/RatioFrame.cpp:187
+msgid "Crop before saving"
+msgstr ""
+
+#: ../src/RatioFrame.cpp:188
+msgid "Auto Save Folder"
+msgstr ""
+
+#: ../src/RatioFrame.cpp:189
+msgid "Auto Save Suffix"
+msgstr ""
+
+#: ../src/RatioFrame.cpp:190
+msgid "Auto Crop after Rotation"
+msgstr ""
+
+#: ../src/RatioFrame.cpp:191
+msgid "Undo History"
+msgstr ""
+
+#: ../src/RatioFrame.cpp:192
+msgid "Auto Select Max"
+msgstr ""
+
+#: ../src/RatioFrame.cpp:193
+msgid "Width of the handles (pixels)"
+msgstr ""
+
+#: ../src/RatioFrame.cpp:196 ../src/RatioFrame.cpp:197
+#: ../src/RatioFrame.cpp:198 ../src/RatioFrame.cpp:200
+#: ../src/RatioFrame.cpp:201 ../src/RatioFrame.cpp:202
+#: ../src/RatioFrame.cpp:203
+msgid "JPEG"
+msgstr ""
+
+#: ../src/RatioFrame.cpp:196
+msgid "JPEGTran's path"
+msgstr ""
+
+#: ../src/RatioFrame.cpp:197
+msgid "JHead's path"
+msgstr ""
+
+#: ../src/RatioFrame.cpp:198
+msgid "AutoRot on Load"
+msgstr ""
+
+#: ../src/RatioFrame.cpp:200
+msgid "Display Lossless warnings"
+msgstr ""
+
+#: ../src/RatioFrame.cpp:201
+msgid "JPEG Quality (0-100)"
+msgstr ""
+
+#: ../src/RatioFrame.cpp:202
+msgid "Favorite Exif Tags"
+msgstr ""
+
+#: ../src/RatioFrame.cpp:203
+msgid "Comments Encoding"
+msgstr ""
+
+#: ../src/RatioFrame.cpp:206 ../src/RatioFrame.cpp:207
+#: ../src/RatioFrame.cpp:215 ../src/RatioFrame.cpp:216
+#: ../src/RatioFrame.cpp:224 ../src/RatioFrame.cpp:225
+#: ../src/RatioFrame.cpp:226 ../src/RatioFrame.cpp:233
+msgid "Defaults"
+msgstr ""
+
+#: ../src/RatioFrame.cpp:206
+msgid "Default Path"
+msgstr ""
+
+#: ../src/RatioFrame.cpp:207
+msgid "Remember Last Opened Path"
+msgstr ""
+
+#: ../src/RatioFrame.cpp:215 ../src/RatioFrame.cpp:485
+#: ../src/RatioFrame.cpp:1298
+msgid "Ratio"
+msgstr ""
+
+#: ../src/RatioFrame.cpp:216
+msgid "Ratio's List"
+msgstr ""
+
+#: ../src/RatioFrame.cpp:224
+msgid "Guide Ratio"
+msgstr ""
+
+#: ../src/RatioFrame.cpp:225
+msgid "Guide Lines Ratio's List"
+msgstr ""
+
+#: ../src/RatioFrame.cpp:226
+msgid "Resize's List"
+msgstr ""
+
+#: ../src/RatioFrame.cpp:230
+msgid "Automatic"
+msgstr ""
+
+#: ../src/RatioFrame.cpp:231 ../src/RatioFrame.cpp:478
+msgid "Landscape"
+msgstr ""
+
+#: ../src/RatioFrame.cpp:232 ../src/RatioFrame.cpp:479
+msgid "Portrait"
+msgstr ""
+
+#: ../src/RatioFrame.cpp:233
+msgid "Orientation"
+msgstr ""
+
+#: ../src/RatioFrame.cpp:236 ../src/RatioFrame.cpp:238
+msgid "Appearance"
+msgstr ""
+
+#: ../src/RatioFrame.cpp:236
+msgid "Fit the image inside the window"
+msgstr ""
+
+#: ../src/RatioFrame.cpp:238
+msgid "Grey Out cutted off area (percent)"
+msgstr ""
+
+#: ../src/RatioFrame.cpp:371
+msgid "&Open..."
+msgstr ""
+
+#: ../src/RatioFrame.cpp:371
+msgid "Open a file."
+msgstr ""
+
+#: ../src/RatioFrame.cpp:372
+msgid "&Save"
+msgstr ""
+
+#: ../src/RatioFrame.cpp:372
+msgid "Save the current file."
+msgstr ""
+
+#: ../src/RatioFrame.cpp:373
+msgid "&Save as..."
+msgstr ""
+
+#: ../src/RatioFrame.cpp:373
+msgid "Save the current file under another name."
+msgstr ""
+
+#: ../src/RatioFrame.cpp:374
+msgid "&Reload"
+msgstr ""
+
+#: ../src/RatioFrame.cpp:374
+msgid "Reload original file."
+msgstr ""
+
+#: ../src/RatioFrame.cpp:375
+msgid "&Delete"
+msgstr ""
+
+#: ../src/RatioFrame.cpp:375
+msgid "Suppress the file."
+msgstr ""
+
+#: ../src/RatioFrame.cpp:376
+msgid "&Move"
+msgstr ""
+
+#: ../src/RatioFrame.cpp:376
+msgid "Move the file to the selected folder."
+msgstr ""
+
+#: ../src/RatioFrame.cpp:377
+msgid "Mo&ve Next"
+msgstr ""
+
+#: ../src/RatioFrame.cpp:377
+msgid "Move the file to the selected folder and go to the next file."
+msgstr ""
+
+#: ../src/RatioFrame.cpp:378
+msgid "Save to &Path"
+msgstr ""
+
+#: ../src/RatioFrame.cpp:378
+msgid "Save the file to the selected folder."
+msgstr ""
+
+#: ../src/RatioFrame.cpp:379
+msgid "Save to Path &and Next"
+msgstr ""
+
+#: ../src/RatioFrame.cpp:379
+msgid "Save the file to the selected folder and go to the next file."
+msgstr ""
+
+#: ../src/RatioFrame.cpp:381
+msgid "&Previous File"
+msgstr ""
+
+#: ../src/RatioFrame.cpp:381
+msgid "Open the previous file in the explorer."
+msgstr ""
+
+#: ../src/RatioFrame.cpp:382
+msgid "&Next File"
+msgstr ""
+
+#: ../src/RatioFrame.cpp:382
+msgid "Open the next file in the explorer."
+msgstr ""
+
+#: ../src/RatioFrame.cpp:384
+msgid "&Preferences"
+msgstr ""
+
+#: ../src/RatioFrame.cpp:384
+msgid "Define application's settings."
+msgstr ""
+
+#: ../src/RatioFrame.cpp:386
+msgid "&Quit"
+msgstr ""
+
+#: ../src/RatioFrame.cpp:386
+msgid "Quit the application."
+msgstr ""
+
+#: ../src/RatioFrame.cpp:387
+msgid "&File"
+msgstr ""
+
+#: ../src/RatioFrame.cpp:390
+msgid "&Undo"
+msgstr ""
+
+#: ../src/RatioFrame.cpp:390
+msgid "Undo previous image operation."
+msgstr ""
+
+#: ../src/RatioFrame.cpp:391
+msgid "&Redo"
+msgstr ""
+
+#: ../src/RatioFrame.cpp:391
+msgid "Redo last undoed operation."
+msgstr ""
+
+#: ../src/RatioFrame.cpp:393
+msgid "Crop Mode"
+msgstr ""
+
+#: ../src/RatioFrame.cpp:393
+msgid "Use this mode to crop images."
+msgstr ""
+
+#: ../src/RatioFrame.cpp:394
+msgid "Inclinaison Mode"
+msgstr ""
+
+#: ../src/RatioFrame.cpp:394
+msgid "Use this mode to correct inclinaison of images."
+msgstr ""
+
+#: ../src/RatioFrame.cpp:397
+msgid "&Crop"
+msgstr ""
+
+#: ../src/RatioFrame.cpp:397
+msgid "Crop image to selection."
+msgstr ""
+
+#: ../src/RatioFrame.cpp:398
+msgid "Rotate &Left"
+msgstr ""
+
+#: ../src/RatioFrame.cpp:398
+msgid "Rotate the image 90 degrees to the left."
+msgstr ""
+
+#: ../src/RatioFrame.cpp:399
+msgid "Rotate &Right"
+msgstr ""
+
+#: ../src/RatioFrame.cpp:399
+msgid "Rotate the image 90 degrees to the right."
+msgstr ""
+
+#: ../src/RatioFrame.cpp:400
+msgid "Correct &Inclinaison"
+msgstr ""
+
+#: ../src/RatioFrame.cpp:400
+msgid "Mode Rotation : use the mouse to set horizontal / vertical lines."
+msgstr ""
+
+#: ../src/RatioFrame.cpp:401
+msgid "Flip &Horizontal"
+msgstr ""
+
+#: ../src/RatioFrame.cpp:401
+msgid "Flip the image horizontally."
+msgstr ""
+
+#: ../src/RatioFrame.cpp:402
+msgid "Flip &Vertical"
+msgstr ""
+
+#: ../src/RatioFrame.cpp:402
+msgid "Flip the image vertically."
+msgstr ""
+
+#: ../src/RatioFrame.cpp:403
+msgid "Commen&t"
+msgstr ""
+
+#: ../src/RatioFrame.cpp:403
+msgid "Modify comment."
+msgstr ""
+
+#: ../src/RatioFrame.cpp:404
+msgid "Resi&ze"
+msgstr ""
+
+#: ../src/RatioFrame.cpp:404
+msgid "Resize image."
+msgstr ""
+
+#: ../src/RatioFrame.cpp:407
+msgid "Lossless Operations"
+msgstr ""
+
+#: ../src/RatioFrame.cpp:407
+msgid "Activate lossless operations whenever it is possible."
+msgstr ""
+
+#: ../src/RatioFrame.cpp:409
+msgid "JPEG &Optimize"
+msgstr ""
+
+#: ../src/RatioFrame.cpp:409
+msgid "Optimize Huffman JPEG table."
+msgstr ""
+
+#: ../src/RatioFrame.cpp:410
+msgid "JPEG &Progressive"
+msgstr ""
+
+#: ../src/RatioFrame.cpp:410
+msgid "Save the file as progressive."
+msgstr ""
+
+#: ../src/RatioFrame.cpp:411
+msgid "&Detect Quality"
+msgstr ""
+
+#: ../src/RatioFrame.cpp:411
+msgid ""
+"Detect the quality of the current file, and store it as default in the "
+"preferences."
+msgstr ""
+
+#: ../src/RatioFrame.cpp:412
+msgid "&JPEG"
+msgstr ""
+
+#: ../src/RatioFrame.cpp:412
+msgid "JPEG Specific Options"
+msgstr ""
+
+#: ../src/RatioFrame.cpp:413
+msgid "&Image"
+msgstr ""
+
+#: ../src/RatioFrame.cpp:417
+msgid "&Automatic Orientation"
+msgstr ""
+
+#: ../src/RatioFrame.cpp:417
+msgid "Automatic Orientation choice between Portrait or Landscape."
+msgstr ""
+
+#: ../src/RatioFrame.cpp:418
+msgid "&Landscape"
+msgstr ""
+
+#: ../src/RatioFrame.cpp:418
+msgid "Force Landscape Orientation"
+msgstr ""
+
+#: ../src/RatioFrame.cpp:419
+msgid "&Portrait"
+msgstr ""
+
+#: ../src/RatioFrame.cpp:419
+msgid "Force Portrait Orientation"
+msgstr ""
+
+#: ../src/RatioFrame.cpp:421
+msgid "&No Ratio"
+msgstr ""
+
+#: ../src/RatioFrame.cpp:421
+msgid "Ratio checking is not used."
+msgstr ""
+
+#: ../src/RatioFrame.cpp:422
+msgid "&Ratio 4:3 - Numeric"
+msgstr ""
+
+#: ../src/RatioFrame.cpp:422
+msgid "Common ratio used in numeric photo."
+msgstr ""
+
+#: ../src/RatioFrame.cpp:423
+msgid "&Ratio 3:2 - Classic"
+msgstr ""
+
+#: ../src/RatioFrame.cpp:423
+msgid "Common ratio used in classical photo."
+msgstr ""
+
+#: ../src/RatioFrame.cpp:424
+msgid "&Ratio 16:9 - TV"
+msgstr ""
+
+#: ../src/RatioFrame.cpp:424
+msgid "Common ratio used in numeric TV photo."
+msgstr ""
+
+#: ../src/RatioFrame.cpp:425
+msgid "&Ratio 1:1 - Square"
+msgstr ""
+
+#: ../src/RatioFrame.cpp:425
+msgid "Square ratio."
+msgstr ""
+
+#: ../src/RatioFrame.cpp:426
+msgid "&Custom Ratio"
+msgstr ""
+
+#: ../src/RatioFrame.cpp:426
+msgid "To enter a custom ratio, please go in the combo box."
+msgstr ""
+
+#: ../src/RatioFrame.cpp:428
+msgid "&Ratio"
+msgstr ""
+
+#: ../src/RatioFrame.cpp:431
+msgid "Show &Explorer"
+msgstr ""
+
+#: ../src/RatioFrame.cpp:431
+msgid "Show left explorer tab."
+msgstr ""
+
+#: ../src/RatioFrame.cpp:434
+msgid "&Fit on Page"
+msgstr ""
+
+#: ../src/RatioFrame.cpp:434
+msgid "View the whole image in the window."
+msgstr ""
+
+#: ../src/RatioFrame.cpp:436
+msgid "&View"
+msgstr ""
+
+#: ../src/RatioFrame.cpp:439
+msgid "User &manual"
+msgstr ""
+
+#: ../src/RatioFrame.cpp:439
+msgid "Help file."
+msgstr ""
+
+#: ../src/RatioFrame.cpp:441
+msgid "&About..."
+msgstr ""
+
+#: ../src/RatioFrame.cpp:441
+msgid "About this application."
+msgstr ""
+
+#: ../src/RatioFrame.cpp:442
+msgid "&Help"
+msgstr ""
+
+#: ../src/RatioFrame.cpp:450
+msgid "Open"
+msgstr ""
+
+#: ../src/RatioFrame.cpp:450 ../src/RatioFrame.cpp:1417
+msgid "Open a file"
+msgstr ""
+
+#: ../src/RatioFrame.cpp:451
+msgid "Save"
+msgstr ""
+
+#: ../src/RatioFrame.cpp:451
+msgid "Save the current file"
+msgstr ""
+
+#: ../src/RatioFrame.cpp:452
+msgid "Reload"
+msgstr ""
+
+#: ../src/RatioFrame.cpp:452
+msgid "Reload original file"
+msgstr ""
+
+#: ../src/RatioFrame.cpp:453
+msgid "Previous"
+msgstr ""
+
+#: ../src/RatioFrame.cpp:453
+msgid "Previous file"
+msgstr ""
+
+#: ../src/RatioFrame.cpp:454
+msgid "Next"
+msgstr ""
+
+#: ../src/RatioFrame.cpp:454
+msgid "Next file"
+msgstr ""
+
+#: ../src/RatioFrame.cpp:456
+msgid "Fit On Page"
+msgstr ""
+
+#: ../src/RatioFrame.cpp:456
+msgid "Fit On Page."
+msgstr ""
+
+#: ../src/RatioFrame.cpp:464
+msgid "JPEG Lossless"
+msgstr ""
+
+#: ../src/RatioFrame.cpp:464
+msgid "Performs JPEG operations lossless whenever possible."
+msgstr ""
+
+#: ../src/RatioFrame.cpp:467 ../src/RatioFrame.cpp:472
+msgid "Crop"
+msgstr ""
+
+#: ../src/RatioFrame.cpp:467 ../src/RatioFrame.cpp:472
+msgid "Crop the image"
+msgstr ""
+
+#: ../src/RatioFrame.cpp:468 ../src/RatioFrame.cpp:475
+msgid "Inclinaison"
+msgstr ""
+
+#: ../src/RatioFrame.cpp:468 ../src/RatioFrame.cpp:475
+msgid "Correct inclinaison"
+msgstr ""
+
+#: ../src/RatioFrame.cpp:471
+msgid "Undo"
+msgstr ""
+
+#: ../src/RatioFrame.cpp:471
+msgid "Undo previous operation"
+msgstr ""
+
+#: ../src/RatioFrame.cpp:473
+msgid "Rotate Left"
+msgstr ""
+
+#: ../src/RatioFrame.cpp:473
+msgid "Rotate the image to the left"
+msgstr ""
+
+#: ../src/RatioFrame.cpp:474
+msgid "Rotate Right"
+msgstr ""
+
+#: ../src/RatioFrame.cpp:474
+msgid "Rotate the image to the right"
+msgstr ""
+
+#: ../src/RatioFrame.cpp:477
+msgid "Free Rotation"
+msgstr ""
+
+#: ../src/RatioFrame.cpp:477
+msgid "Automatic Selection of Orientation"
+msgstr ""
+
+#: ../src/RatioFrame.cpp:478
+msgid "Landscape Orientation"
+msgstr ""
+
+#: ../src/RatioFrame.cpp:479
+msgid "Portrait Orientation"
+msgstr ""
+
+#: ../src/RatioFrame.cpp:481 ../src/RatioFrame.cpp:489
+#: ../src/RatioFrame.cpp:497
+msgid "test"
+msgstr ""
+
+#: ../src/RatioFrame.cpp:482
+msgid "0:0 (Free)                     "
+msgstr ""
+
+#: ../src/RatioFrame.cpp:490 ../src/RatioFrame.cpp:493
+#: ../src/RatioFrame.cpp:1303
+msgid "Resize"
+msgstr ""
+
+#: ../src/RatioFrame.cpp:498 ../src/RatioFrame.cpp:501
+#: ../src/RatioFrame.cpp:1308
+msgid "Guide Lines"
+msgstr ""
+
+#: ../src/RatioFrame.cpp:574
+msgid "Browse"
+msgstr ""
+
+#: ../src/RatioFrame.cpp:597
+msgid "Move Here"
+msgstr ""
+
+#: ../src/RatioFrame.cpp:598
+msgid "Save Here"
+msgstr ""
+
+#: ../src/RatioFrame.cpp:599
+msgid "Move To"
+msgstr ""
+
+#: ../src/RatioFrame.cpp:611 ../src/RatioFrame.cpp:617
+msgid "Tag"
+msgstr ""
+
+#: ../src/RatioFrame.cpp:612 ../src/RatioFrame.cpp:618
+msgid "Value"
+msgstr ""
+
+#: ../src/RatioFrame.cpp:613
+msgid "Fav. Exif"
+msgstr ""
+
+#: ../src/RatioFrame.cpp:619
+msgid "All Exif"
+msgstr ""
+
+#: ../src/RatioFrame.cpp:625
+msgid "Apply"
+msgstr ""
+
+#: ../src/RatioFrame.cpp:627
+msgid "Comment"
+msgstr ""
+
+#: ../src/RatioFrame.cpp:768
+#, c-format
+msgid "%s - RPhoto"
+msgstr ""
+
+#: ../src/RatioFrame.cpp:866 ../src/RatioFrame.cpp:1025
+msgid "Executing : "
+msgstr ""
+
+#: ../src/RatioFrame.cpp:888
+msgid ""
+"JPEGTran has returned an error : \n"
+"\n"
+msgstr ""
+
+#: ../src/RatioFrame.cpp:888 ../src/RatioFrame.cpp:897
+msgid "JPEGTran Error"
+msgstr ""
+
+#: ../src/RatioFrame.cpp:896
+msgid ""
+"Unable to launch JPEGTran : \n"
+"\n"
+"Please check that jpegtran executable is in the path."
+msgstr ""
+
+#: ../src/RatioFrame.cpp:948
+msgid ""
+"WARNING : This operation is not possible lossless. Non-transformable edge "
+"blocks have been dropped."
+msgstr ""
+
+#: ../src/RatioFrame.cpp:957
+msgid "JPEGTran warning"
+msgstr ""
+
+#: ../src/RatioFrame.cpp:1046
+msgid ""
+"JHead has returned an error : \n"
+"\n"
+msgstr ""
+
+#: ../src/RatioFrame.cpp:1046 ../src/RatioFrame.cpp:1055
+msgid "JHead Error"
+msgstr ""
+
+#: ../src/RatioFrame.cpp:1054
+msgid ""
+"Unable to launch JHead : \n"
+"\n"
+"Please check that jhead executable is in the path."
+msgstr ""
+
+#: ../src/RatioFrame.cpp:1080
+#, c-format
+msgid "Loading %s..."
+msgstr ""
+
+#: ../src/RatioFrame.cpp:1168
+msgid ""
+"The current image has unsaved changes. \n"
+"Do you want to save it ?"
+msgstr ""
+
+#: ../src/RatioFrame.cpp:1168
+msgid "Save file?"
+msgstr ""
+
+#: ../src/RatioFrame.cpp:1338
+#, c-format
+msgid ""
+"%s %s\n"
+"Build: %s\n"
+"\n"
+"(c) %s\n"
+"%s"
+msgstr ""
+
+#: ../src/RatioFrame.cpp:1343
+msgid "help_en.html"
+msgstr ""
+
+#: ../src/RatioFrame.cpp:1437
+msgid "Applying modification of the comment."
+msgstr ""
+
+#: ../src/RatioFrame.cpp:1442
+msgid ""
+"You have modified the comment but not saved it. Would you like to save this "
+"comment ?"
+msgstr ""
+
+#: ../src/RatioFrame.cpp:1442
+msgid "Comment modification"
+msgstr ""
+
+#: ../src/RatioFrame.cpp:1497
+msgid "Save a file"
+msgstr ""
+
+#: ../src/RatioFrame.cpp:1512
+msgid "Are you sure to delete the file "
+msgstr ""
+
+#: ../src/RatioFrame.cpp:1512
+msgid "Delete confirmation"
+msgstr ""
+
+#: ../src/RatioFrame.cpp:1533 ../src/RatioFrame.cpp:1568
+msgid "No destination path selected."
+msgstr ""
+
+#: ../src/RatioFrame.cpp:1538
+#, c-format
+msgid "Move to %s"
+msgstr ""
+
+#: ../src/RatioFrame.cpp:1574
+#, c-format
+msgid "Save to %s"
+msgstr ""
+
+#: ../src/RatioFrame.cpp:1770
+msgid "No cropping zone defined."
+msgstr ""
+
+#: ../src/RatioFrame.cpp:1824
+msgid "No angle defined."
+msgstr ""
+
+#: ../src/RatioFrame.cpp:1838
+#, c-format
+msgid "Rotating of %f degree. Please wait..."
+msgstr ""
+
+#: ../src/RatioFrame.cpp:1879 ../src/RatioFrame.cpp:2267
+msgid "Done."
+msgstr ""
+
+#: ../src/RatioFrame.cpp:1967
+#, c-format
+msgid "Detected the quality %d."
+msgstr ""
+
+#: ../src/RatioFrame.cpp:1976
+#, c-format
+msgid ""
+"Please input the size you want.\n"
+"\n"
+"Example of valid formats are below : \n"
+"'50%s' to resize at 50 percent\n"
+"'640x480' to resize at width = 640 and height = 480 (0 = apply ratio)\n"
+"'42kb' to resize at a size that should be near 42kb when saving the file\n"
+"\n"
+msgstr ""
+
+#: ../src/RatioFrame.cpp:1977
+msgid "Resize Image"
+msgstr ""
+
+#: ../src/RatioFrame.cpp:2017
+#, c-format
+msgid "Error writing comment : error %d."
+msgstr ""
+
+#: ../src/RatioFrame.cpp:2083
+#, c-format
+msgid ""
+"Invalid fraction : %ld / %ld\n"
+"This should have the following format : 'x:y description'"
+msgstr ""
+
+#: ../src/RatioFrame.cpp:2110 ../src/RatioFrame.cpp:2172
+#, c-format
+msgid ""
+"Invalid fixed size : %ld x %ld\n"
+"This should have the following format : '111x222 description'"
+msgstr ""
+
+#: ../src/RatioFrame.cpp:2143
+#, c-format
+msgid ""
+"Invalid percent : %ld\n"
+"This should have the following format : 'x% description'"
+msgstr ""
+
+#: ../src/RatioFrame.cpp:2192
+msgid "kb"
+msgstr ""
+
+#: ../src/RatioFrame.cpp:2209
+#, c-format
+msgid "Detecting optimal size to obtain a size below %d bytes."
+msgstr ""
+
+#: ../src/RatioFrame.cpp:2216
+#, c-format
+msgid "Current size is already below %d bytes !"
+msgstr ""
+
+#: ../src/RatioFrame.cpp:2223
+#, c-format
+msgid "Empty image size is above %d bytes !"
+msgstr ""
+
+#: ../src/RatioFrame.cpp:2243
+msgid "Detected the size ok !"
+msgstr ""
+
+#: ../src/RatioFrame.cpp:2253
+msgid "Invalid size : please see provided examples"
+msgstr ""
+
+#: ../src/RatioFrame.cpp:2264
+#, c-format
+msgid "Resizing to %ld x %ld. Please wait..."
+msgstr ""
+
+#: ../src/RatioFrame.cpp:2287
+#, c-format
+msgid ""
+"Guide lines ratio set to %f (\"%s\")\n"
+"."
+msgstr ""
+
+#: ../src/RatioFrame.cpp:2293
+#, c-format
+msgid ""
+"Invalid numeric format : %s.\n"
+"This should have the following format : 'x.y description' (the numeric "
+"separator depends on your local parameters)"
+msgstr ""
+
+#: ../src/RatioFrame.cpp:2481
+msgid "."
+msgstr ""
+
+#: ../src/RatioFrame.cpp:2482
+msgid ".."
+msgstr ""
+
+#: ../src/RatioFrame.cpp:2485
+msgid "Illegal directory name."
+msgstr ""
+
+#: ../src/RatioFrame.cpp:2485 ../src/RatioFrame.cpp:2496
+msgid "Error"
+msgstr ""
+
+#: ../src/RatioFrame.cpp:2496
+msgid "File name exists already."
+msgstr ""
+
+#: ../src/RPhoto.cpp:55
+#, c-format
+msgid "%s %s (c) 2004 - Remi Peyronnet - http://www.via.ecp.fr/~remi"
+msgstr ""
+
+#: ../src/RPhoto.cpp:56
+msgid "File to open"
+msgstr ""
+
+#: ../src/RPhoto.h:45
+msgid ""
+"0:0 (Free)|4:3 (Digital Photo)|3:2 (Paper Photo)|16:9 (Digital Photo - TV|"
+"1:1  (Square)"
+msgstr ""
+
+#: ../src/RPhoto.h:46
+msgid ""
+"13:9 (Paper Photo - German 1)|18:13 (Paper Photo - German 2)|176x240 (Fixed "
+"Size)"
+msgstr ""
+
+#: ../src/RPhoto.h:47
+msgid ""
+"Select new size|50% (Percentage)|640x480 (Width x Height)|800x0 (With ratio)|"
+"42kb (File size)"
+msgstr ""
+
+#: ../src/RPhoto.h:48
+msgid "800x600|1280x1024|100kb|300kb"
+msgstr ""
+
+#: ../src/RPhoto.h:49
+msgid "0 (Free)|0.33 (Third)|1.618 (Golden Rule)"
+msgstr ""
+
+#: ../src/RPhoto.h:50
+msgid "0.5 (Middle)"
+msgstr ""
+
+#: ../src/RPhoto.h:52
+msgid "iso8859-15"
+msgstr ""
+
+#: ../src/RPhoto.h:59 ../src/RPhoto.h:62
+msgid ""
+"This function is not yet implemented, \n"
+"or is being developped.\n"
+msgstr ""
+
+#: ../src/RPhoto.h:59 ../src/RPhoto.h:62
+msgid "Function not implemented."
+msgstr ""

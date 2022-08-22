@@ -1,0 +1,8 @@
+#! /bin/sh
+
+# libtoolize
+gettextize -f
+mv -f configure.ac~ configure.ac
+aclocal -I m4
+automake -a
+autoconf
