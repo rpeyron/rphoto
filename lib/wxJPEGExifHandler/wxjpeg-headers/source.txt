@@ -1,0 +1,2 @@
+Headers from D:\Programs\wxWidgets-3.1.1\src\jpeg
+Historical stuff, should not be used now
