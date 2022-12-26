@@ -73,3 +73,21 @@ m4/lt~obsolete.m4
 
 build/snap/.snapcraft/state
 snap/.snapcraft/state
+
+*.old
+
+/bin/*.exe
+/bin/**/*.mo
+/bin/*.htb
+
+/build/**/*.user
+/build/**/Upgrade*.*
+/build/**/test*.jpg
+/build/**/*.suo
+
+/distrib
+
+/lib/**/doc/*_doc/
+
+/po/*.mo
+/po/*.lnk
